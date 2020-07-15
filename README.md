@@ -1,30 +1,7 @@
-## Install
+## Padma
 
-### With Conda
+Highlight any word to perform one of 5 activities:
 
-```
-conda create -n karuna
-conda activate karuna
-pip3 install flask
-```
-
-# make sure to have the dictionary file in /tmp
-```
-import os
-os.system('wget https://goo.gl/GyTv7n -O /tmp/dictionaries.zip')
-os.system('unzip /tmp/dictionaries.zip')
-```
-
-### Without Conda
-
-```
-python 3 -m venv your_environment
-your_environment/bin/activate
-pip3 install flask
-```
-
-## Run
-
-```
-flask run
-```
+- Multi-dictionary lookup that breaks sentences into words
+- Open text search on Rinchen Terdzo's 3018 volumes
+- Find similar words or texts
