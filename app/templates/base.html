@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Vidya | རིག་པ་</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="{{url_for('static', filename='dropdown-menu.js')}}"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+</head>
+<body>
+
+  <!--- context menu --->
+  <div class="dropdown-menu" id="dropdown-menu">
+    <a id="dictionary_lookup" href="">dictionary lookup</a><br>
+    <hr>
+    <a id="search_texts" href="">search texts</a><br>
+    <hr>
+    <a id="similar_words" href="">similar words</a><br>
+    <hr>
+    <a id="word_statistics" href="">word statistics</a><br>
+    <hr>
+    <a id="word_statistics" href="">tokenize</a><br>
+  </div>
+
+  <!--- main content area --->
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
+
