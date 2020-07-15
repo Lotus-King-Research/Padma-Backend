@@ -38,3 +38,4 @@ jobs:
         script: |
           whoami
           ls -lhtr
+          git pull https://github.com/mikkokotila/Padma.git
