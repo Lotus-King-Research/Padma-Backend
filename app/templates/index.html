@@ -3,13 +3,39 @@
 
 <style>
 
+body {
+    margin-top: 4em;
+}
+
 .row {
     max-width: 400px;
     width: 80%;
 }
 
-.logo {
-    margin-top: 30%;
+.cursor {
+    position: relative;
+    padding-left: 25px;
+}
+.cursor i {
+    position: absolute;
+    width: 1px;
+    height: 80%;
+    background-color: gray;
+    left: 5px;
+    top: 10%;
+    animation-name: blink;
+    animation-duration: 800ms;
+    animation-iteration-count: infinite;
+    opacity: 1;
+}
+
+.cursor input:focus + i {
+    display: none;
+}
+
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 </style>
@@ -17,22 +43,36 @@
 <span class="align-middle">
 
 <center>
-    <div class="row justify-content-center logo">
-        <form class="form-inline" action="/dictionary_lookup" method="post">
+    <div class="row justify-content-center">
+        <form class="form-inline" action="" method="post" id="form" onsubmit="parseQuery()" autofocus>
         <!--- search button  --->
         <div class="col-12 my-auto">
-            <button type="image" class="button-image mx-auto d-block">
-                <img src="static/padma.png" width=80px;>
-            </button>
+            <textarea type="text" class="form-control cursor form-css" name="query" id="query" rows=11 value=""></textarea>
+       
         </div>
     </div>
     <!--- search input field  --->
 
     <div class="row h-100 justify-content-center">
         <div class="col-12 my-auto">
-        <input type="text" class="form-control form-css" name="query">
+
+            <button type="image" class="button-image mx-auto d-block">
+                <img src="static/padma.png" width=80px;>
+            </button>
         </div>
             </form>
     </div>
 </center>
+
+<script>
+
+function parseQuery() {
+
+    var query = document.getElementById("query").value;
+    document.getElementById("form").action = "/dictionary_lookup?query=" + query;
+
+}
+
+</script
+
 {% endblock %}

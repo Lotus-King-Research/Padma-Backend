@@ -35,9 +35,6 @@ def dictionary_lookup():
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
 
-    if search_query is None:
-        search_query = request.form['query']
-
     search_query = search_query.replace(' ', '')
 
     tokens = tokenize(search_query)

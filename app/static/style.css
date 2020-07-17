@@ -93,7 +93,6 @@ button:hover {
 	appearance: none;
 	border: 1px solid #BFBFBF;
 	line-height: normal;
-	caret-color: transparent;
 	padding-top: 20px;
 	align-content: center;
 }
@@ -123,9 +122,6 @@ button:hover {
 	outline: none;
 
 }
-
-
-
 
 input:focus,
 select:focus,
