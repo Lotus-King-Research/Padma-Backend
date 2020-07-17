@@ -8,6 +8,9 @@ if os.path.isdir('/tmp/docs') is False:
     os.system('wget https://github.com/mikkokotila/Rinchen-Terdzo-Tokenized/raw/master/docs/docs.zip -O /tmp/docs.zip')
     os.system('unzip /tmp/docs.zip -d /tmp/docs/')
 
+import en_core_web_sm
+nlp = en_core_web_sm.load()
+
 import enchant
 import pandas as pd
 import spacy
@@ -21,6 +24,7 @@ from botok import Text
 def tokenize(text):
 
     tokenizer = Text(text)
+    
     return tokenizer.tokenize_words_raw_text.split()
 
 
@@ -71,7 +75,6 @@ def create_dictionary():
     
     # drop only Tibetan entries
     dict_df = dict_df[dict_df.source.str.contains('TT|DK|TS|BB|MWSK') == False]
-    
     
     # convert the source field in to categorical
     dict_df.source = dict_df.source.astype('category')
@@ -124,7 +127,7 @@ def frequency_lookup(word, dict_df, no_of_words=5):
     return out
 
 
-def vector_similarity_lookup(word, dict_df):
+def similar_words(word, dict_df):
     
     word = check_format(word)
 
@@ -142,8 +145,6 @@ def vector_similarity_lookup(word, dict_df):
 
     nlp_temp = pd.Series(temp[0].unique())
     words_for_nlp = nlp_temp.str.cat(sep=' ')
-
-    nlp = spacy.load('en')
 
     tokens = nlp(words_for_nlp)
 
@@ -164,7 +165,7 @@ def vector_similarity_lookup(word, dict_df):
     out = pd.DataFrame(l)
 
     out = out.groupby(0).sum().sort_values(2, ascending=False)
-    
+
     return out
 
 
@@ -201,3 +202,36 @@ def check_format(word):
         word = word + '་'
     
     return word
+
+def dict_for_render_words(data, search_term):
+
+    '''
+    data | dict | a dictionary with single value per key
+    '''
+
+    out = {
+        "nodes": {},
+        "edges": {"0": {}},
+        "_": ""
+       }
+
+    words = list(data.keys())[:10]
+
+    highest = data[list(data.keys())[0]]
+
+    for word in words:
+        data[word] = round(data[word] / highest, 3)
+
+    for i, word in enumerate(words):
+        
+        if i == 0:
+            out['nodes']["0"] = {"label": search_term}
+        else:
+            out['nodes'][str(i)] = {"label": word}
+        
+        if i > 0:
+            out['edges']['0'][str(i)] = {'weight': data[word]}
+    
+    out['_'] = search_term
+
+    return out

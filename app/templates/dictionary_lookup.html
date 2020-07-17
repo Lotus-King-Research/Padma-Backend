@@ -1,75 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-<style>
-
-.dataframe {
-  width: 95%;
-  border-collapse: separate;
-  border-spacing: 0px;
-	border: 0px solid #BFBFBF;
-  border-radius: 20px 20px 0 0;
-  border-width: 1.5px;
-  border-color: rgb(179, 179, 179);
-  box-shadow:
-	0 0 5.5px rgba(0, 0, 0, 0.014),
-	0 0 11px rgba(0, 0, 0, 0.028),
-	0 0 22px rgba(0, 0, 0, 0.04),
-	0 0 34px rgba(0, 0, 0, 0.052),
-	0 0 48px rgba(0, 0, 0, 0.066),
-	0 0 56px rgba(0, 0, 0, 0.1)
-  ;
-  }
-
-.dataframe th, td {
-  text-align: left;
-  border-width: 0px;
-  padding: 14px;
-  padding-left: 20px;
-  font-size: x-large;
-  color: #2c2c2c;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
-
-.dataframe th {
-  
-  background-color: rgba(0, 0, 0, 0.187);
-  color: white;
-}
-
-.dataframe td {
-  border-bottom-width: 1px;
-  border-color: rgba(0, 0, 0, 0.26);
-  }
-
-.dataframe tr:nth-child(odd) {background-color: #fff;}
-.dataframe tr:nth-child(even) {background-color: #fff;}
-
-.dataframe  th:first-child {
-    border-radius: 18.7px 0 0 0;
-  }
-
-.dataframe   th:last-child {
-  border-radius: 0 18.7px 0 0;
-}
-
-.dataframe   th:only-child{
-  border-radius: 20px 20px 0 0;
-}
-
-</style>
-
-<div class="header" id="myHeader">
-  {% for i in results_len -%}
-    {% set test = '#test' %}
-    <a href="#{{ tokens[i]|safe }}">{{tokens[i]}}</a>
-    {% endfor -%}
-    <a href="/"><i class="fa fa-search search-icon" title='search in texts'></i></a>
-</div>
+<div class='container-fluid mt-5'>
 
 {% for i in results_len %}
   <div class="mb-5" id="{{ tokens[i]|safe }}">{{ results[i]|safe }}</div>
 {% endfor %}
 
-<script src="{{url_for('static', filename='sticky-header.js')}}"></script>
 {% endblock %}
+
+</div>

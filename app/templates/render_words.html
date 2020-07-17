@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="{{url_for('static', filename='render_words.css')}}" type="text/css">
+
+<style>
+* { margin:0; padding:0; } /* to remove the top and left whitespace */
+
+html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+
+canvas { display:block; } /* To remove the scrollbars */
+</style>
+<div class='container-fluid m-5'>
+<center><canvas class='container-fluid' id="viewport"></canvas></center>
+</div>
+<script src="{{url_for('static', filename='jquery-1.6.1.min.js')}}"></script>
+<script src="{{url_for('static', filename='arbor.js')}}"></script>
+<script src="{{url_for('static', filename='render_words.js')}}"></script>
+
+<script>
+
+renderWords(JSON.parse('{{ data|tojson|safe }}'));
+
+(function() {
+    var canvas = document.getElementById('viewport'),
+            context = canvas.getContext('2d');
+
+    // resize the canvas to fill browser window dynamically
+    window.addEventListener('resize', resizeCanvas, false);
+
+    function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            /**
+             * Your drawings need to be inside this function otherwise they will be reset when 
+             * you resize the browser window and the canvas goes will be cleared.
+             */
+            drawStuff(); 
+    }
+    resizeCanvas();
+
+    function drawStuff() {
+            // do your drawing stuff here
+    }
+})();
+
+</script>

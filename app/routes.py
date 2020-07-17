@@ -42,9 +42,6 @@ def dictionary_lookup():
 
     tokens = tokenize(search_query)
 
-    print(tokens)
-    print(type(no_of_result))
-
     results = []
 
     for token in tokens:
@@ -100,3 +97,92 @@ def render_text():
                             text=text,
                             start=int(start),
                             end=int(end))
+
+
+@app.route('/render_words', methods=['GET', 'POST'])
+def render_words():
+
+    from .pipeline import dict_for_render_words
+    from .pipeline import similar_words
+
+    word = request.args.get('query')
+    word = word.replace(' ', '')
+
+    text = similar_words(word, dictionary)
+    text = text.reset_index()
+
+    data = {}
+
+    for i, key in enumerate(text[text.columns[0]].values):
+        data[key.text] = text[text.columns[1]].values[i]
+        
+    data = dict_for_render_words(data, word)
+    
+    return render_template('render_words.html', data=data)
+
+
+@app.route('/similar_words', methods=['GET', 'POST'])
+def similar_words():
+
+    from .pipeline import similar_words
+
+    text = request.args.get('query')
+    text = text.replace(' ', '')
+
+    text = similar_words(text, dictionary)
+
+    import pandas as pd
+
+    text = pd.DataFrame(text).reset_index()
+    text.columns = ['word', 'similarity']
+
+    return render_template('similar_words.html',
+                           text=text.to_html(index=False))
+
+
+@app.route('/word_statistics', methods=['GET', 'POST'])
+def word_statistics():
+
+    from .word_statistics import word_statistics
+    import os
+    import pandas as pd
+
+    query = request.args.get('query')
+
+    prominence = word_statistics(query, os.listdir('/tmp/tokens'), 'prominence')
+    co_occurance = word_statistics(query, os.listdir('/tmp/tokens'), 'co_occurance')
+    most_common = word_statistics(query, os.listdir('/tmp/tokens'), 'most_common')
+
+    prominence = pd.DataFrame(pd.Series(prominence)).head(30).reset_index()
+    co_occurance = pd.DataFrame(pd.Series(co_occurance)).head(30).reset_index()
+    most_common = pd.DataFrame(pd.Series(most_common)).head(30).reset_index()
+
+    prominence.columns = ['title', 'prominence']
+    co_occurance.columns = ['word', 'co_occurancies']
+    most_common.columns = ['word', 'occurancies']
+
+    prominence['title'] = [i[0] for i in prominence['prominence']]
+    prominence['prominence'] = [i[1] for i in prominence['prominence']]
+
+    prominence = prominence.sort_values('prominence', ascending=False)
+
+    prominence = prominence.to_html(index=False)
+    co_occurance = co_occurance.to_html(index=False)
+    most_common = most_common.to_html(index=False)
+
+    return render_template('word_statistics.html',
+                           prominence=prominence,
+                           co_occurance=co_occurance,
+                           most_common=most_common)
+
+@app.route('/tokenize', methods=['GET', 'POST'])
+def tokenize():
+
+    from .pipeline import tokenize
+
+    text = request.args.get('text')
+
+    text = tokenize(text)
+
+    return render_template('tokenize.html',
+                           text=text)

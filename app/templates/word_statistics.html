@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+<style>
+.d-flex{
+  gap: 20px;
+}
+</style>
+
+{% block content %}
+
+<div class="d-flex flex-nowrap pt-4 100-w">
+
+ <div class='pr-4'> {{ prominence|safe }}</div>
+
+ <div class='pr-4'>{{ most_common|safe }}</div>
+
+ <div class='pr-4'>{{ co_occurance|safe }}</div>
+
+</div> 
+
+{% endblock %}

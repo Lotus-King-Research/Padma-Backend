@@ -1,19 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container w-100 h-100">
-    <div class="row w-100 h-100 justify-content-center align-items-center">
-        <form class="form-inline" action="/dictionary_lookup" method="post" style="max-width: 440px;">
+<style>
+
+.row {
+    max-width: 400px;
+    width: 80%;
+}
+
+.logo {
+    margin-top: 30%;
+}
+
+</style>
+
+<span class="align-middle">
+
+<center>
+    <div class="row justify-content-center logo">
+        <form class="form-inline" action="/dictionary_lookup" method="post">
         <!--- search button  --->
-        <div class="form-group col-12 justify-content-center align-items-center">
+        <div class="col-12 my-auto">
             <button type="image" class="button-image mx-auto d-block">
                 <img src="static/padma.png" width=80px;>
             </button>
         </div>
-    <!--- search input field  --->
-    <div class="form-group col-12 w-100 h-100 justify-content-center align-items-center">
-      <input type="text" class="form-control form-css" name="query">
     </div>
-        </form>
-  
+    <!--- search input field  --->
+
+    <div class="row h-100 justify-content-center">
+        <div class="col-12 my-auto">
+        <input type="text" class="form-control form-css" name="query">
+        </div>
+            </form>
+    </div>
+</center>
 {% endblock %}
