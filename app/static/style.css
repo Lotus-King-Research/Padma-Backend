@@ -1,6 +1,6 @@
 body {
 	font-size: 24px;
-	background: #EEF2F7;
+	background: #FFF8EB;
 }
 
 .dataframe {
@@ -298,15 +298,18 @@ padding-top: 22px;
 
 .tibetan-text {
 	font-size: 1.2em;
+	font-family: 'Jomolhari', serif;
 }
 
 .tibetan-text-reader {
 	font-size: 1.5em;
+	font-family: 'Jomolhari', serif;
 }
 
 .tibetan-source {
     opacity: 40%;
-    font-size: x-large; 
+	font-size: x-large;
+	font-family: 'Tinos', serif;
 }
 
 .logo-navi {
