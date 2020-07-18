@@ -36,4 +36,4 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
-          git clone https://github.com/mikkokotila/Padma.git
+          git pull https://github.com/mikkokotila/Padma.git
