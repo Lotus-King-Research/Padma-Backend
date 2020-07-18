@@ -1,46 +1,58 @@
-function getSelectionText() {
+class PadmaDropdownMenu {
+  constructor() {
+    window.addEventListener("load", this.init.bind(this));
+  }
+  init() {
+    this.element = document.getElementById("dropdown-menu");
+    this.element.addEventListener("click",   (event) => { event.stopPropagation(); });
+    document.addEventListener("click",       this.close.bind(this));
+    document.addEventListener("contextmenu", this.open.bind(this));
+
+    window.requestAnimationFrame(() => {
+      this.element.classList.add("initialized");
+    });
+  }
+  open(event) {
+    if( !this.getSelectionText().length ){
+      return;
+    }
+    event.preventDefault();
+    this.setLinks();
+    this.element.classList.add("visible");
+    this.element.style.top = this.getVerticalOffset(event.pageY) + "px";
+    this.element.style.left = event.pageX + 35 + "px";
+  }
+  close() {
+    this.element.classList.remove("visible");
+  }
+  setLinks() {
+    let text = this.getSelectionText();
+    document.getElementById("dictionary_lookup").href = "/dictionary_lookup?query=" + text;
+    document.getElementById("search_texts"     ).href = "/search_texts?query="      + text;
+    document.getElementById("render_words"     ).href = "/render_words?query="      + text;
+    document.getElementById("word_statistics"  ).href = "/word_statistics?query="   + text;
+    document.getElementById("tokenize"         ).href = "/tokenize?query="          + text;
+  }
+  getSelectionText() {
     var text = "";
     if (window.getSelection) {
-        text = window.getSelection().toString();
+      text = window.getSelection().toString();
     } else if (document.selection && document.selection.type != "Control") {
-        text = document.selection.createRange().text;
+      text = document.selection.createRange().text;
     }
     return text;
-};
-
-(function() {
-
-document.addEventListener( "click", function(e) {
-  var menu = document.getElementById("dropdown-menu");
-  menu.style.display = "none";
-});
-
-"use strict";
-
-document.addEventListener( "contextmenu", function(e) {
-  var text = getSelectionText();
-
-  if (text !== '') {
-
-    var menu = document.getElementById("dropdown-menu");
-
-    menu.addEventListener("click", function(e) {
-
-    e.stopPropagation();
-    });
-
-    menu.style.display = "block";
-    menu.style.top = e.pageY + 'px';
-    menu.style.left = e.pageX + 35 + 'px';
-    e.preventDefault();
-
-    document.getElementById("dictionary_lookup").href="/dictionary_lookup?query=" + text;
-    document.getElementById("search_texts").href="/search_texts?query=" + text;
-    document.getElementById("render_words").href="/render_words?query=" + text;
-    document.getElementById("word_statistics").href="/word_statistics?query=" + text;
-    document.getElementById("tokenize").href="/tokenize?query=" + text;
-
   }
-});
+  getVerticalOffset(offset) {
+    let elementHeight = this.element.offsetHeight,
+    viewPortHeight    = window.innerHeight,
+    scrollTop         = window.scrollY,
+    margin            = 5;
 
-})();
+    offset = Math.min( offset, scrollTop + viewPortHeight - elementHeight - margin );
+    offset = Math.max( offset, scrollTop + margin );
+
+    return offset;
+  }
+}
+
+new PadmaDropdownMenu();
