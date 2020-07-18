@@ -17,6 +17,8 @@ git clone https://github.com/mikkokotila/Padma.git
 cd Padma
 pip3 install -r requirements.txt
 
-# run
+# run (for development)
 FLASK_APP=app.py FLASK_ENV=development flask run
 ```
+
+## Production
