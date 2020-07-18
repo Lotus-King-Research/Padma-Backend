@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class='container-fluid mt-5'>
+<div class='container-fluid pt-3 pb-2 pl-4'>
+<font class="tibetan-text-reader">{{ search_query|safe }}</font>
+</div>
+<div class='container-fluid'>
 
 {% for i in results_len %}
   <div class="mb-5" id="{{ tokens[i]|safe }}">{{ results[i]|safe }}</div>

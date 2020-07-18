@@ -35,6 +35,10 @@ def dictionary_lookup():
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
 
+    if len(search_query) == 0:
+        search_query = dictionary['word'].sample(1).values[0]
+        print(len(search_query))
+
     search_query = search_query.replace(' ', '')
 
     tokens = tokenize(search_query)
@@ -42,13 +46,15 @@ def dictionary_lookup():
     results = []
 
     for token in tokens:
-        result = definition_lookup(token, dictionary)
+        try:
+            result = definition_lookup(token, dictionary)
+        except ValueError:
+            return render_template('oops.html')
         result.columns = [token, 'source']
 
         if isinstance(no_of_result, str):
             result = result.iloc[:int(no_of_result)]
             
-        
         results.append(result.to_html(index=False))
 
     return render_template('dictionary_lookup.html',
@@ -177,9 +183,9 @@ def tokenize():
 
     from .pipeline import tokenize
 
-    text = request.args.get('text')
+    text = request.args.get('query')
 
-    text = tokenize(text)
+    tokens = tokenize(text)
 
     return render_template('tokenize.html',
-                           text=text)
+                           tokens=tokens)

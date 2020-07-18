@@ -44,10 +44,10 @@ function renderWords(dict) {
           ctx.clearRect(pt.x-w/2, pt.y-7, w,14)
 
           if (label){
-            ctx.font = "bold 36px Arial"
+            ctx.font = "36px Fira-Sans"
             ctx.textAlign = "center"
 
-            ctx.fillStyle = "rgba(0, 0, 0, .5)"
+            ctx.fillStyle = "rgba(0, 0, 0, .85)"
 
             ctx.fillText(label||"", pt.x, pt.y+4)
           }
