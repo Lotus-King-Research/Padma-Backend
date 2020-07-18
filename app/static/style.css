@@ -100,7 +100,8 @@ button:hover {
 .form-css::-ms-expand {
 	display: none;
 }
-.form-css:hover {
+.form-css:hover,
+.form-css:focus {
 	border-color: #888;
 	border: 1px solid #BFBFBF;
 	background-color: white;
