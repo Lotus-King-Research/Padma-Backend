@@ -10,5 +10,6 @@ sudo apt-get install git
 git clone https://github.com/mikkokotila/Padma.git
 cd Padma
 pip3 install -r requirements.txt
+python3 -m spacy download en
 
 sudo reboot
