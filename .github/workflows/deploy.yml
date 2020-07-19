@@ -38,3 +38,4 @@ jobs:
         script: |
           cd Padma
           git pull https://github.com/mikkokotila/Padma.git
+          sudo systemctl restart Padma
