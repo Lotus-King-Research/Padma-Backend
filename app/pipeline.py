@@ -74,7 +74,7 @@ def create_dictionary():
 
 def frequency_lookup(word, dict_df, no_of_words=5):
     
-    from stopwords_en import stopword
+    from .stopwords_en import stopword
     import enchant
 
     enchant_word_check = enchant.Dict("en")
