@@ -7,5 +7,6 @@ def tokenize(request):
 
     tokens = tokenize(text)
 
-    return render_template('tokenize.html',
-                           tokens=tokens)
+    data = {'tokens': tokens}
+
+    return data
