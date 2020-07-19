@@ -6,6 +6,9 @@ sudo apt-get dist-upgrade -y
 sudo apt-get install nginx -y
 sudo apt-get install python3-pip -y
 sudo apt-get install git
+sudo apt-get install enchant
+sudo apt-get install unzip
+sudo apt-get install wget
 
 git clone https://github.com/mikkokotila/Padma.git
 cd Padma
