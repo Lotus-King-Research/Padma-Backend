@@ -1,0 +1,14 @@
+[Unit]
+Description=Padma
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/Padma
+Environment="PATH=/home/ubuntu/.local/bin"
+ExecStart=/home/ubuntu/.local/bin/gunicorn --bind 0.0.0.0:5000 server:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
