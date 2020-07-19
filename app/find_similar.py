@@ -18,4 +18,4 @@ def render_words(request, dictionary):
         
     data = dict_for_render_words(data, word)
     
-    return render_template('render_words.html', data=data)
+    return data
