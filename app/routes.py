@@ -65,17 +65,18 @@ def find_similar():
     else:
         return view_find_similar(data)
 
-@app.route('/similar_words', methods=['GET', 'POST'])
-def similar_words():
-
-    from .similar_words import similar_words
-    return similar_words(request, dictionary)
-
 @app.route('/word_statistics', methods=['GET', 'POST'])
 def word_statistics():
 
     from .word_statistics import word_statistics
-    return word_statistics(request)
+    from .view_word_statistics import view_word_statistics
+    
+    data = word_statistics(request)
+
+    if request.args.get('mode') == 'api':
+        return data
+    else:
+        return view_word_statistics(data)
 
 @app.route('/tokenize', methods=['GET', 'POST'])
 def tokenize():
@@ -84,3 +85,8 @@ def tokenize():
     return tokenize(request)
 
 
+@app.route('/similar_words', methods=['GET', 'POST'])
+def similar_words():
+
+    from .similar_words import similar_words
+    return similar_words(request, dictionary)

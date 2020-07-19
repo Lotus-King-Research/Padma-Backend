@@ -1,18 +1,10 @@
-import en_core_web_sm
-nlp = en_core_web_sm.load()
-
 import pandas as pd
-import spacy
-import enchant
+
 import os
 
-from .stopwords_en import stopword
-enchant_word_check = enchant.Dict("en")
-
-from botok import Text
-
-
 def tokenize(text):
+
+    from botok import Text
 
     tokenizer = Text(text)
     
