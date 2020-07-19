@@ -30,4 +30,5 @@ jobs:
     # Deploy it!
     - name: Test
       run: |
-        echo
+        FLASK_APP=app.py FLASK_ENV=development nohup flask run
+        ./tests.py
