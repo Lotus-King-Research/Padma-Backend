@@ -31,8 +31,8 @@ jobs:
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: 18.194.42.122
-        username: bitnami
+        host: 18.157.93.60
+        username: ubuntu
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
