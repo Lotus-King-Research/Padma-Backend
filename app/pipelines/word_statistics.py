@@ -2,7 +2,6 @@ def word_statistics(request):
 
     from flask import render_template
 
-    from .word_statistics import word_statistics
     import os
     import pandas as pd
 

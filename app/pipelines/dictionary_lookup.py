@@ -2,8 +2,8 @@ def dictionary_lookup(request, dictionary):
 
     from flask import render_template
 
-    from .pipeline import definition_lookup
-    from .pipeline import tokenize
+    from ..utils.pipeline import definition_lookup
+    from ..utils.pipeline import tokenize
 
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
