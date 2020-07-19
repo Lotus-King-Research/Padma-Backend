@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 <div class="container-fixed">
 
-{% for i in results_len %}
+{% for i in range(text|length) %}
+  
   <!--- add following segments to text --->
-  {% set start_temp = results[i][2] %}
-  {% set end_temp = results[i][2] %}
+  {% set start_temp = location[i] %}
+  {% set end_temp = location[i] %}
   {% set start = start_temp %}
   {% set end = end_temp + 2 %}
 
   <!--- handle the request from `>>` --->
-  <p class="tibetan-text" id="{{ results[i][1]|safe }}">{{ results[i][0]|safe }}<br><span class="tibetan-source" id="source">{{ titles[i]|safe }}</span>
-      <a href={{ "/render_text?title=" ~ titles[i]|safe ~ "&start=" ~ start ~ "&end=" ~ end }}><i class="fa fa-angle-double-right expand-icon" title='expand'></i></a>
+  <p class="tibetan-text" id="{{ title[i]|safe }}">{{ text[i]|safe }}<br><span class="tibetan-source" id="source">{{ title[i]|safe }}</span>
+      <a href={{ "/render_text?title=" ~ title[i]|safe ~ "&start=" ~ start ~ "&end=" ~ end }}><i class="fa fa-angle-double-right expand-icon" title='expand'></i></a>
   </p>
 
 {% endfor %}

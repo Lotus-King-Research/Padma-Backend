@@ -79,29 +79,6 @@ def create_dictionary():
 
     return dict_df
 
-def search_texts(word, texts):
-    
-    '''Returns a reference based on word based on mode.
-    word | str | any tibetan string
-    mode | str | 'filename', 'sentence', or 'title'
-    '''
-
-    out = []
-
-    titles = texts.keys()
-
-    for title in titles:
-        try:
-            sents = texts[title][0].split()
-            counter = 0
-            for sent in sents:
-                if word in sent:
-                    out.append([sent, title, counter])
-                counter += 1
-        except IndexError:
-            continue
-
-    return out
 
 def frequency_lookup(word, dict_df, no_of_words=5):
     

@@ -35,7 +35,6 @@ def dictionary_lookup():
     
     if request.args.get('mode') == 'api':
         return data
-
     else:
         # render view
         return view_dictionary_lookup(data)
@@ -44,7 +43,14 @@ def dictionary_lookup():
 def search_texts():
 
     from .search_texts import search_texts
-    return search_texts(request, texts)
+    from .view_search_texts import view_search_texts
+
+    data = search_texts(request, texts)
+
+    if request.args.get('mode') == 'api':
+        return data
+    else:
+        return view_search_texts(data)
 
 @app.route('/render_text', methods=['GET', 'POST'])
 def render_text():
