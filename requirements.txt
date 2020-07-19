@@ -3,3 +3,4 @@ pyenchant
 spacy
 pandas
 botok
+gunicorn

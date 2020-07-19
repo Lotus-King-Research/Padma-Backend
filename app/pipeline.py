@@ -1,19 +1,10 @@
-import os
-
-if os.path.isfile('/tmp/All_Dictionaries_report_2016.tab') is False:
-    os.system('wget https://goo.gl/GyTv7n -O /tmp/dictionaries.zip')
-    os.system('unzip /tmp/dictionaries.zip -d /tmp')
-
-if os.path.isdir('/tmp/docs') is False:
-    os.system('wget https://github.com/mikkokotila/Rinchen-Terdzo-Tokenized/raw/master/docs/docs.zip -O /tmp/docs.zip')
-    os.system('unzip /tmp/docs.zip -d /tmp/docs/')
-
 import en_core_web_sm
 nlp = en_core_web_sm.load()
 
-import enchant
 import pandas as pd
 import spacy
+import enchant
+import os
 
 from .stopwords_en import stopword
 enchant_word_check = enchant.Dict("en")
@@ -82,6 +73,10 @@ def create_dictionary():
     # remove words where the word contains latin characters (note this might lose something)
     dict_df = dict_df[dict_df.word.str.contains('[a-z]') == False]
     
+    dict_df['source'] = dict_df['source'].str.replace('-', '')
+    dict_df['source'] = dict_df['source'].str.replace('[', '')
+    dict_df['source'] = dict_df['source'].str.replace(']', '')
+
     return dict_df
 
 def search_texts(word, texts):

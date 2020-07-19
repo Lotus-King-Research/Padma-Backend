@@ -2,17 +2,15 @@ from flask import render_template, request
 
 from app import app
 
+from .initialize import initialize
 from .pipeline import create_dictionary
 from .pipeline import create_texts
 
+initialize()
 dictionary = create_dictionary()
-dictionary['source'] = dictionary['source'].str.replace('-', '')
-dictionary['source'] = dictionary['source'].str.replace('[', '')
-dictionary['source'] = dictionary['source'].str.replace(']', '')
-
 texts = create_texts()
 
-print("SUCCESS: dictionaries built")
+print("SUCCESS: assets built")
 
 @app.after_request
 def add_header(r):    

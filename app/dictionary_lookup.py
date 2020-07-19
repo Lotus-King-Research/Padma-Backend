@@ -10,7 +10,6 @@ def dictionary_lookup(request, dictionary):
 
     if len(search_query) == 0:
         search_query = dictionary['word'].sample(1).values[0]
-        print(len(search_query))
 
     search_query = search_query.replace(' ', '')
 
