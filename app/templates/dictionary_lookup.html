@@ -2,14 +2,21 @@
 {% block content %}
 
 <div class='container-fluid pt-3 pb-2 pl-4'>
-<font class="tibetan-text-reader">{{ search_query|safe }}</font>
+<font class="tibetan-text-reader">{{ query|safe }}</font>
 </div>
 <div class='container-fluid'>
 
-{% for i in results_len %}
-  <div class="mb-5" id="{{ tokens[i]|safe }}">{{ results[i]|safe }}</div>
+{% for i in range(text|length) %}
+  <table class='dataframe mb-4'>
+    <th class='dataframe'>{{ tokens[i]}}</th>
+    <th class='dataframe'></th>
+  {% for ii in range(text[i]|length) %}
+      <tr>
+          <td class="td-key">{{ text[i][ii]|safe }}</td>
+          <td class="td-value">{{ source[i][ii]|safe }}</td>
+      </tr>
+  {% endfor %}
+  </table>
 {% endfor %}
 
 {% endblock %}
-
-</div>

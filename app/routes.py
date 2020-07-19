@@ -28,7 +28,17 @@ def index():
 def dictionary_lookup():
 
     from .dictionary_lookup import dictionary_lookup
-    return dictionary_lookup(request, dictionary)
+    from .view_dictionary_lookup import view_dictionary_lookup
+
+    # produce the data
+    data = dictionary_lookup(request, dictionary)
+    
+    if request.args.get('mode') == 'api':
+        return data
+
+    else:
+        # render view
+        return view_dictionary_lookup(data)
 
 @app.route('/search_texts', methods=['GET', 'POST'])
 def search_texts():

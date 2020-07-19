@@ -15,8 +15,10 @@ def dictionary_lookup(request, dictionary):
 
     tokens = tokenize(search_query)
 
-    results = []
+    text = []
+    source = []
 
+    # get dictionary definitions for each token
     for token in tokens:
         try:
             result = definition_lookup(token, dictionary)
@@ -26,11 +28,13 @@ def dictionary_lookup(request, dictionary):
 
         if isinstance(no_of_result, str):
             result = result.iloc[:int(no_of_result)]
-            
-        results.append(result.to_html(index=False))
 
-    return render_template('dictionary_lookup.html',
-                            search_query=search_query,
-                            results=results,
-                            tokens=tokens,
-                            results_len=list(range(len(results))))
+        text.append([i[0] for i in result.values])
+        source.append([i[1] for i in result.values])
+
+    data = {'search_query': search_query,
+            'text': text,
+            'source': source, 
+            'tokens': tokens}
+
+    return data

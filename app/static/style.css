@@ -41,6 +41,7 @@ body {
   .dataframe td {
 	border-bottom-width: 1px;
 	border-color: rgba(0, 0, 0, 0.26);
+	border-radius: 0px;
 	}
   
   .dataframe tr:nth-child(odd) {background-color: #FFF8EB;}
