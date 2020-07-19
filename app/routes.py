@@ -2,9 +2,9 @@ from flask import render_template, request
 
 from app import app
 
-from .initialize import initialize
-from .pipeline import create_dictionary
-from .pipeline import create_texts
+from .utils.initialize import initialize
+from .utils.pipeline import create_dictionary
+from .utils.pipeline import create_texts
 
 initialize()
 dictionary = create_dictionary()
@@ -27,8 +27,8 @@ def index():
 @app.route('/dictionary_lookup', methods=['GET','POST'])
 def dictionary_lookup():
 
-    from .dictionary_lookup import dictionary_lookup
-    from .view_dictionary_lookup import view_dictionary_lookup
+    from .pipelines.dictionary_lookup import dictionary_lookup
+    from .views.view_dictionary_lookup import view_dictionary_lookup
 
     # produce the data
     data = dictionary_lookup(request, dictionary)
@@ -42,8 +42,8 @@ def dictionary_lookup():
 @app.route('/search_texts', methods=['GET', 'POST'])
 def search_texts():
 
-    from .search_texts import search_texts
-    from .view_search_texts import view_search_texts
+    from .pipelines.search_texts import search_texts
+    from .views.view_search_texts import view_search_texts
 
     data = search_texts(request, texts)
 
@@ -55,8 +55,8 @@ def search_texts():
 @app.route('/find_similar', methods=['GET', 'POST'])
 def find_similar():
 
-    from .find_similar import find_similar
-    from .view_find_similar import view_find_similar
+    from .pipelines.find_similar import find_similar
+    from .views.view_find_similar import view_find_similar
 
     data = find_similar(request, dictionary)
 
@@ -68,8 +68,8 @@ def find_similar():
 @app.route('/word_statistics', methods=['GET', 'POST'])
 def word_statistics():
 
-    from .word_statistics import word_statistics
-    from .view_word_statistics import view_word_statistics
+    from .pipelines.word_statistics import word_statistics
+    from .views.view_word_statistics import view_word_statistics
     
     data = word_statistics(request)
 
@@ -81,8 +81,8 @@ def word_statistics():
 @app.route('/tokenize', methods=['GET', 'POST'])
 def tokenize():
 
-    from .tokenize import tokenize
-    from .view_tokenize import view_tokenize
+    from .pipelines.tokenize import tokenize
+    from .views.view_tokenize import view_tokenize
 
     data = tokenize(request)
 
@@ -90,10 +90,3 @@ def tokenize():
         return data
     else:
         return view_tokenize(data)
-
-
-@app.route('/similar_words', methods=['GET', 'POST'])
-def similar_words():
-
-    from .similar_words import similar_words
-    return similar_words(request, dictionary)

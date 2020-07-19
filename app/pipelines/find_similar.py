@@ -2,7 +2,7 @@ def find_similar(request, dictionary):
 
     from flask import render_template
 
-    from .pipeline import dict_for_render_words
+    from ..utils.pipeline import dict_for_render_words
 
     word = request.args.get('query')
     word = word.replace(' ', '')
@@ -21,7 +21,7 @@ def find_similar(request, dictionary):
 
 def similar_words(word, dictionary):
     
-    from .pipeline import check_format
+    from ..utils.pipeline import check_format
     import pandas as pd
 
     import spacy
@@ -30,7 +30,7 @@ def similar_words(word, dictionary):
     import en_core_web_sm
     nlp = en_core_web_sm.load()
 
-    from .stopwords_en import stopword
+    from ..utils.stopwords_en import stopword
     enchant_word_check = enchant.Dict("en")
 
     word = check_format(word)
