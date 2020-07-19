@@ -1,4 +1,14 @@
-## Padma
+## What is it?
+
+**Padma** is a next-generation Tibetan language translation and learning platform specifically for Dharma texts. 
+
+## How to use it? 
+
+- [Online] at Padma.io
+- [Offline] by installing the desktop app
+- Through [API] programmatically
+
+You can also run Padma on your own server, or build any apps on top of it. [Padma.io] is 100% based on simple API calls. 
 
 Highlight any word to perform one of 5 activities:
 
