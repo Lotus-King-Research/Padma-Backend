@@ -29,7 +29,7 @@ class PadmaDropdownMenu {
     let text = this.getSelectionText();
     document.getElementById("dictionary_lookup").href = "/dictionary_lookup?query=" + text;
     document.getElementById("search_texts"     ).href = "/search_texts?query="      + text;
-    document.getElementById("render_words"     ).href = "/render_words?query="      + text;
+    document.getElementById("find_similar"     ).href = "/find_similar?query="      + text;
     document.getElementById("word_statistics"  ).href = "/word_statistics?query="   + text;
     document.getElementById("tokenize"         ).href = "/tokenize?query="          + text;
   }

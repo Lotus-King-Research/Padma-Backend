@@ -52,24 +52,18 @@ def search_texts():
     else:
         return view_search_texts(data)
 
-@app.route('/render_text', methods=['GET', 'POST'])
-def render_text():
+@app.route('/find_similar', methods=['GET', 'POST'])
+def find_similar():
 
-    from .render_text import render_text
-    from .view_render_text import view_render_text
+    from .find_similar import find_similar
+    from .view_find_similar import view_find_similar
 
-    data = render_text(request, texts)
+    data = find_similar(request, dictionary)
 
     if request.args.get('mode') == 'api':
         return data
     else:
-        return view_render_text(data)
-
-@app.route('/render_words', methods=['GET', 'POST'])
-def render_words():
-
-    from .render_words import render_words
-    return render_words(request, dictionary)
+        return view_find_similar(data)
 
 @app.route('/similar_words', methods=['GET', 'POST'])
 def similar_words():

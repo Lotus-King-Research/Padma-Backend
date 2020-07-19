@@ -10,7 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="{{url_for('static', filename='dropdown-menu.js')}}"></script>
   
-  <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='style.less') }} />
+  <link rel="stylesheet/less" type="text/css" href="{{ url_for('static', filename='style.less') }}"  />
   <script src="//cdn.jsdelivr.net/npm/less" ></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Jomolhari&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
   <div id="dropdown-menu">
     <a id="dictionary_lookup" href="">dictionary lookup</a>
     <a id="search_texts" href="">search texts</a>
-    <a id="render_words" href="">similar words</a>
+    <a id="find_similar" href="">similar words</a>
     <a id="word_statistics" href="">word statistics</a>
     <a id="tokenize" href="">tokenize</a>
   </div>
@@ -37,7 +37,7 @@
   </button>
     {% block content %}{% endblock %}
   </div>
-  
+
 </body>
 </html>
 
