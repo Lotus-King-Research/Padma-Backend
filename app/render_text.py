@@ -1,16 +1,28 @@
 def render_text(request, texts):
 
-    from flask import render_template
+    '''
+    request | object | request object from flask
+    texts | dict | body of texts loaded in Padma
+    '''
 
     title = request.args.get('title')
     start = request.args.get('start')
     end = request.args.get('end')
 
     text = ''.join(texts[title]).split()
+
+    if float(start) < 0:
+        start = 0
+
+    if float(end) < 1:
+        end = len(text)
+
     text = ''.join(text[int(start):int(end)])
 
-    return render_template('render_text.html',
-                            title=title,
-                            text=text,
-                            start=int(start),
-                            end=int(end))
+    data = {'text': text,
+            'title': title, 
+            'start': start, 
+            'end': end}
+
+    return data
+    

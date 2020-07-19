@@ -56,7 +56,14 @@ def search_texts():
 def render_text():
 
     from .render_text import render_text
-    return render_text(request, texts)
+    from .view_render_text import view_render_text
+
+    data = render_text(request, texts)
+
+    if request.args.get('mode') == 'api':
+        return data
+    else:
+        return view_render_text(data)
 
 @app.route('/render_words', methods=['GET', 'POST'])
 def render_words():
