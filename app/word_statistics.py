@@ -25,14 +25,16 @@ def word_statistics(request):
 
     prominence = prominence.sort_values('prominence', ascending=False)
 
-    prominence = prominence.to_html(index=False)
-    co_occurance = co_occurance.to_html(index=False)
-    most_common = most_common.to_html(index=False)
+    data = {
+        'prominence_key': prominence['title'].tolist(),
+        'prominence_value': prominence['prominence'].tolist(),
+        'co_occurance_key': co_occurance['word'].tolist(),
+        'co_occurance_value': co_occurance['co_occurancies'].tolist(),
+        'most_common_key': most_common['word'].tolist(),
+        'most_common_value': most_common['occurancies'].tolist()
+    }
 
-    return render_template('word_statistics.html',
-                           prominence=prominence,
-                           co_occurance=co_occurance,
-                           most_common=most_common)
+    return data
 
 
 def stopwords(tokens):
@@ -41,8 +43,9 @@ def stopwords(tokens):
     for token in tokens:
         if '_' not in token: 
             if ' ' not in token:
-                if token not in ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་', 'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་']:
-                    temp.append(token)
+                if len(token) > 1:
+                    if token not in ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་', 'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་']:
+                        temp.append(token)
     
     return temp
 
