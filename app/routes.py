@@ -53,12 +53,12 @@ def search_texts():
         return view_search_texts(data)
 
 @app.route('/find_similar', methods=['GET', 'POST'])
-def render_text():
+def find_similar():
 
     from .find_similar import find_similar
     from .view_find_similar import view_find_similar
 
-    data = find_similar(request, texts)
+    data = find_similar(request, dictionary)
 
     if request.args.get('mode') == 'api':
         return data

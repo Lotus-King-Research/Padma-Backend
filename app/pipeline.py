@@ -99,48 +99,6 @@ def frequency_lookup(word, dict_df, no_of_words=5):
     return out
 
 
-def similar_words(word, dict_df):
-    
-    word = check_format(word)
-
-    temp = pd.Series(dict_df[dict_df.word == word]['meaning'])
-    temp = temp.str.cat().split()
-    temp = pd.Series(temp)
-    temp = temp.str.replace('[+-;:{}\[\],.«»]',' ')
-    temp = temp.str.lower()
-
-    temp = pd.DataFrame(temp)
-    temp = temp[temp[0].isin(stopword()) == False]
-    temp = temp[temp[0] != '']
-    temp[0] = temp[0][temp[0].apply(enchant_word_check.check) == True]
-    temp[0].value_counts()
-
-    nlp_temp = pd.Series(temp[0].unique())
-    words_for_nlp = nlp_temp.str.cat(sep=' ')
-
-    tokens = nlp(words_for_nlp)
-
-    l = []
-
-    for token1 in tokens:
-        for token2 in tokens:
-            l.append([token1,token2,token1.similarity(token2)])
-    out = pd.DataFrame(l)
-
-    temp_tokens = pd.Series(out.groupby(0).sum().sort_values(2, ascending=False).index[:8])
-
-    l = []
-
-    for token1 in temp_tokens:
-        for token2 in temp_tokens:
-            l.append([token1,token2,token1.similarity(token2)])
-    out = pd.DataFrame(l)
-
-    out = out.groupby(0).sum().sort_values(2, ascending=False)
-
-    return out
-
-
 def meaning_lookup(word, dict_df, no_of_words=1):
     
     out = frequency_lookup(word, dict_df, no_of_words).index[:no_of_words]
