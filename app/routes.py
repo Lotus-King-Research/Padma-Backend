@@ -82,7 +82,14 @@ def word_statistics():
 def tokenize():
 
     from .tokenize import tokenize
-    return tokenize(request)
+    from .view_tokenize import view_tokenize
+
+    data = tokenize(request)
+
+    if request.args.get('mode') == 'api':
+        return data
+    else:
+        return view_tokenize(data)
 
 
 @app.route('/similar_words', methods=['GET', 'POST'])
