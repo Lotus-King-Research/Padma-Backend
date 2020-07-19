@@ -90,3 +90,16 @@ def tokenize():
         return data
     else:
         return view_tokenize(data)
+
+@app.route('/render_text', methods=['GET', 'POST'])
+def render_text():
+
+    from .pipelines.render_text import render_text
+    from .views.view_render_text import view_render_text
+
+    data = render_text(request, texts)
+
+    if request.args.get('mode') == 'api':
+        return data
+    else:
+        return view_render_text(data)
