@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/mikkokotila/Padma/master/docs/_media/Padma_logo.png" width=150px>
+
 ## What is it?
 
 **Padma** is a next-generation Tibetan language translation and learning platform specifically for Dharma texts. 
