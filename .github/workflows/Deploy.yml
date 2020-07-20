@@ -9,7 +9,6 @@ on:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == 'true'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -29,6 +28,11 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     # Deploy it!
+    - name: Test
+      run: |
+        #FLASK_APP=app.py FLASK_ENV=development nohup flask run
+        #./tests.py
+        echo
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
