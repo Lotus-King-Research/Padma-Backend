@@ -1,6 +1,6 @@
 - Getting Started
 
- - [Quick start](README.md#quick-start)
+ - [Overview](README.md#quick-start)
  - [Padma.io](Padma.md#padma)
  - [Desktop](Desktop.md#offline)
  - [API](API.md#api)
@@ -8,5 +8,6 @@
 
 - Developer
 
- - [Get started](Development.md#get-started)
+ - [Get Started](Development.md#get-started)
+ - [Application Structure](Application-Structure.md.md#application-structure)
 
