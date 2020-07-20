@@ -1,8 +1,6 @@
-# Offline
+# Environment
 
-There are several options for running Padma on your local machine (or network) locally. The below method is intended for development purpose, and not recommend for regular users. A fully feautured desktop version of Padma will be available in the coming months.
-
-## Development 
+The below is recommended for development:
 
 ```
 # get the package

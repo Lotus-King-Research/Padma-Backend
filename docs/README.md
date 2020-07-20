@@ -1,23 +1,20 @@
 # Get Started
 
-You have several options for starting to use Padma: 
-
-1) An [online](http://padma.io) platform available at Padma.io
-
-2) Install and run for [offline](Offline.md) use
-
-3) Through an online [API](API.md) programmatically
+- [Online](http://padma.io) at Padma.io
+- [Desktop](https://github.com/mikkokotila/Padma-frontend) for Mac and Windows. 
+- [API](https://mikkokotila.github.io/Padma/#/API?id=api) for unrestricted programmatic access
+- [Docker](https://github.com/mikkokotila/Padma/archive/master.zip) for developers
 
 ## Key Features
 
-- dictionary search with word tokenization
-- keyword search on Dharmatexts
+- Dictionary search with word tokenization
+- Keyword search on Dharmatexts
 - AI-based similar word search
-- keyword statistics
-    - most common related words
-    - prominence in texts
-    - word co-occurance
-- tokenizer for any amount of text
+- Keyword statistics
+    - Most common related words
+    - Prominence in texts
+    - Word co-occurance
+- Tokenizer for any amount of text
 
 ## Mission
 
