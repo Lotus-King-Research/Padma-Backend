@@ -12,7 +12,7 @@ MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://padma.io'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/lkt'
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 
 try:
     from setuptools import setup
@@ -24,7 +24,9 @@ install_requires = ['flask',
                     'pyenchant',
                     'spacy',
                     'pandas',
-                    'botok']
+                    'botok',
+                    'gunicorn',
+                    'flask-cors']
 
 
 if __name__ == "__main__":
