@@ -1,4 +1,4 @@
-def word_statistics(request):
+def word_statistics(request, texts):
 
     from flask import render_template
 
@@ -23,10 +23,16 @@ def word_statistics(request):
     prominence['prominence'] = [i[1] for i in prominence['prominence']]
 
     prominence = prominence.sort_values('prominence', ascending=False)
+    prominence['title'] = prominence['title'].str.replace('.txt', '')
 
+    titles = []
+    for title in prominence['title']:
+        titles.append(texts[title]['text_title'])
+    
     data = {
         'prominence_key': prominence['title'].tolist(),
         'prominence_value': prominence['prominence'].tolist(),
+        'prominence_name': titles,
         'co_occurance_key': co_occurance['word'].tolist(),
         'co_occurance_value': co_occurance['co_occurancies'].tolist(),
         'most_common_key': most_common['word'].tolist(),

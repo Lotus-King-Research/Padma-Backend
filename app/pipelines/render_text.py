@@ -9,18 +9,18 @@ def render_text(request, texts):
     start = request.args.get('start')
     end = request.args.get('end')
 
-    text = ''.join(texts[title]).split()
+    text = ''.join(texts[title]['text']).split()
 
-    if float(start) < 0:
+    if start is None:
         start = 0
-
-    if float(end) < 1:
+    if end is None:
         end = len(text)
 
     text = ''.join(text[int(start):int(end)])
 
     data = {'text': text,
-            'title': title, 
+            'title': title,
+            'text_title': texts[title]['text_title'],
             'start': start, 
             'end': end}
 

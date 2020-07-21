@@ -5,5 +5,6 @@ def view_search_texts(data):
     return render_template('search_texts.html',
                            query=data['query'],
                            title=data['title'],
+                           text_title=data['text_title'],
                            text=data['text'],
                            location=data['location'])

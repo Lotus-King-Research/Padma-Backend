@@ -14,7 +14,7 @@
 {% set start = start %}
 {% set end = end + 2 %}
 
-<p class="tibetan-source" id="source"><span class="source" id="source"> {{ title|safe }}</span>
+<p class="tibetan-source" id="source"><span class="source" id="source"> {{ text_title|safe }}</span>
   <a href={{ "/render_text?title=" ~ title|safe ~ "&start=" ~ start|safe ~ "&end=" ~ end|safe }}><i class="fa fa-angle-double-right expand-icon" id="add" title='add segments'></i></a></p>
       </div>
 {% endblock %}
