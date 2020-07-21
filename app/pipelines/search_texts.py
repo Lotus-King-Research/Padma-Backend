@@ -42,7 +42,7 @@ def _search_texts(query, texts):
             counter = 0
             for sent in sents:
                 if query in sent:
-                    out.append([sent, filename, counter, texts[filename]['title']])
+                    out.append([sent, filename, counter, texts[filename]['text_title']])
                 counter += 1
         except IndexError:
             continue
