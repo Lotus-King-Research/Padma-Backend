@@ -5,3 +5,5 @@ pandas
 botok
 gunicorn
 flask-cors
+signs
+tensorflow
