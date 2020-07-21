@@ -2,14 +2,13 @@
 
 ## What is it?
 
-**Padma** is a next-generation Tibetan language translation and learning platform specifically for Dharma texts. 
+**Padma** is a next-generation Tibetan language translation and learning platform focused 100% on Dharma texts. 
 
 ## How to use it? 
 
 - [Online](http://padma.io) at Padma.io
-- [Offline](https://github.com/mikkokotila/Padma/archive/master.zip) by installing locally from this repo.
-- Through [API](https://mikkokotila.github.io/Padma/#/API?id=api) programmatically
-
-You can also run Padma on your own server, or build any apps on top of it. [Padma.io](http://padma.io) is 100% based on simple API calls. 
+- [Desktop](https://github.com/mikkokotila/Padma-frontend@first) for Mac and Windows. 
+- [API](https://mikkokotila.github.io/Padma/#/API?id=api) for unrestricted programmatic access
+- [Docker](https://github.com/mikkokotila/Padma/archive/master.zip) for developers
 
 For more information, read the [docs](https://mikkokotila.github.io/Padma/#/).
