@@ -26,7 +26,9 @@ install_requires = ['flask',
                     'pandas',
                     'botok',
                     'gunicorn',
-                    'flask-cors']
+                    'flask-cors',
+                    'signs',
+                    'tensorflow']
 
 
 if __name__ == "__main__":

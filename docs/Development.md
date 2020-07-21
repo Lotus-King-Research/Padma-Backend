@@ -12,6 +12,7 @@ sudo apt-get upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get install nginx -y
 sudo apt-get install python3-pip -y
+pip3 install --upgrade pip
 sudo apt-get install git
 sudo apt-get install enchant
 sudo apt-get install unzip
