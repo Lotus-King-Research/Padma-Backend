@@ -38,7 +38,7 @@ jobs:
         docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
         docker pull docker.pkg.github.com/mikkokotila/padma/core_api:master
         IMAGE_ID=$(docker image ls | grep docker.pkg.github.com/mikkokotila/padma/core_api | head -1 | tr -s ' ' | cut -d ' ' -f3)
-        docker run -p 5000:5000 $IMAGE_ID
+        docker run -p 5000:5000 $IMAGE_ID -d
         python ./tests.py
     - name: Deploy
       uses: appleboy/ssh-action@master
