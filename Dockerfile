@@ -1,8 +1,8 @@
 FROM python:3.7.3
 WORKDIR /project
 ADD . /project
-RUN sudo apt-get update -y
-RUN sudo apt-get install -y enchant
+RUN apt-get update -y
+RUN apt-get install -y enchant
 RUN pip install --upgrade pip
 RUN pip install cython
 RUN pip install -r requirements.txt
