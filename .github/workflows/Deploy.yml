@@ -21,7 +21,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         sudo apt install libatlas-base-dev
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt --no-dependencies; fi
     - name: Lint with flake8
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
