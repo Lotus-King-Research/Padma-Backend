@@ -1,8 +1,8 @@
-flask
-pyenchant
-spacy
-pandas
 botok
-gunicorn
+flask
 flask-cors
-signs
+gunicorn
+pandas
+pyenchant
+signs --install-option="--no-deps"
+spacy
