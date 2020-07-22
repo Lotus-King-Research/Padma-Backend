@@ -4,5 +4,5 @@ flask-cors
 gunicorn
 pandas
 pyenchant
-signs --install-option="--no-deps"
+signs
 spacy
