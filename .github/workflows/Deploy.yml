@@ -21,7 +21,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         sudo apt install libatlas-base-dev
-        if [ -f requirements.txt ]; then pip install -r requirements.txt --no-dependencies; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -32,8 +32,8 @@ jobs:
         RELEASE_TAG=$(echo $GITHUB_REF | cut -d '/' -f3)
         echo $RELEASE_TAG > .version
         docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
-        docker build -t docker.pkg.github.com/mikkokotila/Padma/core_api:$RELEASE_TAG -f ./Dockerfile .
-        docker push docker.pkg.github.com/mikkokotila/Padma/core_api:$RELEASE_TAG
+        docker build -t docker.pkg.github.com/mikkokotila/padma/core_api:$RELEASE_TAG -f ./Dockerfile .
+        docker push docker.pkg.github.com/mikkokotila/padma/core_api:$RELEASE_TAG
     - name: Test
       run: |
         #gunicorn --bind 0.0.0.0:5000 server:app --daemon
