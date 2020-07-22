@@ -1,0 +1,28 @@
+ * Serving Flask app "app.py" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+Traceback (most recent call last):
+  File "/home/mikko/.local/bin/flask", line 8, in <module>
+    sys.exit(main())
+  File "/home/mikko/.local/lib/python3.7/site-packages/flask/cli.py", line 966, in main
+    cli.main(prog_name="python -m flask" if as_module else None)
+  File "/home/mikko/.local/lib/python3.7/site-packages/flask/cli.py", line 586, in main
+    return super(FlaskGroup, self).main(*args, **kwargs)
+  File "/home/mikko/.local/lib/python3.7/site-packages/click/core.py", line 782, in main
+    rv = self.invoke(ctx)
+  File "/home/mikko/.local/lib/python3.7/site-packages/click/core.py", line 1259, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/home/mikko/.local/lib/python3.7/site-packages/click/core.py", line 1066, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/home/mikko/.local/lib/python3.7/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/home/mikko/.local/lib/python3.7/site-packages/click/decorators.py", line 73, in new_func
+    return ctx.invoke(f, obj, *args, **kwargs)
+  File "/home/mikko/.local/lib/python3.7/site-packages/click/core.py", line 610, in invoke
+    return callback(*args, **kwargs)
+  File "/home/mikko/.local/lib/python3.7/site-packages/flask/cli.py", line 860, in run_command
+    extra_files=extra_files,
+  File "/home/mikko/.local/lib/python3.7/site-packages/werkzeug/serving.py", line 1030, in run_simple
+    s.bind(server_address)
+OSError: [Errno 98] Address already in use
+SUCCESS: assets built
