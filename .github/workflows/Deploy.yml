@@ -30,7 +30,7 @@ jobs:
     # Deploy it!
     - name: Test
       run: |
-        python3 ./tests.py
+        python ./tests.py
         #FLASK_APP=app.py FLASK_ENV=development nohup flask run
     - name: Deploy
       uses: appleboy/ssh-action@master
