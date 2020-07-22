@@ -1,3 +1,16 @@
+import os
+from ..utils.stopword import stopword_tibetan
+
+tokens_dict = {}
+
+for filename in os.listdir('/tmp/tokens'):
+
+    f = open('/tmp/tokens/' + filename, 'r')
+    tokens = f.read()
+    tokens = tokens.split()
+    tokens = stopword_tibetan(tokens)
+    tokens_dict[filename] = tokens
+
 def word_statistics(request, texts):
 
     import os
@@ -5,13 +18,10 @@ def word_statistics(request, texts):
 
     query = request.args.get('query')
 
-    print("1")
     prominence = _word_statistics(query, os.listdir('/tmp/tokens'), 'prominence')
     
-    print("2")
     co_occurance = _word_statistics(query, os.listdir('/tmp/tokens'), 'co_occurance')
     
-    print("3")
     most_common = _word_statistics(query, os.listdir('/tmp/tokens'), 'most_common')
 
     prominence = pd.DataFrame(pd.Series(prominence)).head(30).reset_index()
@@ -52,9 +62,7 @@ def _prominence(filename, word):
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
 
-    f = open('/tmp/tokens/' + filename, 'r')
-    tokens = f.read()
-    tokens = tokens.split()
+    tokens = tokens_dict[filename]
 
     tokens_len = len(tokens)
     word_count = 0
@@ -79,11 +87,7 @@ def _co_occurance(filename, word, span=2):
 
     out = []
 
-    f = open('/tmp/tokens/' + filename, 'r')
-    tokens = f.read()
-    tokens = tokens.split()
-    
-    tokens = stopword_tibetan(tokens)
+    tokens = tokens_dict[filename]
     
     for i, token in enumerate(tokens):
         if token == word:
@@ -98,11 +102,7 @@ def _most_common(filename, word, span=5):
 
     out = []
 
-    f = open('/tmp/tokens/' + filename, 'r')
-    tokens = f.read()
-    tokens = tokens.split()
-    
-    tokens = stopword_tibetan(tokens)
+    tokens = tokens_dict[filename]
     
     for i, token in enumerate(tokens):
         if token == word:
