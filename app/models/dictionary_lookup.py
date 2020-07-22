@@ -2,8 +2,7 @@ def dictionary_lookup(request, dictionary):
 
     from flask import render_template
 
-    from ..utils.pipeline import definition_lookup
-    from ..utils.pipeline import tokenize
+    from ..utils.tokenization import tokenization
 
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
@@ -13,7 +12,7 @@ def dictionary_lookup(request, dictionary):
 
     search_query = search_query.replace(' ', '')
 
-    tokens = tokenize(search_query)
+    tokens = tokenization(search_query)
 
     text = []
     source = []
@@ -38,3 +37,20 @@ def dictionary_lookup(request, dictionary):
             'tokens': tokens}
 
     return data
+
+
+def definition_lookup(word, dictionary, definition_max_length=300):
+
+    import pandas as pd
+
+    if word.endswith('་') is False: 
+        word = word + '་'
+
+    dict_temp = dictionary[dictionary.set_index('word').index == word]
+    dict_temp = dict_temp[dict_temp.meaning.str.len() < definition_max_length]
+    max_width = dict_temp.meaning.apply(len).max()
+    pd.options.display.max_colwidth = int(max_width)
+    
+    dict_temp.drop('word', 1, inplace=True)
+
+    return dict_temp

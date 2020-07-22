@@ -1,14 +1,17 @@
 def word_statistics(request, texts):
 
-    from flask import render_template
-
     import os
     import pandas as pd
 
     query = request.args.get('query')
 
+    print("1")
     prominence = _word_statistics(query, os.listdir('/tmp/tokens'), 'prominence')
+    
+    print("2")
     co_occurance = _word_statistics(query, os.listdir('/tmp/tokens'), 'co_occurance')
+    
+    print("3")
     most_common = _word_statistics(query, os.listdir('/tmp/tokens'), 'most_common')
 
     prominence = pd.DataFrame(pd.Series(prominence)).head(30).reset_index()
@@ -42,19 +45,6 @@ def word_statistics(request, texts):
     return data
 
 
-def stopwords(tokens):
-    
-    temp = []
-    for token in tokens:
-        if '_' not in token: 
-            if ' ' not in token:
-                if len(token) > 1:
-                    if token not in ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་', 'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་']:
-                        temp.append(token)
-    
-    return temp
-
-
 def _prominence(filename, word):
     
     '''Takes as input titles from:
@@ -85,13 +75,15 @@ def _co_occurance(filename, word, span=2):
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
     
+    from ..utils.stopword import stopword_tibetan
+
     out = []
 
     f = open('/tmp/tokens/' + filename, 'r')
     tokens = f.read()
     tokens = tokens.split()
     
-    tokens = stopwords(tokens)
+    tokens = stopword_tibetan(tokens)
     
     for i, token in enumerate(tokens):
         if token == word:
@@ -100,26 +92,22 @@ def _co_occurance(filename, word, span=2):
     return out
 
 
-def _most_common(filename, word, span=2):
+def _most_common(filename, word, span=5):
     
-    '''Takes as input titles from:
-    
-    titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
-    '''
-    
+    from ..utils.stopword import stopword_tibetan
+
     out = []
 
     f = open('/tmp/tokens/' + filename, 'r')
     tokens = f.read()
     tokens = tokens.split()
     
-    tokens = stopwords(tokens)
+    tokens = stopword_tibetan(tokens)
     
     for i, token in enumerate(tokens):
         if token == word:
             out.append(tokens[i+span])
             out.append(tokens[i-span])
-            
 
     return out
 
