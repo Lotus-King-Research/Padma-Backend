@@ -23,7 +23,7 @@ def index():
 @app.route('/dictionary_lookup', methods=['GET','POST'])
 def dictionary_lookup():
 
-    from .pipelines.dictionary_lookup import dictionary_lookup
+    from .models.dictionary_lookup import dictionary_lookup
     from .views.view_dictionary_lookup import view_dictionary_lookup
 
     # produce the data
@@ -38,7 +38,7 @@ def dictionary_lookup():
 @app.route('/search_texts', methods=['GET', 'POST'])
 def search_texts():
 
-    from .pipelines.search_texts import search_texts
+    from .models.search_texts import search_texts
     from .views.view_search_texts import view_search_texts
 
     data = search_texts(request, texts)
@@ -51,7 +51,7 @@ def search_texts():
 @app.route('/find_similar', methods=['GET', 'POST'])
 def find_similar():
 
-    from .pipelines.find_similar import find_similar
+    from .models.find_similar import find_similar
     from .views.view_find_similar import view_find_similar
 
     data = find_similar(request, dictionary)
@@ -64,7 +64,7 @@ def find_similar():
 @app.route('/word_statistics', methods=['GET', 'POST'])
 def word_statistics():
 
-    from .pipelines.word_statistics import word_statistics
+    from .models.word_statistics import word_statistics
     from .views.view_word_statistics import view_word_statistics
     
     data = word_statistics(request, texts)
@@ -77,7 +77,7 @@ def word_statistics():
 @app.route('/tokenize', methods=['GET', 'POST'])
 def tokenize():
 
-    from .pipelines.tokenize import tokenize
+    from .models.tokenize import tokenize
     from .views.view_tokenize import view_tokenize
 
     data = tokenize(request)
@@ -90,7 +90,7 @@ def tokenize():
 @app.route('/render_text', methods=['GET', 'POST'])
 def render_text():
 
-    from .pipelines.render_text import render_text
+    from .models.render_text import render_text
     from .views.view_render_text import view_render_text
 
     data = render_text(request, texts)
@@ -99,3 +99,10 @@ def render_text():
         return data
     else:
         return view_render_text(data)
+
+@app.route('/frequent_words', methods=['GET', 'POST'])
+def frequent_words():
+
+    from .models.frequent_words import frequent_words
+
+    return frequent_words(request, texts)

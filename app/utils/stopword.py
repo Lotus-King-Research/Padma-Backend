@@ -1,18 +1,34 @@
 # coding=utf-8
 
-import string
+
+def stopword_tibetan(tokens):
+
+    tibetan_stopwords = ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་', 'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་', '༔_་', '།_་', '།_།་', '།_།']
+    
+    #import signs
+    # tokens = signs.Stopwords(tokens, common_stopwords=False, add_stopwords=tibetan_stopwords)
+    # docs = tokens.docs
+
+    docs = []
+    for token in tokens:
+        if token not in tibetan_stopwords:
+                docs.append(token)
+    
+    return docs
 
 
-def stopword(generic=True,
-             alphabet=True,
-             punctuation=True,
-             numeric=1000,
-             tweet=True):
+def stopword_english(generic=True,
+                     alphabet=True,
+                     punctuation=True,
+                     numeric=1000,
+                     tweet=True):
 
     '''Stopwords
     WHAT: Produces a comprehensive list of stopwords for cleaning up
     text data.
     '''
+
+    import string
 
     outx = []
 

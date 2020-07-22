@@ -1,9 +1,5 @@
 def find_similar(request, dictionary):
 
-    from flask import render_template
-
-    from ..utils.pipeline import dict_for_render_words
-
     word = request.args.get('query')
     word = word.replace(' ', '')
 
@@ -15,13 +11,13 @@ def find_similar(request, dictionary):
     for i, key in enumerate(text[text.columns[0]].values):
         data[key.text] = text[text.columns[1]].values[i]
         
-    data = dict_for_render_words(data, word)
+    data = transform_to_dict(data, word)
     
     return data
 
+
 def similar_words(word, dictionary):
     
-    from ..utils.pipeline import check_format
     import pandas as pd
 
     import spacy
@@ -30,12 +26,11 @@ def similar_words(word, dictionary):
     import en_core_web_sm
     nlp = en_core_web_sm.load()
 
-    from ..utils.stopwords_en import stopword
+    from ..utils.stopword import stopword_english
     enchant_word_check = enchant.Dict("en")
 
-    word = check_format(word)
-
-    print(type(dictionary))
+    if word.endswith('་') is False: 
+        word = word + '་'
 
     temp = pd.Series(dictionary[dictionary.word == word]['meaning'])
     temp = temp.str.cat().split()
@@ -44,7 +39,7 @@ def similar_words(word, dictionary):
     temp = temp.str.lower()
 
     temp = pd.DataFrame(temp)
-    temp = temp[temp[0].isin(stopword()) == False]
+    temp = temp[temp[0].isin(stopword_english()) == False]
     temp = temp[temp[0] != '']
     temp[0] = temp[0][temp[0].apply(enchant_word_check.check) == True]
     temp[0].value_counts()
@@ -71,5 +66,39 @@ def similar_words(word, dictionary):
     out = pd.DataFrame(l)
 
     out = out.groupby(0).sum().sort_values(2, ascending=False)
+
+    return out
+
+
+def transform_to_dict(data, search_term):
+
+    '''
+    data | dict | a dictionary with single value per key
+    '''
+
+    out = {
+        "nodes": {},
+        "edges": {"0": {}},
+        "_": ""
+    }
+
+    words = list(data.keys())[:10]
+
+    highest = data[list(data.keys())[0]]
+
+    for word in words:
+        data[word] = round(data[word] / highest, 3)
+
+    for i, word in enumerate(words):
+        
+        if i == 0:
+            out['nodes']["0"] = {"label": search_term}
+        else:
+            out['nodes'][str(i)] = {"label": word}
+        
+        if i > 0:
+            out['edges']['0'][str(i)] = {'weight': data[word]}
+    
+    out['_'] = search_term
 
     return out

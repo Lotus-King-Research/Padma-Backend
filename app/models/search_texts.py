@@ -7,7 +7,7 @@ def search_texts(request, texts):
 
     from flask import render_template
 
-    from ..utils.pipeline import tokenize
+    from ..utils.tokenization import tokenization
 
     query = request.args.get('query')
 
