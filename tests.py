@@ -17,6 +17,6 @@ for end_point in end_points:
     r = requests.get(end_point)
 
     if r.status_code != 200:
-        print("ERROR: the request " + end_point + " failed with status code" + r.status_code)
+        print("ERROR: the request " + end_point + " failed with status code" + str(r.status_code))
         raise ValueError
 
