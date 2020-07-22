@@ -30,8 +30,9 @@ jobs:
     # Deploy it!
     - name: Test
       run: |
+        gunicorn --bind 0.0.0.0:5000 server:app --daemon
+        sleep 10
         python ./tests.py
-        #FLASK_APP=app.py FLASK_ENV=development nohup flask run
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
