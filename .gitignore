@@ -1,5 +1,6 @@
 __pycache__/
 app/__pycache__/
+app/*/__pycache__/
 botok.yaml
 POS_trie.pickled
 app/__init__.pyc
