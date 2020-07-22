@@ -3,12 +3,8 @@ from flask import render_template, request
 from app import app
 
 from .utils.initialize import initialize
-from .utils.pipeline import create_dictionary
-from .utils.pipeline import create_texts
 
-initialize()
-dictionary = create_dictionary()
-texts = create_texts()
+dictionary, texts = initialize()
 
 print("SUCCESS: assets built")
 
@@ -71,7 +67,7 @@ def word_statistics():
     from .pipelines.word_statistics import word_statistics
     from .views.view_word_statistics import view_word_statistics
     
-    data = word_statistics(request)
+    data = word_statistics(request, texts)
 
     if request.args.get('mode') == 'api':
         return data

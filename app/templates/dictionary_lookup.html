@@ -8,7 +8,7 @@
 
 {% for i in range(text|length) %}
   <table class='dataframe mb-4'>
-    <th class='dataframe'>{{ tokens[i]}}</th>
+    <th class='dataframe tibetan-table-heading'>{{ tokens[i]}}</th>
     <th class='dataframe'></th>
   {% for ii in range(text[i]|length) %}
       <tr>

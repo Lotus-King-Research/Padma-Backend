@@ -5,15 +5,44 @@
   gap: 20px;
 }
 
-</style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.truncate {
+  width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+</style>
 {% block content %}
 
 <div class="d-flex">
   
   <div>
   <table class='dataframe'>
-    <th class='dataframe'>most common</th>
+    <th class='dataframe'>common</th>
     <th class='dataframe'></th>
   {% for i in range(most_common_value|length) %}
       <tr>
@@ -30,8 +59,9 @@
       <th class='dataframe'></th>
     {% for i in range(prominence_value|length) %}
       <tr>
-          <td class="td-key">{{ prominence_key[i]|safe }}</td>
+          <td class="td-key"><a href={{ "/render_text?title=" ~ prominence_key[i]|safe }}>{{ prominence_name[i]|safe }}</a></td>
           <td class="td-value">{{ prominence_value[i]|safe }}%</td>
+
       </tr>
   {% endfor %}
   </table>
@@ -39,7 +69,7 @@
   
   <div>
   <table class='dataframe'>
-    <th class='dataframe'>co-occuring</th>
+    <th class='dataframe'>proximity</th>
     <th class='dataframe'></th>
   {% for i in range(co_occurance_value|length) %}
       <tr>

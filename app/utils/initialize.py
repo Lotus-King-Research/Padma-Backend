@@ -1,6 +1,9 @@
 def initialize():
 
     import os
+
+    from .create_dictionary import create_dictionary
+    from .create_texts import create_texts
     
     if os.path.isfile('/tmp/All_Dictionaries_report_2016.tab') is False:
         os.system('wget -qq --show-progress https://goo.gl/GyTv7n -O /tmp/dictionaries.zip')
@@ -13,3 +16,8 @@ def initialize():
     if os.path.isdir('/tmp/tokens') is False:
         os.system('wget -qq --show-progress https://github.com/mikkokotila/Rinchen-Terdzo-Tokenized/raw/master/tokens/tokens.zip -O /tmp/tokens.zip')
         os.system('unzip -qq -o /tmp/tokens.zip -d /tmp/tokens')
+
+    dictionary = create_dictionary()
+    texts = create_texts()
+
+    return dictionary, texts

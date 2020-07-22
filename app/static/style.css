@@ -217,23 +217,6 @@ button:focus {
   
 /* icons start*/
 
-/* expand icon*/
-.expand-icon {
-opacity: 30%;
-font-size: x-large;
-position: absolute;
-padding-left: 15px;
-padding-top: 22px;
-}
-
-.expand-icon:hover {
-    opacity: 45%;
-    content: "hello";
-}
-
-.expand-icon:active {
-    opacity: 60%;
-}
 
 /* search icon*/
 .search-icon {
@@ -268,22 +251,6 @@ padding-top: 22px;
   top: 40%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-.tibetan-text {
-	font-size: 1.2em;
-	font-family: 'Jomolhari', serif;
-}
-
-.tibetan-text-reader {
-	font-size: 1.5em;
-	font-family: 'Jomolhari', serif;
-}
-
-.tibetan-source {
-    opacity: 40%;
-	font-size: x-large;
-	font-family: 'Tinos', serif;
 }
 
 .logo-navi {

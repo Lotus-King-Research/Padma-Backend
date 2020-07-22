@@ -7,14 +7,14 @@
 }
 </style>
 
-<div class="container-fixed vertical-center">
+<div class="container-fixed m-4 mt-5 pt-4">
  
-<div class='tibetan-text-reader'>{{ text|safe }}</div>
+<div class='tibetan-text-reader mb-4'>{{ text|safe }}</div>
 
 {% set start = start %}
 {% set end = end + 2 %}
 
-<p class="tibetan-source" id="source"><span class="source" id="source"> {{ title|safe }}</span>
+<p id="source"><span class="tibetan-source-reader" id="source"> {{ text_title|safe }}</span>
   <a href={{ "/render_text?title=" ~ title|safe ~ "&start=" ~ start|safe ~ "&end=" ~ end|safe }}><i class="fa fa-angle-double-right expand-icon" id="add" title='add segments'></i></a></p>
       </div>
 {% endblock %}

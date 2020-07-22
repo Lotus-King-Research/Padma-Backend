@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<style>
+  hr {
+    width: 30%;
+    text-align: left;
+    height: .1px;
+    margin-left: 5px;
+  }
+</style>
+
 <div class="container-fixed">
 
 {% for i in range(text|length) %}
@@ -12,10 +21,10 @@
   {% set end = end_temp + 2 %}
 
   <!--- handle the request from `>>` --->
-  <p class="tibetan-text" id="{{ title[i]|safe }}">{{ text[i]|safe }}<br><span class="tibetan-source" id="source">{{ title[i]|safe }}</span>
+  <p class="tibetan-text mb-0 pb-0" id="{{ title[i]|safe }}">{{ text[i]|safe }}</p><span class="tibetan-source" id="source">{{ text_title[i]|safe }}</span>
       <a href={{ "/render_text?title=" ~ title[i]|safe ~ "&start=" ~ start ~ "&end=" ~ end }}><i class="fa fa-angle-double-right expand-icon" title='expand'></i></a>
-  </p>
-
+  
+<hr align="left">
 {% endfor %}
 </div>
 {% endblock %}
