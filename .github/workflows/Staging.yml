@@ -39,4 +39,5 @@ jobs:
           sudo systemctl restart Padma
     - name: Run Tests
       run: |
-          python tests.py
+          # python tests.py
+          curl -i "http://staging.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api" | head -1
