@@ -16,4 +16,5 @@ sudo systemctl status Padma
 
 ```
 sudo vim /etc/nginx/nginx.conf
+sudo systemctl restart nginx
 ```
