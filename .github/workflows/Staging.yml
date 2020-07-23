@@ -39,5 +39,11 @@ jobs:
           sudo systemctl restart Padma
     - name: Run Tests
       run: |
-          # python tests.py
-          curl -i "http://staging.padma.io/dictionary_lookup?query=ssfaggdfsg&mode=api" | head -1
+          curl -i 'http://staging.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api' | head -1
+          curl -i 'http://staging.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api' | head -1
+          curl -i 'http://staging.padma.io/search_texts?query=པདྨ་འབྱུང་གནས་&mode=api' | head -1
+          curl -i 'http://staging.padma.io/find_similar?query=པདྨ་འབྱུང་གནས་&mode=api' | head -1
+          curl -i 'http://staging.padma.io/word_statistics?query=པདྨ་&mode=api' | head -1
+          curl -i 'http://staging.padma.io/tokenize?query=པདྨ་འབྱུང་གནས་&mode=api' | head -1
+          curl -i 'http://staging.padma.io/render_text?title=Terdzo-ZI-052&start=2&end=4&mode=api' | head -1
+          curl -i 'http://staging.padma.io/dictionary_lookup?query=ssfaggdfsg&mode=api' | head -1
