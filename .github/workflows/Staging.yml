@@ -39,5 +39,4 @@ jobs:
           sudo systemctl restart Padma
     - name: Run Tests
       run: |
-          ls
-          #python ~/Padma/setup.py
+          python tests.py
