@@ -48,7 +48,7 @@ jobs:
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
           sudo docker stop $CURRENT_IMAGE_ID
           sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
-          echo $IMAGE_ID > current_image_id.txt
+          echo $NEW_IMAGE_ID > current_image_id.txt
     - name: Production Test
       uses: appleboy/ssh-action@master
       with:
