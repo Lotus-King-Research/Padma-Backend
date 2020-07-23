@@ -1,14 +1,14 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Deploy
+name: Staging
 
 on:
-  push:
+  pull_request:
     branches: [ master ]
 
 jobs:
-  deploy:
+  staging:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -26,28 +26,10 @@ jobs:
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Build API Image
-      run: |
-        echo
-        RELEASE_TAG=$(echo $GITHUB_REF | cut -d '/' -f3)
-        echo $RELEASE_TAG > .version
-        docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
-        docker build -t docker.pkg.github.com/mikkokotila/padma/core_api:$RELEASE_TAG -f ./Dockerfile .
-        docker push docker.pkg.github.com/mikkokotila/padma/core_api:$RELEASE_TAG
-    - name: Test
-      run: |
-        echo
-        #docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
-        #docker pull docker.pkg.github.com/mikkokotila/padma/core_api:master
-        #IMAGE_ID=$(docker image ls | grep docker.pkg.github.com/mikkokotila/padma/core_api | head -1 | tr -s ' ' | cut -d ' ' -f3)
-        #docker run -p 5000:5000 $IMAGE_ID -d
-        ##sleep 60
-        ##python ./tests.py
-        #ping 127.0.0.1:5000
-    - name: Deploy
+    - name: Deploy to Staging
       uses: appleboy/ssh-action@master
       with:
-        host: 18.157.93.60
+        host: 18.158.207.5
         username: ubuntu
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
@@ -55,3 +37,6 @@ jobs:
           cd Padma
           git pull https://github.com/mikkokotila/Padma.git
           sudo systemctl restart Padma
+    - name: Run Tests
+      run: |
+          python tests.py
