@@ -18,10 +18,7 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install flake8 pytest
-        sudo apt install libatlas-base-dev
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -42,9 +39,13 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
-          cd Padma
-          git pull https://github.com/mikkokotila/Padma.git
-          sudo systemctl restart Padma
+          CURRENT_IMAGE_ID=$(cat current_image_id.txt)
+          sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
+          sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:master
+          NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
+          sudo docker stop $CURRENT_IMAGE_ID
+          sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
+          echo $NEW_IMAGE_ID > current_image_id.txt
     - name: Production Test
       uses: appleboy/ssh-action@master
       with:
@@ -53,5 +54,6 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
-          cd Padma
-          ls
+          curl https://raw.githubusercontent.com/mikkokotila/Padma/master/tests/deploy_tests.py > deploy_tests.py
+          chmod +x deploy_tests.py
+          python3 deploy_tests.py
