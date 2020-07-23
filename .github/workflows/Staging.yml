@@ -46,4 +46,4 @@ jobs:
         command_timeout: 5m
         script: |
           cd Padma
-          python3 tests.py
+          python3 tests/staging_tests.py
