@@ -23,6 +23,11 @@ jobs:
       run: |
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Build Staging API Image
+      run: |
+        docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
+        docker build -t docker.pkg.github.com/mikkokotila/padma/core_api:staging -f ./Dockerfile .
+        docker push docker.pkg.github.com/mikkokotila/padma/core_api:staging
     - name: Deploy to Staging
       uses: appleboy/ssh-action@master
       with:
@@ -33,12 +38,12 @@ jobs:
         script: |
           CURRENT_IMAGE_ID=$(cat current_image_id.txt)
           sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
-          sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:master
+          sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:staging
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
           sudo docker stop $CURRENT_IMAGE_ID
           sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
           echo $NEW_IMAGE_ID > current_image_id.txt
-    - name: Test
+    - name: Test Deployed Image
       uses: appleboy/ssh-action@master
       with:
         host: 18.157.93.60
