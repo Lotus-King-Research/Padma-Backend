@@ -37,7 +37,6 @@ jobs:
           cd Padma
           git pull https://github.com/mikkokotila/Padma.git
           sudo systemctl restart Padma
-          python tests.py
     - name: Test
       uses: appleboy/ssh-action@master
       with:
