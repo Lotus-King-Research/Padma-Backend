@@ -40,4 +40,4 @@ jobs:
     - name: Run Tests
       run: |
           # python tests.py
-          curl -i "http://staging.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api" | head -1
+          curl -i "http://staging.padma.io/dictionary_lookup?query=ssfaggdfsg&mode=api" | head -1
