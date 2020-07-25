@@ -8,4 +8,6 @@ RUN pip install cython
 RUN pip install -r requirements.txt
 RUN python3 -m spacy download en
 
-ENTRYPOINT [ "gunicorn", "-b 0.0.0.0:5000", "server:app", "--workers 1", "--threads 1"]
+ENTRYPOINT [ "gunicorn", "server:app", "-b 0.0.0.0:5000", "-w 2", "-t 5", "--preload"]
+
+ 
