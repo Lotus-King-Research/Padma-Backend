@@ -7,7 +7,14 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN python3 -m spacy download en
 
-ENTRYPOINT [ "gunicorn", "server:app", "--access-logfile /tmp/gunicorn-access.log", "--error-logfile /tmp/gunicorn-error.log", "--worker-tmp-dir /dev/shm", "--worker-class gevent", "--timeout 120", "-b 0.0.0.0:5000", "-w 2", "--preload"]
+ENTRYPOINT [ "gunicorn", \
+             "server:app", \
+             "--access-logfile /tmp/gunicorn-access.log", \ 
+             "--error-logfile /tmp/gunicorn-error.log", \
+             "--worker-tmp-dir /dev/shm", \
+             "--worker-class gevent", \
+             "--timeout 120", \
+             "-b 0.0.0.0:5000", \
+             "-w 2", \
+             "--preload"]
 EXPOSE 5000
-
-#ENTRYPOINT [ "gunicorn", "server:app", "-b 0.0.0.0:5000", "-w 2", "-t 5", "--access-logfile /tmp/gunicorn-access.log", "--error-logfile /tmp/gunicorn-error.log", "--preload"]
