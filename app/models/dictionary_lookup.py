@@ -1,7 +1,5 @@
 def dictionary_lookup(request, dictionary):
 
-    from flask import render_template
-
     from ..utils.tokenization import tokenization
 
     search_query = request.args.get('query')
@@ -22,7 +20,7 @@ def dictionary_lookup(request, dictionary):
         try:
             result = definition_lookup(token, dictionary)
         except ValueError:
-            return render_template('oops.html')
+            return {'status': 404}
         result.columns = [token, 'source']
 
         if isinstance(no_of_result, str):
