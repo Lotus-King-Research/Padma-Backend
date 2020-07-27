@@ -1,11 +1,7 @@
-# coding=utf-8
-
-# TEST THE API ENDPOINTS
-
 import requests
+from time import sleep
 
 end_points = ['http://api.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://api.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
               'http://api.padma.io/search_texts?query=པདྨ་འབྱུང་གནས་&mode=api',
               'http://api.padma.io/find_similar?query=པདྨ་འབྱུང་གནས་&mode=api',
               'http://api.padma.io/word_statistics?query=པདྨ་&mode=api',
@@ -19,3 +15,5 @@ for end_point in end_points:
     if r.status_code != 200:
         print("ERROR: the request " + end_point + " failed with status code" + str(r.status_code))
         raise ValueError
+
+    sleep(2)
