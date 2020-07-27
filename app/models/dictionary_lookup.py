@@ -24,7 +24,7 @@ def dictionary_lookup(request, dictionary):
             return abort(404)
         result.columns = [token, 'source']
 
-        if isinstance(no_of_result, str):
+        if no_of_result is not None:
             result = result.iloc[:int(no_of_result)]
 
         text.append([i[0] for i in result.values])
