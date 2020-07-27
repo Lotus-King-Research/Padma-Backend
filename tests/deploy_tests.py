@@ -4,13 +4,13 @@
 
 import requests
 
-end_points = ['http://padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://padma.io/search_texts?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://padma.io/find_similar?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://padma.io/word_statistics?query=པདྨ་&mode=api',
-              'http://padma.io/tokenize?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://padma.io/render_text?title=Terdzo-ZI-052&start=2&end=4&mode=api']
+end_points = ['http://padma.io/#/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://padma.io/#/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://padma.io/#/search_texts?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://padma.io/#/find_similar?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://padma.io/#/word_statistics?query=པདྨ་&mode=api',
+              'http://padma.io/#/tokenize?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://padma.io/#/render_text?title=Terdzo-ZI-052&start=2&end=4&mode=api']
 
 for end_point in end_points:
 
