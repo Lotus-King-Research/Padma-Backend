@@ -41,7 +41,8 @@ jobs:
           sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:master
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
           sudo docker stop $CURRENT_IMAGE_ID
-          sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
+          # sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
+          sudo docker run --restart unless-stopped -v /tmp/Padma:/tmp -p 5000:5000 $IMAGE_ID --name Padma-API;
           echo $NEW_IMAGE_ID > current_image_id.txt
     - name: Production Test
       uses: appleboy/ssh-action@master
