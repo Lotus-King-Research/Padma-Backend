@@ -1,6 +1,7 @@
 def dictionary_lookup(request, dictionary):
 
     from ..utils.tokenization import tokenization
+    from flask import abort
 
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
@@ -20,7 +21,7 @@ def dictionary_lookup(request, dictionary):
         try:
             result = definition_lookup(token, dictionary)
         except ValueError:
-            return {'status': 404}
+            return abort(404)
         result.columns = [token, 'source']
 
         if isinstance(no_of_result, str):
