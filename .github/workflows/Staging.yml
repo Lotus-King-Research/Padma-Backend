@@ -9,6 +9,7 @@ on:
 
 jobs:
   staging:
+    if: github.event.label.name == 'ready_for_staging'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
