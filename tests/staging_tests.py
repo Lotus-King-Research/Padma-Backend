@@ -16,5 +16,5 @@ for end_point in end_points:
         print("ERROR: the request " + end_point + " failed with status code" + str(r.status_code))
         raise ValueError
 
-    sleep(3)
+    sleep(2)
 
