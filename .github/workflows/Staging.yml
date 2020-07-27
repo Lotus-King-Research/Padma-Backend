@@ -39,7 +39,7 @@ jobs:
           sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:staging
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
           sudo docker stop $RUNNING_IMAGE
-          sudo docker run --restart unless-stopped -v /tmp/Padma:/tmp -p 5000:5000 $IMAGE_ID --name Padma-API;
+          sudo docker run --restart unless-stopped -v /tmp/Padma:/tmp -p 5000:5000 $IMAGE_ID --name Padma-API --detached;
           sudo docker system prune -f
     - name: Test Deployed Image
       uses: appleboy/ssh-action@master
