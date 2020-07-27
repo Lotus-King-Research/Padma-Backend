@@ -10,50 +10,50 @@ on:
 jobs:
   staging:
     if: github.event.label.name == 'ready_for_staging'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with: 
-        ref: ${{ github.ref }}
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: |
-        pip install flake8 pytest
-    - name: Lint with flake8
-      run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Build Staging API Image
-      run: |
-        docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
-        docker build -t docker.pkg.github.com/mikkokotila/padma/core_api:staging -f ./Dockerfile .
-        docker push docker.pkg.github.com/mikkokotila/padma/core_api:staging
-    - name: Deploy to Staging
-      uses: appleboy/ssh-action@master
-      with:
-        host: 18.158.207.5
-        username: ubuntu
-        key: ${{ secrets.PADMA }}
-        command_timeout: 5m
-        script: |
-          CURRENT_IMAGE_ID=$(cat current_image_id.txt)
-          sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
-          sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:staging
-          NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
-          sudo docker stop $CURRENT_IMAGE_ID
-          sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
-          echo $NEW_IMAGE_ID > current_image_id.txt
-    - name: Test Deployed Image
-      uses: appleboy/ssh-action@master
-      with:
-        host: 18.157.93.60
-        username: ubuntu
-        key: ${{ secrets.PADMA }}
-        command_timeout: 5m
-        script: |
-          curl https://raw.githubusercontent.com/mikkokotila/Padma/master/tests/staging_tests.py > staging_tests.py
-          chmod +x staging_tests.py
-          python3 staging_tests.py
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+        with: 
+          ref: ${{ github.ref }}
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          pip install flake8 pytest
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Build Staging API Image
+        run: |
+          docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
+          docker build -t docker.pkg.github.com/mikkokotila/padma/core_api:staging -f ./Dockerfile .
+          docker push docker.pkg.github.com/mikkokotila/padma/core_api:staging
+      - name: Deploy to Staging
+        uses: appleboy/ssh-action@master
+        with:
+          host: 18.158.207.5
+          username: ubuntu
+          key: ${{ secrets.PADMA }}
+          command_timeout: 5m
+          script: |
+            CURRENT_IMAGE_ID=$(cat current_image_id.txt)
+            sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
+            sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:staging
+            NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
+            sudo docker stop $CURRENT_IMAGE_ID
+            sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
+            echo $NEW_IMAGE_ID > current_image_id.txt
+      - name: Test Deployed Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: 18.157.93.60
+          username: ubuntu
+          key: ${{ secrets.PADMA }}
+          command_timeout: 5m
+          script: |
+            curl https://raw.githubusercontent.com/mikkokotila/Padma/master/tests/staging_tests.py > staging_tests.py
+            chmod +x staging_tests.py
+            python3 staging_tests.py
