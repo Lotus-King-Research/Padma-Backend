@@ -4,13 +4,13 @@
 
 import requests
 
-end_points = ['http://staging.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://staging.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://staging.padma.io/search_texts?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://staging.padma.io/find_similar?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://staging.padma.io/word_statistics?query=པདྨ་&mode=api',
-              'http://staging.padma.io/tokenize?query=པདྨ་འབྱུང་གནས་&mode=api',
-              'http://staging.padma.io/render_text?title=Terdzo-ZI-052&start=2&end=4&mode=api']
+end_points = ['http://staging.padma.io/#/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://staging.padma.io/#/dictionary_lookup?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://staging.padma.io/#/search_texts?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://staging.padma.io/#/find_similar?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://staging.padma.io/#/word_statistics?query=པདྨ་&mode=api',
+              'http://staging.padma.io/#/tokenize?query=པདྨ་འབྱུང་གནས་&mode=api',
+              'http://staging.padma.io/#/render_text?title=Terdzo-ZI-052&start=2&end=4&mode=api']
 
 for end_point in end_points:
 
