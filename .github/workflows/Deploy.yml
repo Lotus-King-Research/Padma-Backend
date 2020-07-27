@@ -38,7 +38,12 @@ jobs:
           sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
           sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:master
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | head -1 | tr -s ' ' | cut -d ' ' -f3)
-          sudo docker stop $RUNNING_IMAGE
+
+          if [ ${#RUNNING_IMAGE} -gt 1 ]
+          then
+            sudo docker stop $RUNNING_IMAGE
+          fi
+          
           sudo docker run --restart unless-stopped -v /tmp/Padma:/tmp -p 5000:5000 $NEW_IMAGE_ID --name Padma-API --detached;
     - name: Production Test
       uses: appleboy/ssh-action@master
