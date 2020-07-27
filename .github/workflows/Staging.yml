@@ -1,6 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: Staging
 
 on:
@@ -36,14 +33,12 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
-          CURRENT_IMAGE_ID=$(cat current_image_id.txt)
+          RUNNING_IMAGE=$(sudo docker ps | grep server | cut -d ' ' -f1)
           sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
           sudo docker pull docker.pkg.github.com/mikkokotila/padma/core_api:staging
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | tail -1 | tr -s ' ' | cut -d ' ' -f3)
-          sudo docker stop $CURRENT_IMAGE_ID
-          # sudo docker run --restart unless-stopped -p 5000:5000 $NEW_IMAGE_ID
+          sudo docker stop $RUNNING_IMAGE
           sudo docker run --restart unless-stopped -v /tmp/Padma:/tmp -p 5000:5000 $IMAGE_ID --name Padma-API;
-          echo $NEW_IMAGE_ID > current_image_id.txt
     - name: Test Deployed Image
       uses: appleboy/ssh-action@master
       with:
