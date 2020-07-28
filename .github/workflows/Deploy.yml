@@ -44,7 +44,7 @@ jobs:
             sudo docker stop $RUNNING_IMAGE
           fi
           
-          sudo docker run --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
+          sudo docker run -m 3000m --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
     - name: Production Test
       uses: appleboy/ssh-action@master
       with:

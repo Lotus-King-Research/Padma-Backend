@@ -10,11 +10,8 @@ end_points = ['http://staging-api.padma.io/dictionary_lookup?query=པདྨ་�
 
 for end_point in end_points:
 
-    r = requests.get(end_point, timeout=15)
+    r = requests.get(end_point, timeout=30)
 
     if r.status_code != 200:
         print("ERROR: the request " + end_point + " failed with status code" + str(r.status_code))
         raise ValueError
-
-    sleep(10)
-

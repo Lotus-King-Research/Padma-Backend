@@ -10,7 +10,7 @@ end_points = ['http://api.padma.io/dictionary_lookup?query=པདྨ་འབྱ
 
 for end_point in end_points:
 
-    r = requests.post(end_point, timeout=15)
+    r = requests.post(end_point, timeout=30)
 
     if r.status_code != 200:
         print("ERROR: the request " + end_point + " failed with status code" + str(r.status_code))
