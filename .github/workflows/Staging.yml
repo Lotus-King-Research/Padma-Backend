@@ -53,6 +53,7 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
+          sleep 30
           curl https://raw.githubusercontent.com/mikkokotila/Padma/master/tests/staging_tests.py > staging_tests.py
           chmod +x staging_tests.py
           python3 staging_tests.py
