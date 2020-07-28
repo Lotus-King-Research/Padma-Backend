@@ -2,11 +2,7 @@ from flask import render_template, request
 
 from app import app
 
-from .utils.initialize import initialize
-
-dictionary, texts = initialize()
-
-print("SUCCESS: assets built")
+from app import dictionary, texts
 
 @app.after_request
 def add_header(r):    
