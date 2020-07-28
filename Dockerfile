@@ -9,12 +9,12 @@ RUN python3 -m spacy download en
 
 ENTRYPOINT [ "gunicorn", \
              "server:app", \
-             "--access-logfile /tmp/gunicorn-access.log", \ 
-             "--error-logfile /tmp/gunicorn-error.log", \
+             "--access-logfile /home/ubuntu/gunicorn-access.log", \ 
+             "--error-logfile /home/ubuntu/gunicorn-error.log", \
              "--worker-tmp-dir /dev/shm", \
              "--worker-class gevent", \
              "--timeout 120", \
              "-b 0.0.0.0:5000", \
-             "-w 2", \
+             "-w 4", \
              "--preload"]
 EXPOSE 5000

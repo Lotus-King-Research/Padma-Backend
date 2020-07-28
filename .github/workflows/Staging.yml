@@ -44,15 +44,19 @@ jobs:
             sudo docker stop $RUNNING_IMAGE
           fi
           
-          sudo docker run --restart unless-stopped -v /tmp/Padma:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
+          sudo docker run --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
+          sleep 120
     - name: Test Deployed Image
       uses: appleboy/ssh-action@master
+      env: 
+        BRANCH : ${{ github.ref }}
       with:
         host: 18.157.93.60
         username: ubuntu
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
+        envs: BRANCH
         script: |
-          curl https://raw.githubusercontent.com/mikkokotila/Padma/master/tests/staging_tests.py > staging_tests.py
+          curl https://raw.githubusercontent.com/mikkokotila/Padma/${{ github.event.pull_request.head.ref }}/tests/staging_tests.py > staging_tests.py
           chmod +x staging_tests.py
           python3 staging_tests.py

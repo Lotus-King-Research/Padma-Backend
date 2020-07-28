@@ -1,15 +1,6 @@
 import os
 from ..utils.stopword import stopword_tibetan
 
-tokens_dict = {}
-
-for filename in os.listdir('/tmp/tokens'):
-
-    f = open('/tmp/tokens/' + filename, 'r')
-    tokens = f.read()
-    tokens = tokens.split()
-    tokens = stopword_tibetan(tokens)
-    tokens_dict[filename] = tokens
 
 def word_statistics(request, texts):
 
@@ -62,16 +53,18 @@ def _prominence(filename, word):
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
 
-    tokens = tokens_dict[filename]
+    from app import tokens
 
-    tokens_len = len(tokens)
+    tokens_temp = tokens[filename]
+
+    tokens_temp_len = len(tokens_temp)
     word_count = 0
-    for token in tokens:
+    for token in tokens_temp:
         if token == word:
             word_count += 1
 
     try:
-        return [filename, round(word_count / tokens_len * 100, 3)]
+        return [filename, round(word_count / tokens_temp_len * 100, 3)]
     except ZeroDivisionError:
         return 0
 
@@ -82,16 +75,16 @@ def _co_occurance(filename, word, span=2):
     
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
-    
-    from ..utils.stopword import stopword_tibetan
+
+    from app import tokens
 
     out = []
 
-    tokens = tokens_dict[filename]
-    
-    for i, token in enumerate(tokens):
+    tokens_temp = tokens[filename]
+
+    for i, token in enumerate(tokens_temp):
         if token == word:
-            out.append(' '.join(tokens[i-span:i+span+1]))
+            out.append(' '.join(tokens_temp[i-span:i+span+1]))
             
     return out
 
@@ -99,15 +92,16 @@ def _co_occurance(filename, word, span=2):
 def _most_common(filename, word, span=5):
     
     from ..utils.stopword import stopword_tibetan
+    from app import tokens
 
     out = []
 
-    tokens = tokens_dict[filename]
+    tokens_temp = tokens[filename]
     
-    for i, token in enumerate(tokens):
+    for i, token in enumerate(tokens_temp):
         if token == word:
-            out.append(tokens[i+span])
-            out.append(tokens[i-span])
+            out.append(tokens_temp[i+span])
+            out.append(tokens_temp[i-span])
 
     return out
 
