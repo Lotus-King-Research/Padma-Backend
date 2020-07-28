@@ -11,6 +11,6 @@ def create_tokens():
         tokens_temp = f.read()
         tokens_temp = tokens_temp.split()
         tokens_temp = stopword_tibetan(tokens_temp)
-        tokens[filename] = tokens
+        tokens[filename] = tokens_temp
 
     return tokens

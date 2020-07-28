@@ -75,14 +75,13 @@ def _co_occurance(filename, word, span=2):
     
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
-    
-    from ..utils.stopword import stopword_tibetan
+
     from app import tokens
 
     out = []
 
     tokens_temp = tokens[filename]
-    
+
     for i, token in enumerate(tokens_temp):
         if token == word:
             out.append(' '.join(tokens_temp[i-span:i+span+1]))
