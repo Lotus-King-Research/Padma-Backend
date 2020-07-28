@@ -6,3 +6,4 @@ pandas
 pyenchant
 signs
 spacy
+psycogreen

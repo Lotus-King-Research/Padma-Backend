@@ -13,7 +13,6 @@ ENTRYPOINT [ "gunicorn", \
              "--error-logfile /home/ubuntu/gunicorn-error.log", \
              "--worker-tmp-dir /dev/shm", \
              "--worker-class gevent", \
-             "--worker-connections 100", \
              "--timeout 120", \
              "-b 0.0.0.0:5000", \
              "-w 4", \
