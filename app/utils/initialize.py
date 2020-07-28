@@ -1,11 +1,17 @@
-def initialize():
-
-    import os
+def initialize_dictionary():
 
     from .create_dictionary import create_dictionary
-    from .create_texts import create_texts
-
     dictionary = create_dictionary()
-    texts = create_texts()
+    return dictionary
 
-    return dictionary, texts
+def initialize_texts():
+
+    from .create_texts import create_texts
+    texts = create_texts()
+    return texts
+
+def initialize_tokens():
+
+    from .create_tokens import create_tokens
+    tokens = create_tokens()
+    return tokens
