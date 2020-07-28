@@ -57,6 +57,6 @@ jobs:
         envs: BRANCH
         script: |
           sleep 30
-          curl https://raw.githubusercontent.com/mikkokotila/Padma/$BRANCH/tests/staging_tests.py > staging_tests.py
+          curl https://raw.githubusercontent.com/mikkokotila/Padma/${{ github.ref }}/tests/staging_tests.py > staging_tests.py
           chmod +x staging_tests.py
           python3 staging_tests.py
