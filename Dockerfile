@@ -9,8 +9,8 @@ RUN python3 -m spacy download en
 
 ENTRYPOINT [ "gunicorn", \
              "server:app", \
-             "--access-logfile /tmp/gunicorn-access.log", \ 
-             "--error-logfile /tmp/gunicorn-error.log", \
+             "--access-logfile /home/ubuntu/gunicorn-access.log", \ 
+             "--error-logfile /home/ubuntu/gunicorn-error.log", \
              "--worker-tmp-dir /dev/shm", \
              "--worker-class gevent", \
              "--timeout 120", \
