@@ -19,7 +19,7 @@ def create_dictionary():
     dict_df.columns = ['word', 'meaning', 'source']
 
     # drop rows where both the word and meaning are duplicates
-    dict_df = dict_df.drop_duplicates(['word','meaning'])
+    dict_df = dict_df.drop_duplicates(['word', 'meaning'])
 
     # remove the newlines from the source field
     dict_df.source = dict_df.source.str.replace('\n','')
