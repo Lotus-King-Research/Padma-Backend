@@ -5,16 +5,32 @@ def render_text(request, texts):
     texts | dict | body of texts loaded in Padma
     '''
 
+    from flask import abort
+
     title = request.args.get('title')
     start = request.args.get('start')
     end = request.args.get('end')
 
-    text = ''.join(texts[title]['text']).split()
+    try:
+        text = ''.join(texts[title]['text']).split()
+    except KeyError:
+        abort(404)
 
-    if start is None:
+    if start == '':
         start = 0
-    if end is None:
-        end = len(text)
+
+    if end == '':
+        end = int(start) + 10000
+
+    try:
+        int(start)
+    except:
+        abort(404)
+
+    try:
+        int(end)
+    except:
+        abort(404)
 
     text = ''.join(text[int(start):int(end)])
 
