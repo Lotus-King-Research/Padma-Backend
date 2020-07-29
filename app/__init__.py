@@ -12,10 +12,16 @@ dictionary = initialize_dictionary()
 texts = initialize_texts()
 tokens = initialize_tokens()
 
+import enchant
+import en_core_web_sm
+
+nlp = en_core_web_sm.load()
+
+enchant_word_check = enchant.Dict("en")
+
 from botok import Text
 
 from app import routes
-
 
 # ༈ བློ་ཆོས་སུ་འགྲོ་བར་བྱིན་གྱིས་རློབས། །ཆོས་ལམ་དུ་འགྲོ་བར་བྱིན་གྱིས་རློབས། །ལམ་འཁྲུལ་བ་ཞིག་པར་བྱིན་གྱིས་རློབས། །འཁྲུལ་པ་ཡེ་ཤེས་སུ་འཆར་བར་བྱིན་གྱིས་རློབས། །
 
