@@ -19,6 +19,7 @@ def find_similar(request, dictionary):
 def similar_words(word, dictionary):
     
     import pandas as pd
+    from flask import abort
 
     from ..utils.stopword import stopword_english
 
@@ -29,6 +30,10 @@ def similar_words(word, dictionary):
         word = word + '་'
 
     temp = pd.Series(dictionary[dictionary.word == word]['meaning'])
+    
+    if len(temp) == 0:
+        abort(404)
+    
     temp = temp.str.cat().split()
     temp = pd.Series(temp)
     temp = temp.str.replace('[+-;:{}\[\],.«»]',' ')
