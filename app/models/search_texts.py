@@ -6,6 +6,7 @@ def search_texts(request, texts):
     '''
 
     from flask import render_template
+    from flask import abort
 
     from ..utils.tokenization import tokenization
 
@@ -14,7 +15,13 @@ def search_texts(request, texts):
     if query is None:
         query = request.form['query']
 
+    if len(query) == 0:
+        abort(404)
+
     results = _search_texts(query, texts)
+
+    if len(results) == 0:
+        abort(404)
 
     data = {'query': query,
             'text': [i[0] for i in results],

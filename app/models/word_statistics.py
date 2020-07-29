@@ -105,6 +105,7 @@ def _word_statistics(word, filenames, mode='prominence'):
     
     '''Returns various text statistics.'''
 
+    from flask import abort
     import signs
     import re
     
@@ -121,6 +122,9 @@ def _word_statistics(word, filenames, mode='prominence'):
         if mode == 'most_common':
             out += _most_common(filename, word, span=1)
             
+    if len(out) == 0:
+        abort(404)
+
     if mode == 'co_occurance':
         describe = signs.Describe(out)
         return describe.get_counts()
