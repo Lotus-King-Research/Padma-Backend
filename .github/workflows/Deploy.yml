@@ -53,7 +53,7 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
-          sleep 30
+          sleep 60
           curl https://raw.githubusercontent.com/mikkokotila/Padma/master/tests/deploy_tests.py > deploy_tests.py
           chmod +x deploy_tests.py
           python3 deploy_tests.py
