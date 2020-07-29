@@ -13,5 +13,8 @@ for end_point in end_points:
     r = requests.get(end_point, timeout=30)
 
     if r.status_code != 200:
-        print("ERROR: the request " + end_point + " failed with status code" + str(r.status_code))
+        print("FAILED : " + end_point + " failed with status code " + str(r.status_code))
         raise ValueError
+    elif r.status_code == 200:
+        sleep(3)
+        print("PASSED : " + end_point + " with status code 200")

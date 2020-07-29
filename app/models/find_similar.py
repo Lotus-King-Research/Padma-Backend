@@ -20,14 +20,10 @@ def similar_words(word, dictionary):
     
     import pandas as pd
 
-    import spacy
-    import enchant
-
-    import en_core_web_sm
-    nlp = en_core_web_sm.load()
-
     from ..utils.stopword import stopword_english
-    enchant_word_check = enchant.Dict("en")
+
+    from app import enchant_word_check
+    from app import nlp
 
     if word.endswith('་') is False: 
         word = word + '་'
@@ -66,6 +62,8 @@ def similar_words(word, dictionary):
     out = pd.DataFrame(l)
 
     out = out.groupby(0).sum().sort_values(2, ascending=False)
+
+    del nlp
 
     return out
 

@@ -1,5 +1,7 @@
 import os
+
 from ..utils.stopword import stopword_tibetan
+from app import tokens
 
 
 def word_statistics(request, texts):
@@ -53,8 +55,6 @@ def _prominence(filename, word):
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
 
-    from app import tokens
-
     tokens_temp = tokens[filename]
 
     tokens_temp_len = len(tokens_temp)
@@ -76,8 +76,6 @@ def _co_occurance(filename, word, span=2):
     titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
     '''
 
-    from app import tokens
-
     out = []
 
     tokens_temp = tokens[filename]
@@ -91,9 +89,6 @@ def _co_occurance(filename, word, span=2):
 
 def _most_common(filename, word, span=5):
     
-    from ..utils.stopword import stopword_tibetan
-    from app import tokens
-
     out = []
 
     tokens_temp = tokens[filename]
