@@ -8,7 +8,7 @@ def search_texts(request, texts):
     from flask import render_template
     from flask import abort
 
-    from ..utils.tokenization import tokenization
+    from app import tokenizer
 
     query = request.args.get('query')
 

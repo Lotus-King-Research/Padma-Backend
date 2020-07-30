@@ -1,6 +1,7 @@
 def dictionary_lookup(request, dictionary):
 
     from ..utils.tokenization import tokenization
+    from app import tokenizer
     from flask import abort
 
     search_query = request.args.get('query')
@@ -12,7 +13,7 @@ def dictionary_lookup(request, dictionary):
     search_query = search_query.replace(' ', '')
     search_query = search_query.replace(' ', '')
 
-    tokens = tokenization(search_query)
+    tokens = tokenization(search_query, tokenizer)
     print(tokens)
 
     text = []
