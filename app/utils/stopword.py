@@ -1,9 +1,24 @@
 # coding=utf-8
 
+def tibetan_special_characters():
+
+    '''Returns a list of Tibetan special characters'''
+
+    tibetan_special_characters = ['༻','ྈ','ྉ','ྊ','ྋ','༂','༃','༄༅','༆','༇','࿓',
+                                  '࿔','༺','༻','༼','༽','༈','༉','༊','།','༎','༏','༐',
+                                  '༑','༒','༓','༔','༴','༶','༸','྅','྾','྿','࿐',
+                                  '࿑','༕','༖','༗','༚','༛','༜','༝','༞','༟','࿎','࿏',
+                                  '࿀','࿁','࿂','࿃','࿄','࿅','࿇','࿈','࿉','࿊','࿋','࿌',
+                                  '࿕','࿖','࿗','࿘']
+
+    return tibetan_special_characters
+
 
 def stopword_tibetan(tokens):
 
-    tibetan_stopwords = ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་', 'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་', '༔_་', '།_་', '།_།་', '།_།']
+    tibetan_stopwords = ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་',
+                         'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་',
+                         '༔_་', '།_་', '།_།་', '།_།']
     
     #import signs
     # tokens = signs.Stopwords(tokens, common_stopwords=False, add_stopwords=tibetan_stopwords)
