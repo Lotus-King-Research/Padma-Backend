@@ -12,6 +12,10 @@ dictionary = initialize_dictionary()
 texts = initialize_texts()
 tokens = initialize_tokens()
 
+from app.utils.tokenization import init_tokenizer
+
+tokenizer = init_tokenizer()
+
 import enchant
 import en_core_web_sm
 
@@ -27,8 +31,8 @@ from app import routes
 
 # below is for debugging only
 
-app.jinja_env.auto_reload = True
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+#app.jinja_env.auto_reload = True
+#app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # try first docker, then gunicorn, and
 # then flask if all else fails. Handle 
@@ -37,3 +41,5 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 #FLASK_APP=app.py FLASK_ENV=development flask run
 #gunicorn server:app --access-logfile /tmp/gunicorn-access.log --error-logfile /tmp/gunicorn-error.log --worker-tmp-dir /dev/shm --worker-class gevent --timeout 120 -b 0.0.0.0:5000 -w 2 --preload
+
+
