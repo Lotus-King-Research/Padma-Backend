@@ -31,8 +31,8 @@ from app import routes
 
 # below is for debugging only
 
-app.jinja_env.auto_reload = True
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+#app.jinja_env.auto_reload = True
+#app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # try first docker, then gunicorn, and
 # then flask if all else fails. Handle 
