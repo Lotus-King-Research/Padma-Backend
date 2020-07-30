@@ -10,8 +10,10 @@ def dictionary_lookup(request, dictionary):
         search_query = dictionary['word'].sample(1).values[0]
 
     search_query = search_query.replace(' ', '')
+    search_query = search_query.replace(' ', '')
 
     tokens = tokenization(search_query)
+    print(tokens)
 
     text = []
     source = []
@@ -38,7 +40,7 @@ def dictionary_lookup(request, dictionary):
     return data
 
 
-def definition_lookup(word, dictionary, definition_max_length=300):
+def definition_lookup(word, dictionary, definition_max_length=600):
 
     import pandas as pd
 
@@ -47,9 +49,9 @@ def definition_lookup(word, dictionary, definition_max_length=300):
 
     dict_temp = dictionary[dictionary.set_index('word').index == word]
     dict_temp = dict_temp[dict_temp.meaning.str.len() < definition_max_length]
-    max_width = dict_temp.meaning.apply(len).max()
-    pd.options.display.max_colwidth = int(max_width)
     
     dict_temp.drop('word', 1, inplace=True)
+
+    print(dict_temp)
 
     return dict_temp
