@@ -16,10 +16,10 @@ def render_text(request, texts):
     except KeyError:
         abort(404)
 
-    if start == '':
+    if start == '' or start is None:
         start = 0
 
-    if end == '':
+    if end == '' or end is None:
         end = int(start) + 10000
 
     try:
