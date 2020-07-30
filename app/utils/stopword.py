@@ -13,6 +13,15 @@ def tibetan_special_characters():
 
     return tibetan_special_characters
 
+def tibetan_common_tokens():
+
+    tibetan_common_tokens = ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་', 'ས་', 'ན་', 'ར་', 'མ་', 'དུ་',
+                             'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་', 'ཏུ་', 'སུ་', 'དེ་', '_།་', 'ཡ་', ''
+                             '༔_་', '།_་', '།_།་', '།_།', '།_་']
+
+    return tibetan_common_tokens
+
+
 
 def stopword_tibetan(tokens):
 

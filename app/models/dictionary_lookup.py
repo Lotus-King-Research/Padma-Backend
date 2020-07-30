@@ -52,6 +52,4 @@ def definition_lookup(word, dictionary, definition_max_length=600):
     
     dict_temp.drop('word', 1, inplace=True)
 
-    print(dict_temp)
-
     return dict_temp

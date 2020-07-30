@@ -8,22 +8,32 @@ def word_statistics(request, texts):
 
     import os
     import pandas as pd
+    from flask import abort
+
+    from ..utils.stopword import tibetan_special_characters
+    from ..utils.stopword import tibetan_common_tokens
+
+    stopwords = tibetan_special_characters() + tibetan_common_tokens()
+
 
     query = request.args.get('query')
 
-    prominence = _word_statistics(query, os.listdir('/tmp/tokens'), 'prominence')
-    
-    co_occurance = _word_statistics(query, os.listdir('/tmp/tokens'), 'co_occurance')
-    
-    most_common = _word_statistics(query, os.listdir('/tmp/tokens'), 'most_common')
+    if len(query) == 0:
+        abort(404)
 
-    prominence = pd.DataFrame(pd.Series(prominence)).head(30).reset_index()
-    co_occurance = pd.DataFrame(pd.Series(co_occurance)).head(30).reset_index()
-    most_common = pd.DataFrame(pd.Series(most_common)).head(30).reset_index()
+    most_common, prominence, co_occurance = _word_statistics(query)
+
+    # organize data into dataframes
+    prominence = pd.DataFrame(pd.Series(prominence)).head(500).reset_index()
+    co_occurance = pd.DataFrame(pd.Series(co_occurance)).head(500).reset_index()
+    most_common = pd.DataFrame(pd.Series(most_common)).head(500).reset_index()
 
     prominence.columns = ['title', 'prominence']
     co_occurance.columns = ['word', 'co_occurancies']
     most_common.columns = ['word', 'occurancies']
+
+    # remove stopwords
+    most_common = most_common[~most_common.word.isin(stopwords)]
 
     prominence['title'] = [i[0] for i in prominence['prominence']]
     prominence['prominence'] = [i[1] for i in prominence['prominence']]
@@ -48,95 +58,54 @@ def word_statistics(request, texts):
     return data
 
 
-def _prominence(filename, word):
-    
-    '''Takes as input titles from:
-    
-    titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
-    '''
+def _word_statistics(word, span=2):
 
-    tokens_temp = tokens[filename]
-
-    tokens_temp_len = len(tokens_temp)
-    word_count = 0
-    for token in tokens_temp:
-        if token == word:
-            word_count += 1
-
-    try:
-        return [filename, round(word_count / tokens_temp_len * 100, 3)]
-    except ZeroDivisionError:
-        return 0
-
-
-def _co_occurance(filename, word, span=2):
-    
-    '''Takes as input titles from:
-    
-    titles = query_docs('རིག་འཛིན་སྲོག་སྒྲུབ་', 'title')
-    '''
-
-    out = []
-
-    tokens_temp = tokens[filename]
-
-    for i, token in enumerate(tokens_temp):
-        if token == word:
-            out.append(' '.join(tokens_temp[i-span:i+span+1]))
-            
-    return out
-
-
-def _most_common(filename, word, span=5):
-    
-    out = []
-
-    tokens_temp = tokens[filename]
-    
-    for i, token in enumerate(tokens_temp):
-        if token == word:
-            out.append(tokens_temp[i+span])
-            out.append(tokens_temp[i-span])
-
-    return out
-
-
-def _word_statistics(word, filenames, mode='prominence'):
-    
-    '''Returns various text statistics.'''
-
-    from flask import abort
+    import os
     import signs
     import re
-    
-    out = []
-    
-    for filename in filenames:
-        
-        if mode == 'prominence':
-            out.append(_prominence(filename, word))
-            
-        if mode == 'co_occurance':
-            out += _co_occurance(filename, word, span=1)
-            
-        if mode == 'most_common':
-            out += _most_common(filename, word, span=1)
-            
-    if len(out) == 0:
-        abort(404)
 
-    if mode == 'co_occurance':
-        describe = signs.Describe(out)
-        return describe.get_counts()
-        
-    elif mode == 'most_common':
-        
-        out = [re.sub(r"་$", '', token) for token in out]
-        out = [re.sub(r"$", '་', token) for token in out]
-        
-        describe = signs.Describe(out)
-        return describe.get_counts()
+    most_common = []
+    prominence = []
+    co_occurance = []
 
-    else: 
-        
-        return out
+    # go through all texts volume-by-volume
+    for filename in os.listdir('/tmp/tokens'):
+
+        # read the tokens for a volume
+        tokens_temp = tokens[filename]
+
+        prominence_temp = 0
+        co_occurance_temp = []
+        most_common_temp = []
+
+        # go through tokens in volume, token-by-token
+        for i, token in enumerate(tokens_temp):
+            
+            if token == word:
+                
+                # handle most_common
+                most_common_temp.append(tokens_temp[i+span])
+                most_common_temp.append(tokens_temp[i-span])
+                
+                # handle prominence
+                prominence_temp += 1
+
+                # handle co_occurance
+                co_occurance_temp.append(' '.join(tokens_temp[i-span:i+span+1]))
+
+        most_common += most_common_temp
+        co_occurance += co_occurance_temp
+
+        try:
+            prominence.append([filename, round(prominence_temp / len(tokens_temp) * 100, 3)])
+        except ZeroDivisionError:
+            prominence.append([filename, 0])
+
+    co_occurance = signs.Describe(co_occurance).get_counts()
+
+    most_common = [re.sub(r"་$", '', token) for token in most_common]
+    most_common = [re.sub(r"$", '་', token) for token in most_common]
+    
+    most_common = signs.Describe(most_common).get_counts()
+    
+    return most_common, prominence, co_occurance
