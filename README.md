@@ -11,4 +11,4 @@
 - [API](https://mikkokotila.github.io/Padma/#/API?id=api) for unrestricted programmatic access
 - [Docker](https://github.com/mikkokotila/Padma/archive/master.zip) for developers
 
-For more information, read the [docs](https://mikkokotila.github.io/Padma/#/)
+For more information, read the [docs](https://lotus-king-research.github.io/Padma-Backend/)

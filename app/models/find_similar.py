@@ -23,7 +23,7 @@ def similar_words(word, dictionary):
 
     from ..utils.stopword import stopword_english
 
-    from app import enchant_word_check
+    #from app import enchant_word_check
     from app import nlp
 
     if word.endswith('་') is False: 
