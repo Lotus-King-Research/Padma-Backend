@@ -16,12 +16,12 @@ from app.utils.tokenization import init_tokenizer
 
 tokenizer = init_tokenizer()
 
-#import enchant
+import enchant
 import en_core_web_sm
 
 nlp = en_core_web_sm.load()
 
-#enchant_word_check = enchant.Dict("en")
+enchant_word_check = enchant.Dict("en")
 
 from botok import Text
 
