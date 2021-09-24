@@ -21,8 +21,6 @@ except ImportError:
     from distutils.core import setup
 
 install_requires = ['flask',
-                    'pyenchant',
-                    'spacy',
                     'pandas',
                     'botok',
                     'gunicorn',

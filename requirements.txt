@@ -3,7 +3,4 @@ flask
 flask-cors
 gunicorn
 pandas
-pyenchant
 signs
-spacy
-psycogreen
