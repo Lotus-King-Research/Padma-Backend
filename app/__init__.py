@@ -16,10 +16,6 @@ from app.utils.tokenization import init_tokenizer
 
 tokenizer = init_tokenizer()
 
-import en_core_web_sm
-
-nlp = en_core_web_sm.load()
-
 from botok import Text
 
 from app import routes
