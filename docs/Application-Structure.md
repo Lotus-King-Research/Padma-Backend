@@ -1,6 +1,6 @@
 # Application Structure
 
-With the package [/app](https://github.com/mikkokotila/Padma/tree/master/app) is structured as follows. 
+The package [/app](https://github.com/Lotus-King-Research/Padma-Backend/tree/master/app) is structured as follows: 
 
 - `pipelines` contains pipelines for each views where the data is produced
 - `static` contains static files, such as images and javascript

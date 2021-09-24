@@ -3,7 +3,6 @@ from time import sleep
 
 end_points = ['http://0.0.0.0:5000/dictionary_lookup?query=པདྨ་འབྱུང་གནས་',
               'http://0.0.0.0:5000/search_texts?query=པདྨ་འབྱུང་གནས་',
-              'http://0.0.0.0:5000/find_similar?query=པདྨ་འབྱུང་གནས་',
               'http://0.0.0.0:5000/word_statistics?query=པདྨ་',
               'http://0.0.0.0:5000/tokenize?query=པདྨ་འབྱུང་གནས་',
               'http://0.0.0.0:5000/render_text?title=Terdzo-ZI-052&start=2&end=4']

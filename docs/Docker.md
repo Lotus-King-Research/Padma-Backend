@@ -1,6 +1,6 @@
 # Docker
 
-[Download](https://github.com/mikkokotila/Padma/archive/master.zip) the package and being in the same directory as the package:
+[Download](https://github.com/Lotus-King-Research/Padma-Backend/archive/master.zip) the package and being in the same directory as the package:
 
 ```
 sudo docker build .

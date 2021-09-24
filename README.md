@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/mikkokotila/Padma/master/docs/_media/Padma_logo.png" width=150px>
+<img src="https://raw.githubusercontent.com/Lotus-King-Research/Padma-Backend/master/docs/_media/Padma_logo.png" width=150px>
 
 ## What is it?
 
@@ -8,7 +8,7 @@
 
 - [Online](http://padma.io) at Padma.io
 - [Desktop](https://github.com/mikkokotila/Padma-frontend@first) for Mac and Windows. 
-- [API](https://mikkokotila.github.io/Padma/#/API?id=api) for unrestricted programmatic access
-- [Docker](https://github.com/mikkokotila/Padma/archive/master.zip) for developers
+- [API](https://lotus-king-research.github.io/Padma-Backend/#/API) for unrestricted programmatic access
+- [Docker](https://lotus-king-research.github.io/Padma-Backend/#/Docker) for developers
 
-For more information, read the [docs](https://mikkokotila.github.io/Padma/#/)
+For more information, read the [docs](https://lotus-king-research.github.io/Padma-Backend/)
