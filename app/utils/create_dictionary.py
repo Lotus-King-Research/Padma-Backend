@@ -9,15 +9,15 @@ def create_dictionary():
     import pandas as pd
     from tibetan_lookup import BuildDictionary
 
-    dictionary_v2 = BuildDictionary(mahavyutpatti=True,
-                                    tony_duff=True,
+    dictionary_v2 = BuildDictionary(mahavyutpatti=False,
+                                    tony_duff=False,
                                     erik_pema_kunsang=True,
-                                    ives_waldo=True,
-                                    jeffrey_hopkins=True,
+                                    ives_waldo=False,
+                                    jeffrey_hopkins=False,
                                     lobsang_monlam=True,
-                                    tibetan_multi=True,
-                                    tibetan_medicine=True,
-                                    verb_lexicon=True)
+                                    tibetan_multi=False,
+                                    tibetan_medicine=False,
+                                    verb_lexicon=False)
 
     # read the dictionary in to dataframe
     dict_df = pd.DataFrame()

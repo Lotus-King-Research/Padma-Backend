@@ -26,12 +26,12 @@ def search_texts():
 
     return search_texts(request, texts)
 
-@app.route('/find_similar', methods=['GET', 'POST'])
-def find_similar():
+@app.route('/render_text', methods=['GET', 'POST'])
+def render_text():
 
-    from .models.find_similar import find_similar
+    from .models.render_text import render_text
 
-    return find_similar(request, dictionary)
+    return render_text(request, texts)
 
 @app.route('/word_statistics', methods=['GET', 'POST'])
 def word_statistics():
@@ -47,16 +47,11 @@ def tokenize():
 
     return tokenize(request)
 
-@app.route('/render_text', methods=['GET', 'POST'])
-def render_text():
+## v2 endpoints to replace /word_statistics
 
-    from .models.render_text import render_text
+@app.route('/co_occurance', methods=['GET', 'POST'])
+def co_occurance():
 
-    return render_text(request, texts)
+    from .models.co_occurance import co_occurance
 
-@app.route('/frequent_words', methods=['GET', 'POST'])
-def frequent_words():
-
-    from .models.frequent_words import frequent_words
-
-    return frequent_words(request, texts)
+    return co_occurance(request, texts)

@@ -6,7 +6,7 @@ There are several endpoints available:
 
 - `dictionary_lookup` [test](http://api.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་)
 - `search_texts` [test](http://api.padma.io/search_texts?query=པདྨ་འབྱུང་གནས་)
-- `word_statistics` [test](http://api.padma.io/word_statistics?query=པདྨ་འབྱུང་གནས་)
+- `statistics` [test](http://api.padma.io/statistics?query=པདྨ་འབྱུང་གནས་)
 - `tokenize` [test](http://api.padma.io/tokenize?query=པདྨ་འབྱུང་གནས་)
 - `render_text` [test](http://api.padma.io/render_text?title=Terdzo-ZI-052.txt&start=2&end=4)
 

@@ -1,27 +1,23 @@
-import os
-
-from ..utils.stopword import stopword_tibetan
-from app import tokens
-
-
 def word_statistics(request, texts):
 
     import os
     import pandas as pd
     from flask import abort
 
+    from app import tokens
+
+    from ..utils.stopword import stopword_tibetan
     from ..utils.stopword import tibetan_special_characters
     from ..utils.stopword import tibetan_common_tokens
 
     stopwords = tibetan_special_characters() + tibetan_common_tokens()
-
 
     query = request.args.get('query')
 
     if len(query) == 0:
         abort(404)
 
-    most_common, prominence, co_occurance = _word_statistics(query)
+    most_common, prominence, co_occurance = _word_statistics(query, tokens)
 
     # organize data into dataframes
     prominence = pd.DataFrame(pd.Series(prominence)).head(500).reset_index()
@@ -58,7 +54,7 @@ def word_statistics(request, texts):
     return data
 
 
-def _word_statistics(word, span=2):
+def _word_statistics(word, tokens, span=2):
 
     import os
     import signs
@@ -84,8 +80,8 @@ def _word_statistics(word, span=2):
             if token == word:
                 
                 # handle most_common
-                most_common_temp.append(tokens_temp[i+span])
-                most_common_temp.append(tokens_temp[i-span])
+                most_common_temp.append(tokens_temp[i+1])
+                most_common_temp.append(tokens_temp[i-1])
                 
                 # handle prominence
                 prominence_temp += 1

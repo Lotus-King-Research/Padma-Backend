@@ -16,4 +16,6 @@ def create_texts():
         texts[key] = {'text_title': meta[key]['title'],
                       'text': text}
 
+        f.close()
+
     return texts

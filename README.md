@@ -7,7 +7,7 @@
 ## How to use it? 
 
 - [Online](http://padma.io) at Padma.io
-- [Desktop](https://github.com/mikkokotila/Padma-frontend@first) for Mac and Windows. 
+- [Desktop](https://github.com/lotus-king-research.github.io/Padma-Frontend@first) for Mac and Windows. 
 - [API](https://lotus-king-research.github.io/Padma-Backend/#/API) for unrestricted programmatic access
 - [Docker](https://lotus-king-research.github.io/Padma-Backend/#/Docker) for developers
 
