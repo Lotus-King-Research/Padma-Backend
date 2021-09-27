@@ -9,12 +9,13 @@ def create_dictionary():
     import pandas as pd
     from tibetan_lookup import BuildDictionary
 
-    dictionary_v2 = BuildDictionary(mahavyutpatti=False,
+    dictionary_v2 = BuildDictionary(debug_true=True,
+                                    mahavyutpatti=False,
                                     tony_duff=False,
-                                    erik_pema_kunsang=True,
+                                    erik_pema_kunsang=False,
                                     ives_waldo=False,
                                     jeffrey_hopkins=False,
-                                    lobsang_monlam=True,
+                                    lobsang_monlam=False,
                                     tibetan_multi=False,
                                     tibetan_medicine=False,
                                     verb_lexicon=False)

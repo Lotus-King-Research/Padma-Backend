@@ -1,4 +1,4 @@
-def search_texts(request, texts):
+def search_texts(request):
 
     '''
     request | object | request object from flask
@@ -18,7 +18,7 @@ def search_texts(request, texts):
     if len(query) == 0:
         abort(404)
 
-    results = _search_texts(query, texts)
+    results = _search_texts(query)
 
     if len(results) == 0:
         abort(404)
@@ -32,24 +32,26 @@ def search_texts(request, texts):
     return data
 
 
-def _search_texts(query, texts):
+def _search_texts(query):
     
     '''Returns a reference based on word based on mode.
-    word | str | any tibetan string
-    mode | str | 'filename', 'sentence', or 'title'
+    query | str | any tibetan string
     '''
 
     out = []
 
-    filenames = texts.keys()
-
-    for filename in filenames:
+    from app import meta
+    from app import texts
+    
+    for filename in meta.keys():
         try:
-            sents = texts[filename]['text'][0].split()
+            # split into fragments
+            fragments = texts(filename)['text'].split('_')
             counter = 0
-            for sent in sents:
-                if query in sent:
-                    out.append([sent, filename, counter, texts[filename]['text_title']])
+            for fragment in fragments:
+                # add fragment to results when query is present
+                if query in fragment:
+                    out.append([fragment, filename, counter, texts(filename)['text_title']])
                 counter += 1
         except IndexError:
             continue

@@ -1,4 +1,4 @@
-def word_statistics(request, texts):
+def word_statistics(request):
 
     import os
     import pandas as pd
@@ -39,7 +39,7 @@ def word_statistics(request, texts):
 
     titles = []
     for title in prominence['title']:
-        titles.append(texts[title]['text_title'])
+        titles.append(tokens[title]['text_title'])
     
     data = {
         'prominence_key': prominence['title'].tolist(),
@@ -60,15 +60,17 @@ def _word_statistics(word, tokens, span=2):
     import signs
     import re
 
+    from app import meta
+
     most_common = []
     prominence = []
     co_occurance = []
 
     # go through all texts volume-by-volume
-    for filename in os.listdir('/tmp/tokens'):
+    for filename in meta.keys():
 
         # read the tokens for a volume
-        tokens_temp = tokens[filename]
+        tokens_temp = tokens[filename]['tokens'].split(' ')
 
         prominence_temp = 0
         co_occurance_temp = []
@@ -96,6 +98,8 @@ def _word_statistics(word, tokens, span=2):
             prominence.append([filename, round(prominence_temp / len(tokens_temp) * 100, 3)])
         except ZeroDivisionError:
             prominence.append([filename, 0])
+
+    print(co_occurance)
 
     co_occurance = signs.Describe(co_occurance).get_counts()
 

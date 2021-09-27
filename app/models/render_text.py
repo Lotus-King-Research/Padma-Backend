@@ -1,4 +1,4 @@
-def render_text(request, texts):
+def render_text(request):
 
     '''
     request | object | request object from flask
@@ -6,13 +6,14 @@ def render_text(request, texts):
     '''
 
     from flask import abort
+    from app import texts
 
     title = request.args.get('title')
     start = request.args.get('start')
     end = request.args.get('end')
 
     try:
-        text = ''.join(texts[title]['text']).split()
+        text = texts(title)['text']
     except KeyError:
         abort(404)
 
@@ -32,11 +33,13 @@ def render_text(request, texts):
     except:
         abort(404)
 
-    text = ''.join(text[int(start):int(end)])
+    text = text.split('_')
+    text = text[int(start):int(end)]
+    text = ''.join(text)
 
     data = {'text': text,
             'title': title,
-            'text_title': texts[title]['text_title'],
+            'text_title': texts(title)['text_title'],
             'start': start, 
             'end': end}
 

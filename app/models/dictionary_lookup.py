@@ -1,8 +1,11 @@
-def dictionary_lookup(request, dictionary):
+def dictionary_lookup(request):
 
     from ..utils.tokenization import tokenization
-    from app import tokenizer
+    
     from flask import abort
+
+    from app import tokenizer
+    from app import dictionary
 
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
@@ -21,7 +24,7 @@ def dictionary_lookup(request, dictionary):
                         'verb_lexicon']
 
     if len(search_query) == 0:
-        search_query = dictionary['word'].sample(1).values[0]
+        search_query = dictionary['Tibetan'].sample(1).values[0]
 
     search_query = search_query.replace(' ', '')
     search_query = search_query.replace(' ', '')

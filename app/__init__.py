@@ -4,13 +4,18 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+from app.utils.initialize import initialize_meta
 from app.utils.initialize import initialize_dictionary
-from app.utils.initialize import initialize_texts
 from app.utils.initialize import initialize_tokens
+from app.utils.initialize import initialize_texts
 
+meta = initialize_meta()
 dictionary = initialize_dictionary()
-texts = initialize_texts()
 tokens = initialize_tokens()
+texts = initialize_texts()
+
+#def texts(title):
+#    return ''.join(tokens[title])
 
 from app.utils.tokenization import init_tokenizer
 
