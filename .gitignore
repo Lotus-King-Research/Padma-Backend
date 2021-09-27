@@ -6,3 +6,4 @@ POS_trie.pickled
 app/__init__.pyc
 .vscode/
 dev.ipynb
+.ipynb_checkpoints
