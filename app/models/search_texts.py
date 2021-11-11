@@ -18,7 +18,7 @@ def search_texts(request):
     if len(query) == 0:
         abort(404)
 
-    results = _search_texts(query)
+    results = _search_texts_v2(query)
 
     if len(results) == 0:
         abort(404)
@@ -55,5 +55,47 @@ def _search_texts(query):
                 counter += 1
         except IndexError:
             continue
+
+    return out
+
+def _search_texts_v2(query):
+    
+    '''Returns a reference based on word based on mode.
+    query | str | any tibetan string
+    '''
+
+    import tqdm
+    import time
+
+    from app import locations
+    from app import index
+    from app import texts
+
+    out = []
+
+    st = time.time()
+
+    try:
+
+        for filename_id in index[query].keys():
+
+            # get the name of the file and remove .txt from it
+            filename = locations[filename_id].split('.')[0]    
+            text_temp = texts(filename)
+            fragments = text_temp['text'].split('_')
+
+            for fragment_id in index[query][filename_id]:
+
+                # get the actual text fragment
+                fragment = fragments[fragment_id]
+
+                out.append([fragment, filename, fragment_id, text_temp['text_title']])
+
+    except KeyError:
+        return out
+
+    et = time.time() - st
+
+    print(str(et))
 
     return out

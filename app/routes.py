@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import request
 
 from app import app
 
@@ -52,4 +52,4 @@ def co_occurance():
 
     from .models.co_occurance import co_occurance
 
-    return co_occurance(request, texts)
+    return co_occurance(request)

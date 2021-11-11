@@ -27,3 +27,17 @@ def initialize_tokens():
     from .create_tokens import create_tokens
     tokens = create_tokens()
     return tokens
+
+
+def initialize_index():
+
+    from sqlitedict import SqliteDict
+    index = SqliteDict('/Users/upstairs/dev/Padma-Backend/index.sqlite')
+    return index
+
+
+def initialize_locations():
+
+    from .create_locations import create_locations
+    locations = create_locations('/Users/upstairs/dev/Padma-Backend/Padma-Index-id_to_file.pkl')
+    return locations

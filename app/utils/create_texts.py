@@ -8,10 +8,12 @@ def create_texts():
 
         from app import tokens
 
-        text = ''.join(tokens[filename]['tokens'])
+        tokens_temp = tokens[filename]
+
+        text = ''.join(tokens_temp['tokens'])
         text = text.replace(' ', '')
         
-        out = {'text_title': tokens[filename]['text_title'],
+        out = {'text_title': tokens_temp['text_title'],
                'text': text}
 
         return out
