@@ -64,7 +64,6 @@ def _search_texts_v2(query):
     query | str | any tibetan string
     '''
 
-    import tqdm
     import time
 
     from app import locations

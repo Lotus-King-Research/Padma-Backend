@@ -1,5 +1,7 @@
 def tokenize(request):
 
+    '''Takes in text and tokenizes it'''
+
     from flask import render_template
     from flask import abort
 
