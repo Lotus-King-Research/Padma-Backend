@@ -31,12 +31,46 @@ def search_texts(request):
 
     return data
 
-
-def _search_texts(query):
+def _search_texts_v2(query):
     
     '''Returns a reference based on word based on mode.
     query | str | any tibetan string
     '''
+
+    import time
+
+    from app import locations
+    from app import index
+    from app import texts
+
+    out = []
+
+    try:
+
+        index_temp = index[query]
+
+        for filename_id in index_temp.keys():
+
+            # get the name of the file and remove .txt from it
+            filename = locations[filename_id].split('.')[0]    
+            text_temp = texts(filename)
+            fragments = text_temp['text'].split('_')
+
+            for fragment_id in index_temp[filename_id]:
+
+                # get the actual text fragment
+                fragment = fragments[fragment_id]
+
+                out.append([fragment, filename, fragment_id, text_temp['text_title']])
+
+    except KeyError:
+        return out
+
+    return out
+
+
+'''
+def _search_texts(query):
 
     out = []
 
@@ -57,44 +91,4 @@ def _search_texts(query):
             continue
 
     return out
-
-def _search_texts_v2(query):
-    
-    '''Returns a reference based on word based on mode.
-    query | str | any tibetan string
-    '''
-
-    import time
-
-    from app import locations
-    from app import index
-    from app import texts
-
-    out = []
-
-    st = time.time()
-
-    try:
-
-        for filename_id in index[query].keys():
-
-            # get the name of the file and remove .txt from it
-            filename = locations[filename_id].split('.')[0]    
-            text_temp = texts(filename)
-            fragments = text_temp['text'].split('_')
-
-            for fragment_id in index[query][filename_id]:
-
-                # get the actual text fragment
-                fragment = fragments[fragment_id]
-
-                out.append([fragment, filename, fragment_id, text_temp['text_title']])
-
-    except KeyError:
-        return out
-
-    et = time.time() - st
-
-    print(str(et))
-
-    return out
+'''
