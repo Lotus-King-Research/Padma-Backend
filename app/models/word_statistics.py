@@ -6,7 +6,6 @@ def word_statistics(request):
 
     from app import tokens
 
-    from ..utils.stopword import stopword_tibetan
     from ..utils.stopword import tibetan_special_characters
     from ..utils.stopword import tibetan_common_tokens
 
