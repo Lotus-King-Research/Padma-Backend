@@ -44,12 +44,3 @@ def tokenize():
     from .models.tokenize import tokenize
 
     return tokenize(request)
-
-## v2 endpoints to replace /word_statistics start here
-
-@app.route('/co_occurance', methods=['GET', 'POST'])
-def co_occurance():
-
-    from .models.co_occurance import co_occurance
-
-    return co_occurance(request)
