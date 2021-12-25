@@ -6,6 +6,9 @@ RUN apt-get install -y enchant
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN python3 -m spacy download en
+RUN apt-get install git
+RUN git lfs install
+RUN git lfs pull --include="index.sqlite"
 
 ENTRYPOINT [ "gunicorn", \
              "server:app", \
