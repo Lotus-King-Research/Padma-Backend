@@ -12,7 +12,7 @@ MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://padma.io'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/lkt'
-VERSION = '1.2'
+VERSION = '1.3'
 
 try:
     from setuptools import setup
