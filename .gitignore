@@ -8,3 +8,4 @@ app/__init__.pyc
 dev.ipynb
 .ipynb_checkpoints
 .DS_Store
+*.ipynb
