@@ -1,4 +1,4 @@
-def word_statistics(request):
+def word_statistics(request, request_is_string=False):
 
     import os
     import pandas as pd
@@ -11,7 +11,11 @@ def word_statistics(request):
 
     stopwords = tibetan_special_characters() + tibetan_common_tokens()
 
-    query = request.args.get('query')
+    if request_is_string:
+        query = request
+
+    else:
+        query = request.args.get('query')
 
     if len(query) == 0:
         abort(404)
@@ -60,10 +64,14 @@ def _word_statistics(word, tokens, span=2):
     import re
 
     from app import meta
+    from app import text_search
 
     most_common = []
     prominence = []
     co_occurance = []
+
+    results = text_search(word)
+    filenames = list(set([result[1] for result in results]))
 
     # go through all texts volume-by-volume
     for filename in meta.keys():
@@ -97,8 +105,6 @@ def _word_statistics(word, tokens, span=2):
             prominence.append([filename, round(prominence_temp / len(tokens_temp) * 100, 3)])
         except ZeroDivisionError:
             prominence.append([filename, 0])
-
-    print(co_occurance)
 
     co_occurance = signs.Describe(co_occurance).get_counts()
 
