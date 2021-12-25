@@ -25,7 +25,8 @@ install_requires = ['flask',
                     'botok',
                     'gunicorn',
                     'flask-cors',
-                    'signs']
+                    'signs',
+                    'wget']
 
 
 if __name__ == "__main__":
