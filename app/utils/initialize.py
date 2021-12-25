@@ -39,5 +39,5 @@ def initialize_index():
 def initialize_locations():
 
     from .create_locations import create_locations
-    locations = create_locations('/Users/upstairs/dev/Padma-Backend/Padma-Index-id_to_file.pkl')
+    locations = create_locations('app/data/id_to_file.pkl')
     return locations
