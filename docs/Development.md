@@ -10,4 +10,4 @@ gh repo clone Lotus-King-Research/Padma-Backend
 pip install .
 
 # run (for development)
-FLASK_APP=app.py FLASK_ENV=development flask run
+uvicorn app:app --host 0.0.0.0 --port 5000 --reload
