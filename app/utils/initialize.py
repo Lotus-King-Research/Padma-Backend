@@ -32,7 +32,7 @@ def initialize_tokens():
 def initialize_index():
 
     from sqlitedict import SqliteDict
-    index = SqliteDict('/Users/upstairs/dev/Padma-Backend/index.sqlite')
+    index = SqliteDict('index.sqlite')
     return index
 
 

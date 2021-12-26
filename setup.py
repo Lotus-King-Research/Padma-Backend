@@ -1,18 +1,18 @@
 #! /usr/bin/env python
 #
-# Copyright (C) 2020 Mikko Kotila
+# Copyright (C) 2021 Mikko Kotila
 
 DESCRIPTION = "Padma is a next-generation Tibetan translation and learning tool."
 LONG_DESCRIPTION = """\
 """
 
-DISTNAME = 'Padma'
+DISTNAME = 'Padma-Backend'
 MAINTAINER = 'Mikko Kotila'
 MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://padma.io'
 LICENSE = 'MIT'
-DOWNLOAD_URL = 'https://github.com/lkt'
-VERSION = '1.3'
+DOWNLOAD_URL = 'https://github.com/Lotus-King-Trust/Padma-Backend'
+VERSION = '1.4'
 
 try:
     from setuptools import setup
@@ -20,13 +20,12 @@ try:
 except ImportError:
     from distutils.core import setup
 
-install_requires = ['flask',
-                    'pandas',
+install_requires = ['pandas',
                     'botok',
-                    'gunicorn',
-                    'flask-cors',
-                    'signs',
-                    'wget']
+                    'wget',
+                    'sqlitedict',
+                    'fastapi',
+                    'uvicorn']
 
 
 if __name__ == "__main__":

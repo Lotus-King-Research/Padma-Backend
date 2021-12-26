@@ -1,7 +1,6 @@
 botok
-flask
-flask-cors
-gunicorn
 pandas
-signs
 wget
+sqlitedict
+fastapi
+uvicorn

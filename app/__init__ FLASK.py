@@ -1,7 +1,8 @@
-import uvicorn
-from fastapi import FastAPI
+from flask import Flask
+from flask_cors import CORS
 
-app = FastAPI()
+app = Flask(__name__)
+CORS(app)
 
 from app.utils.initialize import initialize_meta
 from app.utils.initialize import initialize_dictionary

@@ -15,10 +15,19 @@ def search_texts(request, request_is_string=False):
         query = request
 
     else:
+        query = request.query_params['query']
+
+        if query is None:
+            query = request.query_params['query']
+
+    '''
+    else:
         query = request.args.get('query')
 
         if query is None:
             query = request.form['query']
+
+    '''
 
     if len(query) == 0:
         abort(404)

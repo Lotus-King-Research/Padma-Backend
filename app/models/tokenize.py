@@ -8,7 +8,9 @@ def tokenize(request):
     from app import tokenizer
     from ..utils.tokenization import tokenization
 
-    text = request.args.get('query')
+    '''text = request.args.get('query')'''
+
+    text = request.query_params['query']
 
     tokens = tokenization(text, tokenizer)
 

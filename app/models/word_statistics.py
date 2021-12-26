@@ -15,7 +15,17 @@ def word_statistics(request, request_is_string=False):
         query = request
 
     else:
+        query = request.query_params['query']
+
+    '''
+
+    if request_is_string:
+        query = request
+
+    else:
         query = request.args.get('query')
+
+    '''
 
     if len(query) == 0:
         abort(404)
@@ -60,8 +70,9 @@ def word_statistics(request, request_is_string=False):
 def _word_statistics(word, tokens, span=2):
 
     import os
-    import signs
     import re
+
+    from collections import Counter
 
     from app import meta
     from app import text_search
@@ -106,11 +117,11 @@ def _word_statistics(word, tokens, span=2):
         except ZeroDivisionError:
             prominence.append([filename, 0])
 
-    co_occurance = signs.Describe(co_occurance).get_counts()
+    co_occurance = dict(Counter(co_occurance))
 
     most_common = [re.sub(r"་$", '', token) for token in most_common]
     most_common = [re.sub(r"$", '་', token) for token in most_common]
     
-    most_common = signs.Describe(most_common).get_counts()
+    most_common = dict(Counter(most_common))
     
     return most_common, prominence, co_occurance

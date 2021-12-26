@@ -8,9 +8,15 @@ def render_text(request):
     from flask import abort
     from app import texts
 
+    '''
     title = request.args.get('title')
     start = request.args.get('start')
     end = request.args.get('end')
+    '''
+
+    title = request.query_params['title']
+    start = request.query_params['start']
+    end = request.query_params['end']
 
     try:
         text = texts(title)['text']

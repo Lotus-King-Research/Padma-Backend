@@ -1,0 +1,87 @@
+2021/12/26 12:17:52 [info] 27#27 discovery started
+2021/12/26 12:17:52 [notice] 27#27 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 12:17:52 [info] 25#25 controller started
+2021/12/26 12:17:52 [notice] 25#25 process 27 exited with code 0
+2021/12/26 12:17:52 [info] 34#34 router started
+2021/12/26 12:17:52 [info] 34#34 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 12:17:52 [info] 45#45 "app" prototype started
+2021/12/26 12:17:52 [info] 47#47 "app" application started
+2021/12/26 12:17:52 [alert] 47#47 Python failed to import module "wsgi"
+Traceback (most recent call last):
+  File "/www/wsgi.py", line 1, in <module>
+    from app import app
+ModuleNotFoundError: No module named 'app'
+2021/12/26 12:17:52 [notice] 45#45 app process (isolated 47) exited with code 1
+2021/12/26 12:17:52 [warn] 34#34 failed to start application "app"
+2021/12/26 12:17:52 [alert] 34#34 failed to apply new conf
+2021/12/26 12:17:52 [notice] 25#25 process 45 exited with code 0
+2021/12/26 12:20:40 [info] 17#17 discovery started
+2021/12/26 12:20:40 [notice] 17#17 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 12:20:40 [info] 1#1 controller started
+2021/12/26 12:20:40 [notice] 1#1 process 17 exited with code 0
+2021/12/26 12:20:40 [info] 21#21 router started
+2021/12/26 12:20:40 [info] 21#21 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 12:34:02 [notice] 1#1 process 19 exited with code 0
+2021/12/26 12:34:02 [notice] 1#1 process 21 exited with code 0
+2021/12/26 12:36:33 [info] 18#18 discovery started
+2021/12/26 12:36:33 [notice] 18#18 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 12:36:33 [info] 1#1 controller started
+2021/12/26 12:36:33 [notice] 1#1 process 18 exited with code 0
+2021/12/26 12:36:33 [info] 22#22 router started
+2021/12/26 12:36:33 [info] 22#22 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 12:41:17 [notice] 1#1 process 20 exited with code 0
+2021/12/26 12:41:17 [notice] 1#1 process 22 exited with code 0
+2021/12/26 12:43:25 [info] 16#16 discovery started
+2021/12/26 12:43:25 [notice] 16#16 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 12:43:25 [info] 1#1 controller started
+2021/12/26 12:43:25 [notice] 1#1 process 16 exited with code 0
+2021/12/26 12:43:25 [info] 20#20 router started
+2021/12/26 12:43:25 [info] 20#20 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 12:54:20 [notice] 1#1 process 18 exited with code 0
+2021/12/26 12:54:20 [notice] 1#1 process 20 exited with code 0
+2021/12/26 12:56:47 [info] 18#18 discovery started
+2021/12/26 12:56:47 [notice] 18#18 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 12:56:47 [info] 1#1 controller started
+2021/12/26 12:56:47 [notice] 1#1 process 18 exited with code 0
+2021/12/26 12:56:47 [info] 22#22 router started
+2021/12/26 12:56:47 [info] 22#22 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 13:00:42 [info] 17#17 discovery started
+2021/12/26 13:00:42 [notice] 17#17 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 13:00:42 [info] 1#1 controller started
+2021/12/26 13:00:42 [notice] 1#1 process 17 exited with code 0
+2021/12/26 13:00:42 [info] 21#21 router started
+2021/12/26 13:00:42 [info] 21#21 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 13:02:22 [notice] 1#1 process 19 exited with code 0
+2021/12/26 13:02:22 [notice] 1#1 process 21 exited with code 0
+2021/12/26 13:05:01 [info] 17#17 discovery started
+2021/12/26 13:05:01 [notice] 17#17 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 13:05:01 [info] 1#1 controller started
+2021/12/26 13:05:01 [notice] 1#1 process 17 exited with code 0
+2021/12/26 13:05:01 [info] 21#21 router started
+2021/12/26 13:05:01 [info] 21#21 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 13:19:22 [notice] 1#1 process 19 exited with code 0
+2021/12/26 13:19:22 [notice] 1#1 process 21 exited with code 0
+2021/12/26 13:21:25 [info] 17#17 discovery started
+2021/12/26 13:21:25 [notice] 17#17 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 13:21:25 [info] 1#1 controller started
+2021/12/26 13:21:25 [notice] 1#1 process 17 exited with code 0
+2021/12/26 13:21:25 [info] 21#21 router started
+2021/12/26 13:21:25 [info] 21#21 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 13:22:50 [notice] 1#1 process 19 exited with code 0
+2021/12/26 13:22:50 [notice] 1#1 process 21 exited with code 0
+2021/12/26 13:33:39 [info] 17#17 discovery started
+2021/12/26 13:33:39 [notice] 17#17 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 13:33:39 [info] 1#1 controller started
+2021/12/26 13:33:39 [notice] 1#1 process 17 exited with code 0
+2021/12/26 13:33:39 [info] 21#21 router started
+2021/12/26 13:33:39 [info] 21#21 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 13:34:31 [notice] 1#1 process 19 exited with code 0
+2021/12/26 13:34:31 [notice] 1#1 process 21 exited with code 0
+2021/12/26 13:34:47 [info] 17#17 discovery started
+2021/12/26 13:34:47 [notice] 17#17 module: python 3.9.9 "/usr/lib/unit/modules/python3.unit.so"
+2021/12/26 13:34:47 [info] 1#1 controller started
+2021/12/26 13:34:47 [notice] 1#1 process 17 exited with code 0
+2021/12/26 13:34:47 [info] 21#21 router started
+2021/12/26 13:34:47 [info] 21#21 OpenSSL 1.1.1k  25 Mar 2021, 101010bf
+2021/12/26 14:55:17 [notice] 1#1 process 19 exited with code 0
+2021/12/26 14:55:17 [notice] 1#1 process 21 exited with code 0

@@ -7,9 +7,21 @@ def dictionary_lookup(request):
     from app import tokenizer
     from app import dictionary
 
+    '''
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
     dictionaries = request.args.get('dictionaries')
+    '''
+
+    search_query = request.query_params['query']
+    try:
+        no_of_result = request.query_params['no_of_result']
+    except KeyError:
+        no_of_result = None
+    try:
+        dictionaries = request.query_params['dictionaries']
+    except KeyError:
+        dictionaries = None
 
     if dictionaries != None:
         dictionaries = dictionaries.split(',')
