@@ -32,7 +32,7 @@ def initialize_tokens():
 def initialize_index():
 
     from sqlitedict import SqliteDict
-    index = SqliteDict('index.sqlite')
+    index = SqliteDict('app/data/index.sqlite')
     return index
 
 

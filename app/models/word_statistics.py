@@ -2,8 +2,8 @@ def word_statistics(request, request_is_string=False):
 
     import os
     import pandas as pd
-    from flask import abort
 
+    from fastapi import HTTPException
     from app import tokens
 
     from ..utils.stopword import tibetan_special_characters
@@ -28,7 +28,7 @@ def word_statistics(request, request_is_string=False):
     '''
 
     if len(query) == 0:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     most_common, prominence, co_occurance = _word_statistics(query, tokens)
 

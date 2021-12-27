@@ -2,9 +2,7 @@ def tokenize(request):
 
     '''Takes in text and tokenizes it'''
 
-    from flask import render_template
-    from flask import abort
-
+    from fastapi import HTTPException
     from app import tokenizer
     from ..utils.tokenization import tokenization
 
@@ -15,7 +13,7 @@ def tokenize(request):
     tokens = tokenization(text, tokenizer)
 
     if len(tokens) == 0:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     data = {'tokens': tokens}
 

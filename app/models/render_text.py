@@ -5,7 +5,7 @@ def render_text(request):
     texts | dict | body of texts loaded in Padma
     '''
 
-    from flask import abort
+    from fastapi import HTTPException
     from app import texts
 
     '''
@@ -21,7 +21,7 @@ def render_text(request):
     try:
         text = texts(title)['text']
     except KeyError:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     if start == '' or start is None:
         start = 0
@@ -32,12 +32,12 @@ def render_text(request):
     try:
         int(start)
     except:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     try:
         int(end)
     except:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     text = text.split('_')
     text = text[int(start):int(end)]

@@ -5,9 +5,7 @@ def search_texts(request, request_is_string=False):
     request_is_string | bool | if True, `request` must be string
     '''
 
-    from flask import render_template
-    from flask import abort
-
+    from fastapi import HTTPException
     from app import tokenizer
     from app import text_search
 
@@ -30,12 +28,12 @@ def search_texts(request, request_is_string=False):
     '''
 
     if len(query) == 0:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     results = text_search(query)
 
     if len(results) == 0:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     data = {'query': query,
             'text': [i[0] for i in results],

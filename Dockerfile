@@ -3,6 +3,7 @@ WORKDIR /project
 RUN apt-get install wget -y
 RUN wget https://github.com/Lotus-King-Research/Padma-Backend/raw/api-v2/index.sqlite
 ADD . /project
+RUN mv index.sqlite app/data/
 RUN apt-get update -y
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt

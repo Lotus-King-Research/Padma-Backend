@@ -2,8 +2,7 @@ def dictionary_lookup(request):
 
     from ..utils.tokenization import tokenization
     
-    from flask import abort
-
+    from fastapi import HTTPException
     from app import tokenizer
     from app import dictionary
 
@@ -51,7 +50,7 @@ def dictionary_lookup(request):
             result = definition_lookup(token,
                                        dictionary[dictionary['Source'].isin(dictionaries)])
         except ValueError:
-            return abort(404)
+            raise HTTPException(status_code=404)
         result.columns = [token, 'source']
 
         if no_of_result is not None:
