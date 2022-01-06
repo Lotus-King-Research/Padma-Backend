@@ -14,29 +14,23 @@ def render_text(request):
     end = request.args.get('end')
     '''
 
+    
+
     title = request.query_params['title']
-    start = request.query_params['start']
-    end = request.query_params['end']
+    
+    try:
+        start = request.query_params['start']
+    except KeyError:
+        start = 0
+
+    try: 
+        end = request.query_params['end']
+    except KeyError:
+        end = start + 100
 
     try:
         text = texts(title)['text']
     except KeyError:
-        raise HTTPException(status_code=404)
-
-    if start == '' or start is None:
-        start = 0
-
-    if end == '' or end is None:
-        end = int(start) + 10000
-
-    try:
-        int(start)
-    except:
-        raise HTTPException(status_code=404)
-
-    try:
-        int(end)
-    except:
         raise HTTPException(status_code=404)
 
     text = text.split('_')

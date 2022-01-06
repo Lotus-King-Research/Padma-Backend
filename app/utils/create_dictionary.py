@@ -8,18 +8,20 @@ def create_dictionary():
     
     import pandas as pd
     from tibetan_lookup import BuildDictionary
-    import warnings
 
-    dictionary_v2 = BuildDictionary(debug_true=False,
-                                    mahavyutpatti=True,
-                                    tony_duff=False,
-                                    erik_pema_kunsang=True,
-                                    ives_waldo=True,
-                                    jeffrey_hopkins=True,
-                                    lobsang_monlam=True,
-                                    tibetan_multi=True,
-                                    tibetan_medicine=True,
-                                    verb_lexicon=True)
+    debug = True
+    production = False
+
+    dictionary_v2 = BuildDictionary(debug_true=debug,
+                                    mahavyutpatti=production,
+                                    tony_duff=production,
+                                    erik_pema_kunsang=production,
+                                    ives_waldo=production,
+                                    jeffrey_hopkins=production,
+                                    lobsang_monlam=production,
+                                    tibetan_multi=production,
+                                    tibetan_medicine=production,
+                                    verb_lexicon=production)
 
     # read the dictionary in to dataframe
     dict_df = pd.DataFrame()
@@ -27,8 +29,6 @@ def create_dictionary():
     print("Downloading dictionaries:")
 
     for key in dictionary_v2.dictionaries.keys():
-        
-        warnings.simplefilter('ignore')
 
         temp = pd.DataFrame(dictionary_v2.dictionaries[key])
         temp['Source'] = key
