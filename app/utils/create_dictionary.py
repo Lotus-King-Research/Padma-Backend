@@ -9,8 +9,8 @@ def create_dictionary():
     import pandas as pd
     from tibetan_lookup import BuildDictionary
 
-    debug = True
-    production = False
+    debug = False
+    production = debug == False
 
     dictionary_v2 = BuildDictionary(debug_true=debug,
                                     mahavyutpatti=production,
