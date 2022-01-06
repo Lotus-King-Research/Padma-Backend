@@ -34,7 +34,7 @@ jobs:
         command_timeout: 5m
         script: |
           sudo docker system prune -f
-          RUNNING_IMAGE=$(sudo docker ps | grep server | cut -d ' ' -f1)
+          RUNNING_IMAGE=$(sudo docker ps | grep uvicorn | cut -d ' ' -f1)
           sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
           sudo docker pull docker.pkg.github.com/lotus-king-research/padma-backend/core_api:staging
           NEW_IMAGE_ID=$(sudo docker images | grep core_api | grep staging | head -1 | tr -s ' ' | cut -d ' ' -f3)
