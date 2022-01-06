@@ -8,6 +8,7 @@ def create_dictionary():
     
     import pandas as pd
     from tibetan_lookup import BuildDictionary
+    import warnings
 
     dictionary_v2 = BuildDictionary(debug_true=False,
                                     mahavyutpatti=True,
@@ -23,11 +24,16 @@ def create_dictionary():
     # read the dictionary in to dataframe
     dict_df = pd.DataFrame()
 
+    print("Downloading dictionaries:")
+
     for key in dictionary_v2.dictionaries.keys():
         
+        warnings.simplefilter('ignore')
+
         temp = pd.DataFrame(dictionary_v2.dictionaries[key])
         temp['Source'] = key
         dict_df = dict_df.append(temp)
+        print(key + " downloaded")
     
     # convert the source field in to categorical
     dict_df['Source'] = dict_df['Source'].astype('category')
