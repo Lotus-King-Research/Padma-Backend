@@ -1,7 +1,7 @@
 FROM python:3.8.11
 WORKDIR /project
 RUN apt-get install wget -y
-RUN wget https://github.com/Lotus-King-Research/Padma-Backend/raw/api-v2/index.sqlite
+RUN wget https://github.com/Lotus-King-Research/Padma-Backend/raw/app/data/api-v2/index.sqlite
 ADD . /project
 RUN mv index.sqlite app/data/
 RUN apt-get update -y
