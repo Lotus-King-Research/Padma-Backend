@@ -1,10 +1,10 @@
 ![logo](_media/Padma_logo.png)
 
-## v.0.2.0
+## v1.0
 
 > Computational linguistics for Tibetan Buddhadharma
 
-[GitHub](https://github.com/mikkokotila/Padma/)
+[GitHub](https://github.com/Lotus-King-Research/Padma-Backend/)
 [Getting Started](README.md)
 
 ![color](#FFF8EB)

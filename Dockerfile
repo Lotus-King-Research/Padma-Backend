@@ -1,20 +1,14 @@
-FROM python:3.7.3
+FROM python:3.8.11
 WORKDIR /project
+RUN apt-get install wget -y
+RUN wget https://github.com/Lotus-King-Research/Padma-Backend/raw/api-v2/app/data/index.sqlite
 ADD . /project
+RUN mv index.sqlite app/data/
 RUN apt-get update -y
-RUN apt-get install -y enchant
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN python3 -m spacy download en
+RUN pip install git+https://github.com/Lotus-King-Research/Tibetan-Lookup --no-deps
 
-ENTRYPOINT [ "gunicorn", \
-             "server:app", \
-             "--access-logfile /home/ubuntu/gunicorn-access.log", \ 
-             "--error-logfile /home/ubuntu/gunicorn-error.log", \
-             "--worker-tmp-dir /dev/shm", \
-             "--worker-class gevent", \
-             "--timeout 120", \
-             "-b 0.0.0.0:5000", \
-             "-w 2", \
-             "--preload"]
+ENTRYPOINT uvicorn app:app --host 0.0.0.0 --port 5000 
+
 EXPOSE 5000

@@ -1,27 +1,39 @@
-def search_texts(request, texts):
+def search_texts(request, request_is_string=False):
 
     '''
     request | object | request object from flask
-    texts | dict | body of texts loaded in Padma
+    request_is_string | bool | if True, `request` must be string
     '''
 
-    from flask import render_template
-    from flask import abort
-
+    from fastapi import HTTPException
     from app import tokenizer
+    from app import text_search
 
-    query = request.args.get('query')
+    if request_is_string:
+        query = request
 
-    if query is None:
-        query = request.form['query']
+    else:
+        query = request.query_params['query']
+
+        if query is None:
+            query = request.query_params['query']
+
+    '''
+    else:
+        query = request.args.get('query')
+
+        if query is None:
+            query = request.form['query']
+
+    '''
 
     if len(query) == 0:
-        abort(404)
+        raise HTTPException(status_code=404)
 
-    results = _search_texts(query, texts)
+    results = text_search(query)
 
     if len(results) == 0:
-        abort(404)
+        raise HTTPException(status_code=404)
 
     data = {'query': query,
             'text': [i[0] for i in results],
@@ -30,28 +42,3 @@ def search_texts(request, texts):
             'text_title': [i[3] for i in results]}
 
     return data
-
-
-def _search_texts(query, texts):
-    
-    '''Returns a reference based on word based on mode.
-    word | str | any tibetan string
-    mode | str | 'filename', 'sentence', or 'title'
-    '''
-
-    out = []
-
-    filenames = texts.keys()
-
-    for filename in filenames:
-        try:
-            sents = texts[filename]['text'][0].split()
-            counter = 0
-            for sent in sents:
-                if query in sent:
-                    out.append([sent, filename, counter, texts[filename]['text_title']])
-                counter += 1
-        except IndexError:
-            continue
-
-    return out

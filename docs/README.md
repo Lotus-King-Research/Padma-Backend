@@ -1,9 +1,9 @@
 # Get Started
 
 - [Online](http://padma.io) at Padma.io
-- [Desktop](https://github.com/mikkokotila/Padma-frontend) for Mac and Windows. 
-- [API](https://mikkokotila.github.io/Padma/#/API?id=api) for unrestricted programmatic access
-- [Docker](https://github.com/mikkokotila/Padma/archive/master.zip) for developers
+- [Desktop](https://github.com/Lotus-King-Research/Padma-Frontend) for Mac and Windows. 
+- [API](API.md) for unrestricted programmatic access
+- [Docker](DOCKER.md) for developers
 
 ## Key Features
 

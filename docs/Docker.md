@@ -1,9 +1,9 @@
 # Docker
 
-[Download](https://github.com/mikkokotila/Padma/archive/master.zip) the package and being in the same directory as the package:
+[Download](https://github.com/Lotus-King-Research/Padma-Backend/archive/master.zip) the package and being in the same directory as the package:
 
 ```
-sudo docker build .
+sudo docker build -t padma/backend -f Dockerfile .
 IMAGE_ID=$(sudo docker image ls | head -2 | tail -1 | tr -s ' ' | cut -d ' ' -f3)
 sudo docker run -p 5000:5000 $IMAGE_ID
 ```

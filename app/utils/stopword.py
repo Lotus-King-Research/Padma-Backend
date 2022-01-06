@@ -28,10 +28,6 @@ def stopword_tibetan(tokens):
     tibetan_stopwords = ['འི་', 'གྱི་', 'ནི', 'ནས་', 'དང་', 'ནི', 'འདི་',
                          'ཀྱི་', 'ནི་', 'གི་', 'ཏེ་', 'ལ', 'ལ་', 'ཡི་',
                          '༔_་', '།_་', '།_།་', '།_།']
-    
-    #import signs
-    # tokens = signs.Stopwords(tokens, common_stopwords=False, add_stopwords=tibetan_stopwords)
-    # docs = tokens.docs
 
     docs = []
     for token in tokens:

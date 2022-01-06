@@ -1,42 +1,45 @@
-def render_text(request, texts):
+def render_text(request):
 
     '''
     request | object | request object from flask
     texts | dict | body of texts loaded in Padma
     '''
 
-    from flask import abort
+    from fastapi import HTTPException
+    from app import texts
 
+    '''
     title = request.args.get('title')
     start = request.args.get('start')
     end = request.args.get('end')
+    '''
 
+    
+
+    title = request.query_params['title']
+    
     try:
-        text = ''.join(texts[title]['text']).split()
+        start = request.query_params['start']
     except KeyError:
-        abort(404)
-
-    if start == '' or start is None:
         start = 0
 
-    if end == '' or end is None:
-        end = int(start) + 10000
+    try: 
+        end = request.query_params['end']
+    except KeyError:
+        end = start + 100
 
     try:
-        int(start)
-    except:
-        abort(404)
+        text = texts(title)['text']
+    except KeyError:
+        raise HTTPException(status_code=404)
 
-    try:
-        int(end)
-    except:
-        abort(404)
-
-    text = ''.join(text[int(start):int(end)])
+    text = text.split('_')
+    text = text[int(start):int(end)]
+    text = ''.join(text)
 
     data = {'text': text,
             'title': title,
-            'text_title': texts[title]['text_title'],
+            'text_title': texts(title)['text_title'],
             'start': start, 
             'end': end}
 

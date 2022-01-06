@@ -1,27 +1,33 @@
-from flask import Flask
-from flask_cors import CORS
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_headers=["*"],
+)
+
+from app.utils.initialize import initialize_meta
 from app.utils.initialize import initialize_dictionary
-from app.utils.initialize import initialize_texts
 from app.utils.initialize import initialize_tokens
+from app.utils.initialize import initialize_texts
+from app.utils.initialize import initialize_index
+from app.utils.initialize import initialize_locations
 
-dictionary = initialize_dictionary()
-texts = initialize_texts()
-tokens = initialize_tokens()
-
+from app.utils.text_search import text_search
 from app.utils.tokenization import init_tokenizer
 
+meta = initialize_meta()
+dictionary = initialize_dictionary()
+tokens = initialize_tokens()
+texts = initialize_texts()
+index = initialize_index()
+locations = initialize_locations()
+
 tokenizer = init_tokenizer()
-
-import enchant
-import en_core_web_sm
-
-nlp = en_core_web_sm.load()
-
-enchant_word_check = enchant.Dict("en")
 
 from botok import Text
 

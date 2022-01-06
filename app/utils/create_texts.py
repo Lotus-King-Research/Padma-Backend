@@ -1,19 +1,21 @@
 def create_texts():
 
-    import os
-    import pickle
+    '''Creates texts from tokens.'''
 
-    texts = {}
+    def texts(filename):
 
-    with open('app/data/title_info.pkl', 'rb') as f:
-        meta = pickle.load(f)
+        out = {}
 
-    for key in meta.keys():
-    
-        with open('/tmp/docs/' + key + '.txt', 'r') as f:
-            text = f.readlines()
+        from app import tokens
 
-        texts[key] = {'text_title': meta[key]['title'],
-                      'text': text}
+        tokens_temp = tokens[filename]
+
+        text = ''.join(tokens_temp['tokens'])
+        text = text.replace(' ', '')
+        
+        out = {'text_title': tokens_temp['text_title'],
+               'text': text}
+
+        return out
 
     return texts

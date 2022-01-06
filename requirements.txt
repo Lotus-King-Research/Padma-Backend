@@ -1,9 +1,6 @@
 botok
-flask
-flask-cors
-gunicorn
 pandas
-pyenchant
-signs
-spacy
-psycogreen
+wget
+sqlitedict
+fastapi
+uvicorn

@@ -1,62 +1,83 @@
-from flask import render_template, request
+from fastapi import Request
 
 from app import app
 
-from app import dictionary, texts
+# dictionary_lookup
 
-@app.after_request
-def add_header(r):    
-    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
-    r.headers["Expires"] = "0"
-    r.headers["Pragma"] = "no-cache"
-
-    return r
-
-@app.route('/dictionary_lookup', methods=['GET','POST'])
-def dictionary_lookup():
+@app.get('/dictionary_lookup')
+def dictionary_lookup(request: Request):
 
     from .models.dictionary_lookup import dictionary_lookup
 
-    return dictionary_lookup(request, dictionary)
+    return dictionary_lookup(request)
 
-@app.route('/search_texts', methods=['GET', 'POST'])
-def search_texts():
+@app.post('/dictionary_lookup')
+def dictionary_lookup(request: Request):
+
+    from .models.dictionary_lookup import dictionary_lookup
+
+    return dictionary_lookup(request)
+
+# search_texts
+
+@app.get('/search_texts')
+def search_texts(request: Request):
 
     from .models.search_texts import search_texts
 
-    return search_texts(request, texts)
+    return search_texts(request)
 
-@app.route('/find_similar', methods=['GET', 'POST'])
-def find_similar():
+@app.post('/search_texts')
+def search_texts(request: Request):
 
-    from .models.find_similar import find_similar
+    from .models.search_texts import search_texts
 
-    return find_similar(request, dictionary)
+    return search_texts(request)
 
-@app.route('/word_statistics', methods=['GET', 'POST'])
-def word_statistics():
+# render_text
+
+@app.get('/render_text')
+def render_text(request: Request):
+
+    from .models.render_text import render_text
+
+    return render_text(request)
+
+@app.post('/render_text')
+def render_text(request: Request):
+
+    from .models.render_text import render_text
+
+    return render_text(request)
+
+# word_statistics
+
+@app.get('/word_statistics')
+def word_statistics(request: Request):
 
     from .models.word_statistics import word_statistics
     
-    return word_statistics(request, texts)
+    return word_statistics(request)
 
-@app.route('/tokenize', methods=['GET', 'POST'])
-def tokenize():
+@app.post('/word_statistics')
+def word_statistics(request: Request):
+
+    from .models.word_statistics import word_statistics
+    
+    return word_statistics(request)
+
+# tokenize
+
+@app.get('/tokenize')
+def tokenize(request: Request):
 
     from .models.tokenize import tokenize
 
     return tokenize(request)
 
-@app.route('/render_text', methods=['GET', 'POST'])
-def render_text():
+@app.post('/tokenize')
+def tokenize(request: Request):
 
-    from .models.render_text import render_text
+    from .models.tokenize import tokenize
 
-    return render_text(request, texts)
-
-@app.route('/frequent_words', methods=['GET', 'POST'])
-def frequent_words():
-
-    from .models.frequent_words import frequent_words
-
-    return frequent_words(request, texts)
+    return tokenize(request)

@@ -9,5 +9,5 @@
 - Developer
 
  - [Get Started](Development.md#get-started)
- - [Application Structure](Application-Structure.md.md#application-structure)
+ - [Application Structure](Application-Structure.md#application-structure)
 

@@ -7,37 +7,35 @@ def create_dictionary():
     '''
     
     import pandas as pd
+    from tibetan_lookup import BuildDictionary
 
-    dicts = open('/tmp/All_Dictionaries_report_2016.tab', 'r').readlines()
+    debug = False
+    production = debug == False
+
+    dictionary_v2 = BuildDictionary(debug_true=debug,
+                                    mahavyutpatti=production,
+                                    tony_duff=production,
+                                    erik_pema_kunsang=production,
+                                    ives_waldo=production,
+                                    jeffrey_hopkins=production,
+                                    lobsang_monlam=production,
+                                    tibetan_multi=production,
+                                    tibetan_medicine=production,
+                                    verb_lexicon=production)
 
     # read the dictionary in to dataframe
-    l = []
-    for i in dicts:
-        l.append(i.split('\t'))
+    dict_df = pd.DataFrame()
 
-    dict_df = pd.DataFrame(l)
-    dict_df.columns = ['word', 'meaning', 'source']
+    print("Downloading dictionaries:")
 
-    # drop rows where both the word and meaning are duplicates
-    dict_df = dict_df.drop_duplicates(['word', 'meaning'])
+    for key in dictionary_v2.dictionaries.keys():
 
-    # remove the newlines from the source field
-    dict_df.source = dict_df.source.str.replace('\n','')
-    
-    # drop entries with cyrillic definition
-    dict_df = dict_df[dict_df.meaning.str.contains(u'[\u0401-\u04f9]') == False]
-    
-    # drop only Tibetan entries
-    dict_df = dict_df[dict_df.source.str.contains('TT|DK|TS|BB|MWSK') == False]
+        temp = pd.DataFrame(dictionary_v2.dictionaries[key])
+        temp['Source'] = key
+        dict_df = dict_df.append(temp)
+        print(key + " downloaded")
     
     # convert the source field in to categorical
-    dict_df.source = dict_df.source.astype('category')
-
-    # remove words where the word contains latin characters (note this might lose something)
-    dict_df = dict_df[dict_df.word.str.contains('[a-z]') == False]
-    
-    dict_df['source'] = dict_df['source'].str.replace('-', '')
-    dict_df['source'] = dict_df['source'].str.replace('[', '')
-    dict_df['source'] = dict_df['source'].str.replace(']', '')
+    dict_df['Source'] = dict_df['Source'].astype('category')
 
     return dict_df
