@@ -1,7 +1,14 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_headers=["*"],
+)
 
 from app.utils.initialize import initialize_meta
 from app.utils.initialize import initialize_dictionary
