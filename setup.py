@@ -12,7 +12,7 @@ MAINTAINER_EMAIL = 'mailme@mikkokotila.com'
 URL = 'http://padma.io'
 LICENSE = 'MIT'
 DOWNLOAD_URL = 'https://github.com/Lotus-King-Trust/Padma-Backend'
-VERSION = '1.4'
+VERSION = '1.4.1'
 
 try:
     from setuptools import setup
