@@ -1,12 +1,27 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = ['https://staging.padma.io',
+           'http://staging.padma.io',
+           'https://padma.io',
+           'http://padma.io',
+           'https://test.padma.io',
+           'http://test.padma.io',
+           'https://staging.padma.io:8080',
+           'http://staging.padma.io:8080',
+           'https://padma.io:8080',
+           'http://padma.io:8080',
+           'https://test.padma.io:8080',
+           'http://test.padma.io:8080',
+           'http://localhost:8080']
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -32,20 +47,3 @@ tokenizer = init_tokenizer()
 from botok import Text
 
 from app import routes
-
-# ༈ བློ་ཆོས་སུ་འགྲོ་བར་བྱིན་གྱིས་རློབས། །ཆོས་ལམ་དུ་འགྲོ་བར་བྱིན་གྱིས་རློབས། །ལམ་འཁྲུལ་བ་ཞིག་པར་བྱིན་གྱིས་རློབས། །འཁྲུལ་པ་ཡེ་ཤེས་སུ་འཆར་བར་བྱིན་གྱིས་རློབས། །
-
-# below is for debugging only
-
-#app.jinja_env.auto_reload = True
-#app.config['TEMPLATES_AUTO_RELOAD'] = True
-
-# try first docker, then gunicorn, and
-# then flask if all else fails. Handle 
-# tricky debugs at flask level to 
-# minimize complexity.
-
-#FLASK_APP=app.py FLASK_ENV=development flask run
-#gunicorn server:app --access-logfile /tmp/gunicorn-access.log --error-logfile /tmp/gunicorn-error.log --worker-tmp-dir /dev/shm --worker-class gevent --timeout 120 -b 0.0.0.0:5000 -w 2 --preload
-
-
