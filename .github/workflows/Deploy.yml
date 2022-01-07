@@ -25,7 +25,7 @@ jobs:
         docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
         docker build -t docker.pkg.github.com/lotus-king-research/padma-backend/core_api:master -f ./Dockerfile .
         docker push docker.pkg.github.com/lotus-king-research/padma-backend/core_api:master
-    - name: Deploy
+    - name: Deploy to Production
       uses: appleboy/ssh-action@master
       with:
         host: 18.157.93.60
@@ -45,7 +45,7 @@ jobs:
           fi
           
           sudo docker run -m 6000m --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
-    - name: Production Test
+    - name: Production Tests
       uses: appleboy/ssh-action@master
       with:
         host: 18.158.207.5
