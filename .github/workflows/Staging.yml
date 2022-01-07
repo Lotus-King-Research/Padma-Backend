@@ -45,6 +45,9 @@ jobs:
           fi
           
           sudo docker run -m 6000m --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
+
+          sudo docker container prune --force;
+          sudo docker image prune --force;
     - name: Staging Tests
       uses: appleboy/ssh-action@master
       with:
