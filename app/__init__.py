@@ -1,12 +1,21 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = ['https://staging.padma.io:8080',
+           'http://staging.padma.io:8080',
+           'https://padma.io:8080',
+           'http://padma.io:8080',
+           'https://test.padma.io:8080',
+           'http://test.padma.io:8080',
+           'http://localhost:8080']
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
