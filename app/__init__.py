@@ -16,6 +16,7 @@ origins = ['https://staging.padma.io',
            'http://padma.io:8080',
            'https://test.padma.io:8080',
            'http://test.padma.io:8080',
+           'https://localhost:8080',
            'http://localhost:8080']
 
 app.add_middleware(
