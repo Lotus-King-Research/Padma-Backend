@@ -13,8 +13,6 @@
   </a>
 </p>
 
-<h3 align="center">Requests</h3>
-
 <p align="center">
   <a href="#description">Description</a> •
   <a href="#owner">Owner</a> •
