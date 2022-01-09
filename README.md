@@ -31,8 +31,8 @@ Repository for Padma backend and core API.
 
 ## Integrations
 
-- [Padma-Frontend](https://lotus-king-research.github.io/Padma-Frontend/)
-- [Tibetan-Lookup](https://lotus-king-research.github.io/Tibetan-Lookup/)
+- [Padma-Frontend](https://github.com/Lotus-King-Research/Padma-Frontend/)
+- [Tibetan-Lookup](https://github.com/Lotus-King-Research/Tibetan-Lookup/)
 
 ## Docs
 
