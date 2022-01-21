@@ -9,27 +9,22 @@ def word_statistics(request, request_is_string=False):
     from ..utils.stopword import tibetan_special_characters
     from ..utils.stopword import tibetan_common_tokens
 
+    # combine stopwords
     stopwords = tibetan_special_characters() + tibetan_common_tokens()
 
+    # handle the case where called with string
     if request_is_string:
         query = request
 
+    # handle the case where called through API
     else:
         query = request.query_params['query']
 
-    '''
-
-    if request_is_string:
-        query = request
-
-    else:
-        query = request.args.get('query')
-
-    '''
-
+    # if there is no query, return error
     if len(query) == 0:
         raise HTTPException(status_code=404)
 
+    # handle all the text analytics
     most_common, prominence, co_occurance = _word_statistics(query, tokens)
 
     # organize data into dataframes
@@ -38,38 +33,45 @@ def word_statistics(request, request_is_string=False):
     most_common = pd.DataFrame(pd.Series(most_common)).head(500).reset_index()
 
     prominence.columns = ['title', 'prominence']
-    co_occurance.columns = ['word', 'co_occurancies']
-    most_common.columns = ['word', 'occurancies']
+    co_occurance.columns = ['word', 'co_occurance']
+    most_common.columns = ['word', 'most_common']
 
     # remove stopwords
     most_common = most_common[~most_common.word.isin(stopwords)]
 
     prominence['title'] = [i[0] for i in prominence['prominence']]
     prominence['prominence'] = [i[1] for i in prominence['prominence']]
-
-    prominence = prominence.sort_values('prominence', ascending=False)
     prominence['title'] = prominence['title'].str.replace('.txt', '')
 
+    # add titles to prominence
     titles = []
     for title in prominence['title']:
         titles.append(tokens[title]['text_title'])
     
+    prominence['titles'] = titles
+
+    # sort values
+    prominence = prominence.sort_values('prominence', ascending=False)
+    co_occurance = co_occurance.sort_values('co_occurance', ascending=False)
+    most_common = most_common.sort_values('most_common', ascending=False)
+
     data = {
         'prominence_key': prominence['title'].tolist(),
         'prominence_value': prominence['prominence'].tolist(),
-        'prominence_name': titles,
+        'prominence_name': prominence['titles'].tolist(),
         'co_occurance_key': co_occurance['word'].tolist(),
-        'co_occurance_value': co_occurance['co_occurancies'].tolist(),
+        'co_occurance_value': co_occurance['co_occurance'].tolist(),
         'most_common_key': most_common['word'].tolist(),
-        'most_common_value': most_common['occurancies'].tolist()
+        'most_common_value': most_common['most_common'].tolist()
     }
+
+    print(data)
 
     return data
 
 
 def _word_statistics(word, tokens, span=2):
 
-    import os
     import re
 
     from collections import Counter
