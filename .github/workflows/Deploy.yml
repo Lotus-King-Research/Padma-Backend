@@ -48,6 +48,11 @@ jobs:
 
           sudo docker container prune --force;
           sudo docker image prune --force;
+          sudo docker system prune -fa;
+          
+          sudo sync;
+          sudo sysctl -w vm.drop_caches=3;
+          sudo sync;
     - name: Production Tests
       uses: appleboy/ssh-action@master
       with:
