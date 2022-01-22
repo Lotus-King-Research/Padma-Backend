@@ -7,5 +7,5 @@ app/__init__.pyc
 .vscode/
 dev.ipynb
 .ipynb_checkpoints
-.DS_Store
+.DS_Store/
 *.ipynb

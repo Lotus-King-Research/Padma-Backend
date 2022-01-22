@@ -65,8 +65,6 @@ def word_statistics(request, request_is_string=False):
         'most_common_value': most_common['most_common'].tolist()
     }
 
-    print(data)
-
     return data
 
 
