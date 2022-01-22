@@ -1,3 +1,4 @@
+import pandas as pd
 import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
@@ -44,6 +45,9 @@ index = initialize_index()
 locations = initialize_locations()
 
 tokenizer = init_tokenizer()
+
+_base_url = 'https://raw.githubusercontent.com/Lotus-King-Research/Padma-Dictionary-Data/v2/data/'
+available_dictionaries = pd.read_csv(_base_url + 'dictionaries.csv')['Label'].tolist()
 
 from botok import Text
 

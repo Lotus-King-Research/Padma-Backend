@@ -13,10 +13,12 @@ def dictionary_lookup(request):
     '''
 
     search_query = request.query_params['query']
+    
     try:
         no_of_result = request.query_params['no_of_result']
     except KeyError:
         no_of_result = None
+    
     try:
         dictionaries = request.query_params['dictionaries']
     except KeyError:
@@ -25,14 +27,9 @@ def dictionary_lookup(request):
     if dictionaries != None:
         dictionaries = dictionaries.split(',')
     else:
-        dictionaries = ['mahavyutpatti',
-                        'erik_pema_kunsang',
-                        'ives_waldo',
-                        'jeffrey_hopkins',
-                        'lobsang_monlam',
-                        'tibetan_multi',
-                        'tibetan_medicine',
-                        'verb_lexicon']
+        from app import available_dictionaries
+
+        dictionaries = available_dictionaries
 
     if len(search_query) == 0:
         search_query = dictionary['Tibetan'].sample(1).values[0]
