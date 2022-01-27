@@ -9,6 +9,8 @@ def dictionary_lookup(request):
     from app import tokenizer
     from app import dictionary
 
+    from dictionary_lookup.utils.check_if_wylie import check_if_wylie
+
     '''
     search_query = request.args.get('query')
     no_of_result = request.args.get('no_of_result')
@@ -34,11 +36,10 @@ def dictionary_lookup(request):
 
         dictionaries = available_dictionaries
 
-    if len(search_query) == 0:
-        search_query = dictionary['Tibetan'].sample(1).values[0]
+    search_query = search_query.replace(' ', '')
+    search_query = search_query.replace(' ', '')
 
-    search_query = search_query.replace(' ', '')
-    search_query = search_query.replace(' ', '')
+    search_query = check_if_wylie(search_query)
 
     tokens = tokenization(search_query, tokenizer)
 
