@@ -1,3 +1,6 @@
+from re import L
+
+
 def dictionary_lookup(request):
 
     from ..utils.tokenization import tokenization
@@ -46,18 +49,25 @@ def dictionary_lookup(request):
 
         # get the results
         results = dictionary.lookup(token)
+        _dictionaries = list(set(results.keys()).intersection(dictionaries))
 
-        # get the descriptions
-        for _dictionary in results.keys():
-            if _dictionary in dictionaries:
-                for description in results[_dictionary][token]:
-                    
-                    text.append(description)
-                    source.append(_dictionary)
+        texts_temp = []
+        sources_temp = []
+
+        # go through each dictionary in the results
+        for _dictionary in _dictionaries:
+            for result in results[_dictionary][token]:
+                
+                texts_temp.append(result)
+                sources_temp.append(_dictionary)
+    
+        text.append(texts_temp)
+        source.append(sources_temp)
+
 
     data = {'search_query': search_query,
-            'text': [text],
-            'source': [source], 
+            'text': text,
+            'source': source, 
             'tokens': tokens}
 
     # if no results, return 404
