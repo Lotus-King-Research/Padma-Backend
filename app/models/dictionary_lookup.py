@@ -1,3 +1,6 @@
+from re import L
+
+
 def dictionary_lookup(request):
 
     from ..utils.tokenization import tokenization
@@ -5,6 +8,8 @@ def dictionary_lookup(request):
     from fastapi import HTTPException
     from app import tokenizer
     from app import dictionary
+
+    from dictionary_lookup.utils.check_if_wylie import check_if_wylie
 
     '''
     search_query = request.args.get('query')
@@ -31,47 +36,50 @@ def dictionary_lookup(request):
 
         dictionaries = available_dictionaries
 
-    if len(search_query) == 0:
-        search_query = dictionary['Tibetan'].sample(1).values[0]
+    query_string = check_if_wylie(search_query)
 
-    search_query = search_query.replace(' ', '')
-    search_query = search_query.replace(' ', '')
-
-    tokens = tokenization(search_query, tokenizer)
+    # deal with case where it's Tibetan
+    if query_string == search_query:
+        
+        query_string = query_string.replace(' ', '')
+        query_string = query_string.replace(' ', '')
+        query_string = query_string.rstrip()
+        query_string = query_string.lstrip()
+        
+    tokens = tokenization(query_string, tokenizer)
 
     text = []
     source = []
 
     for token in tokens:
-        try:
-            result = definition_lookup(token,
-                                       dictionary[dictionary['Source'].isin(dictionaries)])
-        except ValueError:
-            raise HTTPException(status_code=404)
-        result.columns = [token, 'source']
 
-        if no_of_result is not None:
-            result = result.iloc[:int(no_of_result)]
+        # get the results
+        results = dictionary.lookup(token)
+        _dictionaries = list(set(results.keys()).intersection(dictionaries))
 
-        text.append([i[0] for i in result.values])
-        source.append([i[1] for i in result.values])
+        texts_temp = []
+        sources_temp = []
 
-    data = {'search_query': search_query,
+        # go through each dictionary in the results
+        for _dictionary in _dictionaries:
+            for result in results[_dictionary][token]:
+                
+                texts_temp.append(result)
+                sources_temp.append(_dictionary)
+    
+        text.append(texts_temp)
+        source.append(sources_temp)
+
+
+    data = {'search_query': query_string,
             'text': text,
             'source': source, 
             'tokens': tokens}
 
+    # if no results, return 404
+    try: 
+        data['text'][0]
+    except:
+        raise HTTPException(status_code=404)
+
     return data
-
-
-def definition_lookup(word, dictionary, definition_max_length=600):
-
-    if word.endswith('་') is False: 
-        word = word + '་'
-
-    dict_temp = dictionary[dictionary.set_index('Tibetan').index == word]
-    dict_temp = dict_temp[dict_temp['Description'].str.len() < definition_max_length]
-    
-    dict_temp.drop('Tibetan', 1, inplace=True)
-
-    return dict_temp
