@@ -7,7 +7,7 @@ RUN mv index.sqlite app/data/
 RUN apt-get update -y
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN pip install git+https://github.com/Lotus-King-Research/Tibetan-Lookup --no-deps
+RUN pip install git+https://github.com/Lotus-King-Research/Tibetan-Lookup
 
 ENTRYPOINT uvicorn app:app --host 0.0.0.0 --port 5000 
 
