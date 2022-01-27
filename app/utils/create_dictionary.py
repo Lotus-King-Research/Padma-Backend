@@ -9,4 +9,4 @@ def create_dictionary():
     import pandas as pd
     from dictionary_lookup import DictionaryLookup
 
-    return DictionaryLookup()
+    return DictionaryLookup(['lotus_king_trust', 'lobsang_monlam'])

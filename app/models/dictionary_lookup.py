@@ -48,12 +48,12 @@ def dictionary_lookup(request):
         results = dictionary.lookup(token)
 
         # get the descriptions
-        for dictionary in results.keys():
-            if dictionary in dictionaries:
-                for description in results[dictionary][token]:
+        for _dictionary in results.keys():
+            if _dictionary in dictionaries:
+                for description in results[_dictionary][token]:
                     
                     text.append(description)
-                    source.append(dictionary)
+                    source.append(_dictionary)
 
     data = {'search_query': search_query,
             'text': [text],
