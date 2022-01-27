@@ -36,12 +36,17 @@ def dictionary_lookup(request):
 
         dictionaries = available_dictionaries
 
-    search_query = search_query.replace(' ', '')
-    search_query = search_query.replace(' ', '')
+    query_string = check_if_wylie(search_query)
 
-    search_query = check_if_wylie(search_query)
-
-    tokens = tokenization(search_query, tokenizer)
+    # deal with case where it's Tibetan
+    if query_string == search_query:
+        
+        query_string = query_string.replace(' ', '')
+        query_string = query_string.replace(' ', '')
+        query_string = query_string.rstrip()
+        query_string = query_string.lstrip()
+        
+    tokens = tokenization(query_string, tokenizer)
 
     text = []
     source = []
@@ -66,7 +71,7 @@ def dictionary_lookup(request):
         source.append(sources_temp)
 
 
-    data = {'search_query': search_query,
+    data = {'search_query': query_string,
             'text': text,
             'source': source, 
             'tokens': tokens}
