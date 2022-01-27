@@ -43,35 +43,27 @@ def dictionary_lookup(request):
     source = []
 
     for token in tokens:
-        try:
-            result = definition_lookup(token,
-                                       dictionary[dictionary['Source'].isin(dictionaries)])
-        except ValueError:
-            raise HTTPException(status_code=404)
-        result.columns = [token, 'source']
 
-        if no_of_result is not None:
-            result = result.iloc[:int(no_of_result)]
+        # get the results
+        results = dictionary.lookup(token)
 
-        text.append([i[0] for i in result.values])
-        source.append([i[1] for i in result.values])
+        # get the descriptions
+        for dictionary in results.keys():
+            if dictionary in dictionaries:
+                for description in results[dictionary][token]:
+                    
+                    text.append(description)
+                    source.append(dictionary)
 
     data = {'search_query': search_query,
-            'text': text,
-            'source': source, 
+            'text': [text],
+            'source': [source], 
             'tokens': tokens}
 
+    # if no results, return 404
+    try: 
+        data['text'][0]
+    except:
+        raise HTTPException(status_code=404)
+
     return data
-
-
-def definition_lookup(word, dictionary, definition_max_length=600):
-
-    if word.endswith('་') is False: 
-        word = word + '་'
-
-    dict_temp = dictionary[dictionary.set_index('Tibetan').index == word]
-    dict_temp = dict_temp[dict_temp['Description'].str.len() < definition_max_length]
-    
-    dict_temp.drop('Tibetan', 1, inplace=True)
-
-    return dict_temp
