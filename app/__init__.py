@@ -46,7 +46,7 @@ locations = initialize_locations()
 
 tokenizer = init_tokenizer()
 
-_base_url = 'https://raw.githubusercontent.com/Lotus-King-Research/Padma-Dictionary-Data/v2/data/'
+_base_url = 'https://raw.githubusercontent.com/Lotus-King-Research/Padma-Dictionary-Data/main/data/'
 available_dictionaries = pd.read_csv(_base_url + 'dictionaries.csv')['Label'].tolist()
 
 from botok import Text
