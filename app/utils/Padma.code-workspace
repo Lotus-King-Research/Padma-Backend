@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../Padma-Dictionary-Data"
+		},
+		{
+			"path": "../../../Padma-Dictionary-Lookup"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}
