@@ -10,6 +10,7 @@ def dictionary_lookup(request):
     from app import dictionary
 
     from dictionary_lookup.utils.check_if_wylie import check_if_wylie
+    from ..utils.clean_tibetan_input import clean_tibetan_input
 
     # handle the searc query query parameter
     search_query = request.query_params['query']
@@ -35,14 +36,9 @@ def dictionary_lookup(request):
     # check if search query is Wylie
     query_string = check_if_wylie(search_query)
 
-    # deal with case where it's Tibetan
-    if query_string == search_query:
-        
-        query_string = query_string.replace(' ', '')
-        query_string = query_string.replace(' ', '')
-        query_string = query_string.rstrip()
-        query_string = query_string.lstrip()
-        
+    # clean for various special cases
+    query_string = clean_tibetan_input(query_string)
+
     # handle tokenize query parameter
     try:
         tokenize = request.query_params['tokenize']
@@ -54,6 +50,7 @@ def dictionary_lookup(request):
     elif tokenize == 'false':
         tokens = [query_string]
 
+    # let's do this!
     text = []
     source = []
 
@@ -76,7 +73,7 @@ def dictionary_lookup(request):
         text.append(texts_temp)
         source.append(sources_temp)
 
-
+    # prepare for output
     data = {'search_query': query_string,
             'text': text,
             'source': source, 
