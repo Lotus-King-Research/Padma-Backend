@@ -9,23 +9,32 @@ def word_statistics(request, request_is_string=False):
     from ..utils.stopword import tibetan_special_characters
     from ..utils.stopword import tibetan_common_tokens
 
+    from dictionary_lookup.utils.check_if_wylie import check_if_wylie
+    from ..utils.clean_tibetan_input import clean_tibetan_input
+
     # combine stopwords
     stopwords = tibetan_special_characters() + tibetan_common_tokens()
 
     # handle the case where called with string
     if request_is_string:
-        query = request
+        search_query = request
 
     # handle the case where called through API
     else:
-        query = request.query_params['query']
+        search_query = request.query_params['query']
 
     # if there is no query, return error
-    if len(query) == 0:
+    if len(search_query) == 0:
         raise HTTPException(status_code=404)
 
+    # check if search query is Wylie
+    query_string = check_if_wylie(search_query)
+
+    # clean for various special cases
+    query_string = clean_tibetan_input(query_string)
+
     # handle all the text analytics
-    most_common, prominence, co_occurance = _word_statistics(query, tokens)
+    most_common, prominence, co_occurance = _word_statistics(query_string, tokens)
 
     # organize data into dataframes
     prominence = pd.DataFrame(pd.Series(prominence)).head(500).reset_index()
