@@ -11,13 +11,6 @@ def dictionary_lookup(request):
 
     from dictionary_lookup.utils.check_if_wylie import check_if_wylie
 
-    '''
-    search_query = request.args.get('query')
-    no_of_result = request.args.get('no_of_result')
-    dictionaries = request.args.get('dictionaries')
-    tokenize = request.args.get('tokenize')
-    '''
-
     # handle the searc query query parameter
     search_query = request.query_params['query']
     
@@ -55,8 +48,6 @@ def dictionary_lookup(request):
         tokenize = request.query_params['tokenize']
     except KeyError:
         tokenize = 'false'
-
-    print(tokenize)
     
     if tokenize == 'true':
         tokens = tokenization(query_string, tokenizer)
