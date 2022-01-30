@@ -9,24 +9,15 @@ def search_texts(request, request_is_string=False):
     from app import tokenizer
     from app import text_search
 
-    if request_is_string:
+    # (for debug) handle the case where string is passed instead of request 
+    if request_is_string is True:
         query = request
 
-    else:
+    # handle the regular case where input is request
+    elif request_is_string is False:
         query = request.query_params['query']
 
-        if query is None:
-            query = request.query_params['query']
-
-    '''
-    else:
-        query = request.args.get('query')
-
-        if query is None:
-            query = request.form['query']
-
-    '''
-
+    # return 404 if query is empty
     if len(query) == 0:
         raise HTTPException(status_code=404)
 
