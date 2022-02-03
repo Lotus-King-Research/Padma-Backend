@@ -83,6 +83,7 @@ def _word_statistics(word, tokens, span=2):
 
     from collections import Counter
 
+    from fastapi import HTTPException
     from app import meta
     from app import text_search
 
@@ -90,8 +91,12 @@ def _word_statistics(word, tokens, span=2):
     prominence = []
     co_occurance = []
 
-    results = text_search(word)
-    filenames = list(set([result[1] for result in results]))
+    try:
+        results = text_search(word)
+    except KeyError:
+        raise HTTPException(status_code=404)
+
+    #filenames = list(set([result[1] for result in results]))
 
     # go through all texts volume-by-volume
     for filename in meta.keys():

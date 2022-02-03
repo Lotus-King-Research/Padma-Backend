@@ -81,7 +81,7 @@ def dictionary_lookup(request):
 
     # if no results, return 404
     try: 
-        data['text'][0]
+        data['text'][0][0]
     except:
         raise HTTPException(status_code=404)
 

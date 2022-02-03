@@ -31,10 +31,10 @@ def search_texts(request, request_is_string=False):
     query_string = clean_tibetan_input(query_string)
 
     # get the matching results
-    results = text_search(query_string)
-
-    # if no results, return 404
-    if len(results) == 0:
+    
+    try: 
+        results = text_search(query_string)
+    except KeyError:
         raise HTTPException(status_code=404)
 
     # package data for output
