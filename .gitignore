@@ -10,3 +10,4 @@ dev.ipynb
 .DS_Store/
 *.ipynb
 tokens.zip
+*.tmp
