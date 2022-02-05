@@ -23,6 +23,15 @@ def word_statistics(request, request_is_string=False):
     else:
         search_query = request.query_params['query']
 
+    # handle the case where called with string
+    if request_is_string:
+        search_query = request
+
+    try:
+        no_of_results = int(request.query_params['no_of_results'])
+    except KeyError:
+        no_of_results = 100
+
     # if there is no query, return error
     if len(search_query) == 0:
         raise HTTPException(status_code=404)
@@ -37,9 +46,9 @@ def word_statistics(request, request_is_string=False):
     most_common, prominence, co_occurance = _word_statistics(query_string, tokens)
 
     # organize data into dataframes
-    prominence = pd.DataFrame(pd.Series(prominence)).head(500).reset_index()
-    co_occurance = pd.DataFrame(pd.Series(co_occurance)).head(500).reset_index()
-    most_common = pd.DataFrame(pd.Series(most_common)).head(500).reset_index()
+    prominence = pd.DataFrame(pd.Series(prominence)).head(no_of_results).reset_index()
+    co_occurance = pd.DataFrame(pd.Series(co_occurance)).head(no_of_results).reset_index()
+    most_common = pd.DataFrame(pd.Series(most_common)).head(no_of_results).reset_index()
 
     prominence.columns = ['title', 'prominence']
     co_occurance.columns = ['word', 'co_occurance']
