@@ -8,8 +8,14 @@ def create_tokens():
 
     tokens = {}
 
-    if os.path.exists('/tmp/tokens') is False:
-        _download_tokens()
+    # check if path exist
+    if os.path.exists('/tmp/tokens'):
+        # handle the case where it's empty
+        if len(os.listdir('/tmp/tokens')) == 0:
+            _download_tokens()
+    # handle the case when the path doesn't exist 
+    else:
+        _download_tokens
 
     # go through the texts
     for filename in meta.keys():
@@ -34,7 +40,7 @@ def _download_tokens():
     import wget
 
     url='https://github.com/Lotus-King-Research/Rinchen-Terdzo-Tokenized/raw/master/tokens/tokens.zip'
-    print("Downloading tokens:")
+    print("Downloading : [Data] Tokens")
     wget.download(url)
 
     with zipfile.ZipFile('tokens.zip', 'r') as zf:
