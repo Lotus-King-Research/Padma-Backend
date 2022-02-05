@@ -105,10 +105,13 @@ def _word_statistics(word, tokens, span=2):
     except KeyError:
         raise HTTPException(status_code=404)
 
-    #filenames = list(set([result[1] for result in results]))
+    filenames = list(set([result[1] for result in results]))
+
+    if len(filenames) == 0:
+        raise HTTPException(status_code=404)
 
     # go through all texts volume-by-volume
-    for filename in meta.keys():
+    for filename in filenames:
 
         # read the tokens for a volume
         tokens_temp = tokens[filename]['tokens'].split(' ')
