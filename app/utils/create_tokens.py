@@ -15,7 +15,7 @@ def create_tokens():
             _download_tokens()
     # handle the case when the path doesn't exist 
     else:
-        _download_tokens
+        _download_tokens()
 
     # go through the texts
     for filename in meta.keys():
