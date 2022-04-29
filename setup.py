@@ -25,7 +25,7 @@ install_requires = ['pandas',
                     'wget',
                     'sqlitedict',
                     'fastapi',
-                    'uvicorn']
+                    'uvicorn==0.17.4']
 
 
 if __name__ == "__main__":
