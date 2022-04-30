@@ -13,6 +13,6 @@ def create_dictionary():
     from dictionary_lookup import DictionaryLookup
 
     if debug:
-        return DictionaryLookup(['lobsang_monlam', 'lotus_king_trust'])
+        return DictionaryLookup(['tony_duff', 'lotus_king_trust'])
     else:
         return DictionaryLookup()
