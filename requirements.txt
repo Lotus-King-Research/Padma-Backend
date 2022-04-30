@@ -3,4 +3,4 @@ pandas
 wget
 sqlitedict
 fastapi
-uvicorn
+uvicorn==0.17.4
