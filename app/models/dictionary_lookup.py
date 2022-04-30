@@ -33,6 +33,18 @@ def dictionary_lookup(request):
         from app import available_dictionaries
         dictionaries = available_dictionaries
 
+    # handle partial_match query parameter
+    try:
+        partial_match = request.query_params['partial_match']
+        
+        if partial_match == 'true':
+            partial_match = True
+        elif partial_match == 'false':
+            partial_match = False
+    
+    except KeyError:
+        partial_match = False
+
     # check if search query is Wylie
     query_string = check_if_wylie(search_query)
 
@@ -54,34 +66,62 @@ def dictionary_lookup(request):
     text = []
     source = []
 
-    for token in tokens:
+    # handle partial match
+    if partial_match:
 
-        # get the results
-        results = dictionary.lookup(token)
-        _dictionaries = list(set(results.keys()).intersection(dictionaries))
+        data = []
+        
+        token = tokens[0]
 
-        texts_temp = []
-        sources_temp = []
+        results = dictionary.lookup(token, partial_match=partial_match)
+        results = results[dictionaries[0]]
 
-        # go through each dictionary in the results
-        for _dictionary in _dictionaries:
-            for result in results[_dictionary][token]:
-                
-                texts_temp.append(result)
-                sources_temp.append(_dictionary)
-    
-        text.append(texts_temp)
-        source.append(sources_temp)
+        for key in results.keys():
 
-    # prepare for output
-    data = {'search_query': query_string,
-            'text': text,
-            'source': source, 
-            'tokens': tokens}
+            data_temp = {}
+
+            data_temp['search_query'] = key
+            data_temp['text'] = results[key]
+            data_temp['source'] = dictionaries
+            data_temp['tokens'] = key
+
+            data.append(data_temp)
+
+    # handle exact match
+    else: 
+
+        for token in tokens:
+
+            # get the results
+            results = dictionary.lookup(token, partial_match=partial_match)
+
+            _dictionaries = list(set(results.keys()).intersection(dictionaries))
+
+            texts_temp = []
+            sources_temp = []
+
+            # go through each dictionary in the results
+            for _dictionary in _dictionaries:
+                for result in results[_dictionary][token]:
+                    
+                    texts_temp.append(result)
+                    sources_temp.append(_dictionary)
+        
+            text.append(texts_temp)
+            source.append(sources_temp)
+
+        # prepare for output
+        data = {'search_query': query_string,
+                'text': text,
+                'source': source, 
+                'tokens': tokens}
 
     # if no results, return 404
-    try: 
-        data['text'][0][0]
+    try:
+        try:
+            data['text'][0][0]
+        except TypeError:
+            data[0]['text'][0][0]
     except:
         raise HTTPException(status_code=404)
 
