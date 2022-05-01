@@ -34,17 +34,18 @@ jobs:
         command_timeout: 5m
         script: |
           sudo docker system prune -f
-          RUNNING_IMAGE=$(sudo docker ps | grep uvicorn | cut -d ' ' -f1)
+          
           sudo docker login docker.pkg.github.com --username mikkokotila --password ${{ secrets.MIKKOKOTILA_TOKEN }}
           sudo docker pull docker.pkg.github.com/lotus-king-research/padma-backend/core_api:master
-          NEW_IMAGE_ID=$(sudo docker images | grep core_api | grep master | head -1 | tr -s ' ' | cut -d ' ' -f3)
 
+          RUNNING_IMAGE=$(sudo docker ps | grep uvicorn | cut -d ' ' -f1)
           if [ ${#RUNNING_IMAGE} -gt 1 ]
           then
             sudo docker stop $RUNNING_IMAGE
           fi
           
-          sudo docker run -m 6000m --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID --name Padma-API;
+          NEW_IMAGE_ID=$(sudo docker images | grep core_api | grep master | head -1 | tr -s ' ' | cut -d ' ' -f3)
+          sudo docker run -m 1000m --restart unless-stopped -v /home/ubuntu/Padma-Data:/tmp -p 5000:5000 --detach $NEW_IMAGE_ID;
 
           sudo docker container prune --force;
           sudo docker image prune --force;
@@ -61,7 +62,7 @@ jobs:
         key: ${{ secrets.PADMA }}
         command_timeout: 5m
         script: |
-          sleep 60
+          sleep 30
           curl https://raw.githubusercontent.com/lotus-king-research/Padma-Backend/master/tests/deploy_tests.py > deploy_tests.py
           chmod +x deploy_tests.py
           python3 deploy_tests.py
