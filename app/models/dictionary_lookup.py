@@ -12,6 +12,10 @@ def dictionary_lookup(request):
     from dictionary_lookup.utils.check_if_wylie import check_if_wylie
     from ..utils.clean_tibetan_input import clean_tibetan_input
 
+    from ..utils.matching_exact import matching_exact
+    from ..utils.matching_partial import matching_partial
+    from ..utils.matching_similarity import matching_similarity
+
     # handle the searc query query parameter
     search_query = request.query_params['query']
     
@@ -26,18 +30,6 @@ def dictionary_lookup(request):
     else:
         from app import available_dictionaries
         dictionaries = available_dictionaries
-
-    # handle partial_match query parameter
-    try:
-        partial_match = request.query_params['matching']
-        
-        if partial_match == 'true':
-            partial_match = True
-        elif partial_match == 'false':
-            partial_match = False
-    
-    except KeyError:
-        partial_match = False
 
     # check if search query is Wylie
     query_string = check_if_wylie(search_query)
@@ -56,59 +48,24 @@ def dictionary_lookup(request):
     elif tokenize == 'false':
         tokens = [query_string]
 
-    # let's do this!
-    text = []
-    source = []
+    # handle matching query parameter
+    try:
+        matching = request.query_params['matching']
+    
+    except KeyError:
+        matching = 'exact'
 
-    # handle partial match
-    if partial_match:
+    if matching == 'exact':
+        data = matching_exact(dictionaries, tokens, query_string)
 
-        data = []
-        
-        token = tokens[0]
+    if matching == 'partial':
+        data = matching_partial(dictionaries, tokens)
 
-        results = dictionary.lookup(token, partial_match=partial_match)
-        results = results[dictionaries[0]]
+    if matching == 'fuzzy':
+        data = matching_fuzzy(dictionaries, tokens)
 
-        for key in results.keys():
-
-            data_temp = {}
-
-            data_temp['search_query'] = key
-            data_temp['text'] = results[key]
-            data_temp['source'] = dictionaries
-            data_temp['tokens'] = key
-
-            data.append(data_temp)
-
-    # handle exact match
-    else: 
-
-        for token in tokens:
-
-            # get the results
-            results = dictionary.lookup(token, partial_match=partial_match)
-
-            _dictionaries = list(set(results.keys()).intersection(dictionaries))
-
-            texts_temp = []
-            sources_temp = []
-
-            # go through each dictionary in the results
-            for _dictionary in _dictionaries:
-                for result in results[_dictionary][token]:
-                    
-                    texts_temp.append(result)
-                    sources_temp.append(_dictionary)
-        
-            text.append(texts_temp)
-            source.append(sources_temp)
-
-        # prepare for output
-        data = {'search_query': query_string,
-                'text': text,
-                'source': source, 
-                'tokens': tokens}
+    if matching == 'similarity':
+        data = matching_similarity(dictionaries, tokens)
 
     # if no results, return 404
     try:

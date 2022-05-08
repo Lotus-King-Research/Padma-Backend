@@ -7,7 +7,7 @@ def create_dictionary():
     Creates a dictionary class object from dictionary_lookup
     '''
     
-    debug = False
+    debug = True
 
     import pandas as pd
     from dictionary_lookup import DictionaryLookup
