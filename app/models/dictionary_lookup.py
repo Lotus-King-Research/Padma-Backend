@@ -15,12 +15,6 @@ def dictionary_lookup(request):
     # handle the searc query query parameter
     search_query = request.query_params['query']
     
-    # handle number of results query parameter
-    try:
-        no_of_result = request.query_params['no_of_result']
-    except KeyError:
-        no_of_result = None
-    
     # handle dictionaries query parameter
     try:
         dictionaries = request.query_params['dictionaries']
@@ -35,7 +29,7 @@ def dictionary_lookup(request):
 
     # handle partial_match query parameter
     try:
-        partial_match = request.query_params['partial_match']
+        partial_match = request.query_params['matching']
         
         if partial_match == 'true':
             partial_match = True
