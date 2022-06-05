@@ -14,7 +14,7 @@ def dictionary_lookup(request):
 
     from ..utils.matching_exact import matching_exact
     from ..utils.matching_partial import matching_partial
-    from ..utils.matching_similarity import matching_similarity
+    from ..utils.matching_similar import matching_similar
 
     # handle the searc query query parameter
     search_query = request.query_params['query']
@@ -61,11 +61,13 @@ def dictionary_lookup(request):
     if matching == 'partial':
         data = matching_partial(dictionaries, tokens)
 
+    '''
     if matching == 'fuzzy':
         data = matching_fuzzy(dictionaries, tokens)
+    '''
 
-    if matching == 'similarity':
-        data = matching_similarity(dictionaries, tokens)
+    if matching == 'similar':
+        data = matching_similar(dictionaries, tokens)
 
     # if no results, return 404
     try:
