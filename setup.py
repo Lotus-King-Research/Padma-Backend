@@ -25,7 +25,8 @@ install_requires = ['pandas',
                     'wget',
                     'sqlitedict',
                     'fastapi',
-                    'uvicorn==0.17.4']
+                    'uvicorn==0.17.4',
+                    'gensim']
 
 
 if __name__ == "__main__":

@@ -41,3 +41,9 @@ def initialize_locations():
     from .create_locations import create_locations
     locations = create_locations('app/data/id_to_file.pkl')
     return locations
+
+def initialize_vectors():
+
+    from gensim.models import KeyedVectors
+    vectors = KeyedVectors.load('app/data/tibetan.vec')
+    return vectors
