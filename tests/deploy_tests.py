@@ -1,11 +1,7 @@
 import requests
 from time import sleep
 
-end_points = ['http://api.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་',
-              'http://api.padma.io/search_texts?query=པདྨ་འབྱུང་གནས་',
-              'http://api.padma.io/word_statistics?query=པདྨ་',
-              'http://api.padma.io/tokenize?query=པདྨ་འབྱུང་གནས་',
-              'http://api.padma.io/render_text?title=Terdzo-ZI-052&start=2&end=4']
+end_points = ['http://api.padma.io/dictionary_lookup?query=པདྨ་འབྱུང་གནས་']
 
 for end_point in end_points:
 
