@@ -25,7 +25,7 @@ install_requires = ['pandas',
                     'wget',
                     'sqlitedict',
                     'fastapi',
-                    'uvicorn==0.17.4',
+                    'uvicorn',
                     'gensim']
 
 
