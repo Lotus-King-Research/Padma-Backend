@@ -18,11 +18,13 @@ origins = ['https://staging.padma.io',
            'https://test.padma.io:8080',
            'http://test.padma.io:8080',
            'https://localhost:8080',
-           'http://localhost:8080']
+           'http://localhost:8080',
+           'chrome-extension://ckndbdjoogkmkledkdfclanamfodcbpe']
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
