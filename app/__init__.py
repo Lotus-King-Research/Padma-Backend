@@ -5,25 +5,9 @@ from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = ['https://staging.padma.io',
-           'http://staging.padma.io',
-           'https://padma.io',
-           'http://padma.io',
-           'https://test.padma.io',
-           'http://test.padma.io',
-           'https://staging.padma.io:8080',
-           'http://staging.padma.io:8080',
-           'https://padma.io:8080',
-           'http://padma.io:8080',
-           'https://test.padma.io:8080',
-           'http://test.padma.io:8080',
-           'https://localhost:8080',
-           'http://localhost:8080',
-           'chrome-extension://ckndbdjoogkmkledkdfclanamfodcbpe']
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
