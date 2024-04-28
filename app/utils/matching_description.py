@@ -20,4 +20,6 @@ def matching_description(dictionaries, tokens):
 
         data.append(data_temp)
 
+    data.sort(key=lambda x: x['text'].count(token), reverse=True)
+
     return data
