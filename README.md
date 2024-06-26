@@ -25,7 +25,7 @@
 
 Repository for Padma backend and core API.
 
-## Owner
+## Owner 
 
 - [@mikkokotila](https://github.com/mikkokotila)
 
