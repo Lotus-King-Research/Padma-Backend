@@ -6,7 +6,8 @@ def matching_fuzzy(dictionaries, tokens):
     
     token = tokens[0]
 
-    results = dictionary.lookup(token, fuzzy_match=True)
+    # Only dictionaries[0] is ever used below, so scan just that one table.
+    results = dictionary.lookup(token, sources=[dictionaries[0]], fuzzy_match=True)
     results = results[dictionaries[0]]
 
     for key in results.keys():

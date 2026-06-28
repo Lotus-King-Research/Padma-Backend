@@ -2,19 +2,12 @@ def tokenization(text, tokenizer):
 
     from botok import TokChunks
 
-    out = []
-
     preproc = TokChunks(text)
     preproc.serve_syls_to_trie()
     tokens = tokenizer.tokenize(preproc)
 
-    out = []
+    return [tokens[i]["text"] for i in range(len(tokens))]
 
-    for i in range(len(tokens)):
-
-        out.append(tokens[i]["text"])
-
-    return out
 
 def init_tokenizer():
 
@@ -26,8 +19,5 @@ def init_tokenizer():
                 main_data=config.dictionary,
                 custom_data=config.adjustments,
                 pickle_path=config.dialect_pack_path.parent)
-    
-    tokenizer = Tokenize(trie)
 
-    return tokenizer
-
+    return Tokenize(trie)

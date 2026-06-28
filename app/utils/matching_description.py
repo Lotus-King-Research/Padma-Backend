@@ -6,7 +6,8 @@ def matching_description(dictionaries, tokens):
     
     token = tokens[0]
 
-    results = dictionary.lookup(token, description_match=True)
+    # Only dictionaries[0] is ever used below, so scan just that one table.
+    results = dictionary.lookup(token, sources=[dictionaries[0]], description_match=True)
     results = results[dictionaries[0]]
 
     for key in results.keys():
