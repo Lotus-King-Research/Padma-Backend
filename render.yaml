@@ -1,0 +1,20 @@
+# Render blueprint for the Padma backend on a single Starter instance.
+# Deploy: connect this repo as a Render Blueprint, or create a Web Service
+# pointing at Dockerfile.render with plan "starter".
+#
+# The frontend is deployed separately as a FREE Render Static Site (see
+# docs/Render-Migration.md); this service is API-only.
+services:
+  - type: web
+    name: padma-backend
+    runtime: docker
+    plan: starter            # 512 MB / 0.5 CPU, ~$7/mo
+    region: frankfurt        # match the current eu-central-1 location
+    dockerfilePath: ./Dockerfile.render
+    healthCheckPath: /health
+    autoDeploy: false        # flip on once the cutover is confirmed
+    envVars:
+      - key: PADMA_SCAN_LIMIT
+        value: "200"
+    # Custom domain: add api.padma.io in the Render dashboard, then point DNS
+    # at Render. Keep AWS warm until verified for one-step rollback.

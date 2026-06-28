@@ -51,8 +51,37 @@ capped subset. `fuzzy`/`description` differences are explained by the `LIMIT`
 cap, prod's pre-existing `fuzzy` 500 bug, and **dictionary data drift** (prod
 runs a stale image; this build uses current dictionary data).
 
+## Frontend (separate, free)
+
+The frontend is a Vue SPA and is deployed as a **free Render Static Site** —
+the backend stays API-only. Because the SPA targets the API by hostname
+(`VUE_APP_API_URL`), keeping `api.padma.io` pointed at the new backend means the
+frontend needs no change at all. Static-site config for the Padma-Frontend repo:
+
+```yaml
+# render.yaml in Padma-Frontend
+services:
+  - type: web
+    name: padma-frontend
+    runtime: static
+    buildCommand: yarn install && yarn build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VUE_APP_API_URL
+        value: https://api.padma.io      # the Render backend's custom domain
+    routes:
+      - type: rewrite                     # SPA history-mode fallback
+        source: /*
+        destination: /index.html
+```
+
+Total cost: backend Starter ~$7/mo + static site $0 = **~$7/mo**.
+
 ## Cutover (no-risk)
 
-1. Deploy this as a new Render service alongside the untouched AWS production.
-2. Run the parity harness; confirm `exact`/`similar`/`partial` clean.
-3. Point `api.padma.io` DNS at Render; keep AWS warm for one-step rollback.
+1. Deploy the backend as a new Render Starter alongside the untouched AWS prod.
+2. Run `tests/parity_test.py`; confirm `exact`/`similar`/`partial` clean.
+3. Add `api.padma.io` as the backend's custom domain; point DNS at Render.
+   Keep AWS warm for one-step rollback (flip DNS back).
+4. Deploy the frontend static site (optional; only if moving it off its current
+   host).
