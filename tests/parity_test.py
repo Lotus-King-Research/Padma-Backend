@@ -50,6 +50,10 @@ CASES += [
     ("fuzzy/tony_duff", {"query": "ཤེས་རབ་", "matching": "fuzzy", "dictionaries": "tony_duff"}),
     ("similar/monlam", {"query": "སེམས་", "matching": "similar", "dictionaries": "lobsang_monlam"}),
     ("exact/no-match", {"query": "ཀཀཀཀ་", "matching": "exact"}),
+    # multi-word tokenization (botok segmentation)
+    ("tokenize/sentence-1", {"query": "བཀྲ་ཤིས་བདེ་ལེགས་ཕུན་སུམ་ཚོགས།", "matching": "exact", "tokenize": "true"}),
+    ("tokenize/sentence-2", {"query": "སངས་རྒྱས་ཀྱི་བསྟན་པ་རིན་པོ་ཆེ་", "matching": "exact", "tokenize": "true"}),
+    ("tokenize/sentence-3", {"query": "བྱང་ཆུབ་སེམས་དཔའ་སེམས་དཔའ་ཆེན་པོ་", "matching": "exact", "tokenize": "true"}),
 ]
 
 

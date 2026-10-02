@@ -5,10 +5,15 @@ RUN apt-get update -y && apt-get install -y git build-essential
 RUN pip install --upgrade pip && pip install "setuptools<81" wheel cython
 COPY requirements-build.txt .
 RUN pip install -r requirements-build.txt
-RUN pip install --no-build-isolation git+https://github.com/Lotus-King-Research/Tibetan-Lookup
+RUN pip install --no-build-isolation pyewts==1.0.0 strsimpy==0.2.1 \
+    "git+https://github.com/Lotus-King-Research/Tibetan-Lookup@eae8cd6aae13931f8744ca2970b12050323e6545"
 COPY app/data/tibetan.vec /project/app/data/tibetan.vec
 COPY scripts /project/scripts
-RUN python scripts/build_dicts.py && python scripts/build_similar.py
+# Depends only on the vectors file, so it stays cached when dictionaries refresh.
+RUN python scripts/build_similar.py
+# Bump to re-download the dictionaries (deploy/deploy.sh --refresh-data does this).
+ARG DICT_DATA_REFRESH=0
+RUN echo "dictionary data refresh: $DICT_DATA_REFRESH" && python scripts/build_dicts.py
 
 # ---- Stage 2: lean runtime ----
 FROM python:3.10.14-slim
@@ -17,12 +22,14 @@ RUN apt-get update -y && apt-get install -y git build-essential && rm -rf /var/l
 RUN pip install --upgrade pip && pip install "setuptools<81" wheel cython
 COPY requirements-render.txt .
 RUN pip install -r requirements-render.txt
-RUN pip install --no-build-isolation git+https://github.com/Lotus-King-Research/Tibetan-Lookup
+RUN pip install --no-build-isolation pyewts==1.0.0 strsimpy==0.2.1 \
+    "git+https://github.com/Lotus-King-Research/Tibetan-Lookup@eae8cd6aae13931f8744ca2970b12050323e6545"
+# Fetch botok's dialect pack at build time so the container never needs the
+# network to boot.
+RUN python -c "from botok import Config; Config()"
 COPY app /project/app
 COPY --from=databuilder /project/app/data/dicts.sqlite /project/app/data/dicts.sqlite
 COPY --from=databuilder /project/app/data/similar.sqlite /project/app/data/similar.sqlite
-# Frontend (optional): if a built SPA is provided at ./frontend it is served at /
-# COPY frontend /project/frontend
 ENV PADMA_SQLITE=/project/app/data/dicts.sqlite
 ENV PADMA_SIMILAR=/project/app/data/similar.sqlite
 ENTRYPOINT ["sh","-c","uvicorn app:app --host 0.0.0.0 --port ${PORT:-5000} --workers 1"]
