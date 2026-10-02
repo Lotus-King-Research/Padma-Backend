@@ -1,12 +1,14 @@
 # Deployment
 
-The backend runs as a Docker Compose stack on a single server: the API
-container behind an nginx container that terminates TLS. Cloudflare (proxied)
-sits in front of `api.padma.io`. The frontend is a static site on Cloudflare
-Pages.
+The backend runs as a Docker Compose service on a single server, behind the
+server's shared nginx edge proxy (configured on the server in `/opt/edge`, not
+in this repo), which terminates TLS for every site on the machine and reaches
+this container as `padma-backend` on the external `edge` Docker network.
+Cloudflare (proxied, SSL mode Full/strict) sits in front of `api.padma.io`.
+The frontend's static build is served by the same nginx at `padma.io`.
 
 ```
-Cloudflare ──443──▶ nginx (TLS, :80→:443 redirect) ──▶ backend (uvicorn :5000, localhost only)
+Cloudflare ──443──▶ edge nginx (TLS, :80→:443 redirect) ──▶ padma-backend (uvicorn :5000)
 ```
 
 ## Deploy / update
@@ -18,8 +20,8 @@ sh deploy/deploy.sh                 # pull master, rebuild, restart
 sh deploy/deploy.sh --refresh-data  # also re-download the dictionaries
 ```
 
-The TLS certificate and key for `api.padma.io` live outside git in
-`/opt/padma/certs/api.padma.io.{crt,key}`.
+TLS (a Cloudflare Origin CA certificate for `*.padma.io`) lives with the edge
+proxy in `/opt/edge/certs` on the server.
 
 The image (`Dockerfile.render`) builds all data in a separate stage — the 21
 dictionaries into `dicts.sqlite` (`scripts/build_dicts.py`) and the `similar`

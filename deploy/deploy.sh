@@ -12,6 +12,6 @@ git fetch -q origin
 git checkout -q master
 git pull -q --ff-only origin master
 docker compose -f deploy/docker-compose.yml build --build-arg DICT_DATA_REFRESH="$REFRESH"
-docker compose -f deploy/docker-compose.yml up -d
+docker compose -f deploy/docker-compose.yml up -d --remove-orphans
 docker image prune -f >/dev/null
 docker compose -f deploy/docker-compose.yml ps
