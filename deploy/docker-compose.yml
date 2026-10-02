@@ -1,6 +1,8 @@
 # Production stack for the Padma backend on a single Docker host.
 # Deploy/update from the repo root on the server:  sh deploy/deploy.sh
-# TLS cert + key for api.padma.io live outside git in /opt/padma/certs.
+# TLS and the public hostname (api.padma.io) are handled by the server's shared
+# nginx edge proxy, which reaches this container as `padma-backend` on the
+# external `edge` network (create once with: docker network create edge).
 name: padma
 
 services:
@@ -22,7 +24,10 @@ services:
     volumes:
       - botok-data:/root/Documents       # botok dialect pack + trie cache survive re-creates
     ports:
-      - "127.0.0.1:5000:5000"            # localhost only; public traffic goes via nginx
+      - "127.0.0.1:5000:5000"            # localhost only, for checks such as tests/parity_test.py
+    networks:
+      edge:
+        aliases: [padma-backend]
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=5)"]
       interval: 30s
@@ -33,21 +38,9 @@ services:
       driver: json-file
       options: { max-size: "10m", max-file: "3" }
 
-  nginx:
-    image: nginx:1.27-alpine
-    restart: unless-stopped
-    depends_on: [backend]
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/api.padma.io.conf:/etc/nginx/conf.d/default.conf:ro
-      - /opt/padma/certs:/etc/nginx/certs:ro
-    mem_limit: 64m
-    cpus: 0.5
-    logging:
-      driver: json-file
-      options: { max-size: "10m", max-file: "3" }
-
 volumes:
   botok-data:
+
+networks:
+  edge:
+    external: true
