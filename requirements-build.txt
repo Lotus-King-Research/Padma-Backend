@@ -1,3 +1,9 @@
-pandas
-gensim
-wget
+# Build-stage dependencies (data precompute only; never loaded at runtime),
+# pinned to the versions that produced the verified dictionary/similar data.
+botok==1.1.6
+gensim==4.4.0
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+smart_open==8.0.2
+wget==3.2
